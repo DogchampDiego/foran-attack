@@ -1,0 +1,1367 @@
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+################################################################################
+ApiVersion: apps/v1
+Kind: Deployment
+Name: deployment-tiller-ricxapp
+Namespace: ricinfra
+
+Controls: 31 (Failed: 8, action required: 5)
+
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+| SEVERITY |              CONTROL NAME              |                DOCS                |                              ASSISTANT REMEDIATION                               |
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+| High     | Resource limits                        | https://hub.armosec.io/docs/c-0009 | spec.template.spec.containers[0].resources.limits.cpu=YOUR_VALUE                 |
+|          |                                        |                                    | spec.template.spec.containers[0].resources.limits.memory=YOUR_VALUE              |
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+| Low      | Immutable container filesystem         | https://hub.armosec.io/docs/c-0017 | spec.template.spec.containers[0].securityContext.readOnlyRootFilesystem=true     |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | K8s common labels usage                | https://hub.armosec.io/docs/c-0077 | spec.template.metadata.labels=YOUR_VALUE                                         |
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+| Medium   | Automatic mapping of service           | https://hub.armosec.io/docs/c-0034 | spec.template.spec.automountServiceAccountToken                                  |
+|          | account                                |                                    |                                                                                  |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | CVE-2022-0492-cgroups-container-escape | https://hub.armosec.io/docs/c-0086 | spec.template.spec.containers[0].securityContext.runAsNonRoot=true               |
+|          |                                        |                                    | spec.template.spec.containers[0].securityContext.allowPrivilegeEscalation=false  |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | Ingress and Egress blocked             | https://hub.armosec.io/docs/c-0030 |                                                                                  |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | Linux hardening                        | https://hub.armosec.io/docs/c-0055 | spec.template.spec.containers[0].securityContext.seccompProfile=YOUR_VALUE       |
+|          |                                        |                                    | spec.template.spec.containers[0].securityContext.seLinuxOptions=YOUR_VALUE       |
+|          |                                        |                                    | spec.template.spec.containers[0].securityContext.capabilities.drop[0]=YOUR_VALUE |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | Non-root containers                    | https://hub.armosec.io/docs/c-0013 | spec.template.spec.containers[0].securityContext.runAsNonRoot=true               |
+|          |                                        |                                    | spec.template.spec.containers[0].securityContext.allowPrivilegeEscalation=false  |
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+
+################################################################################
+ApiVersion: v1
+Kind: Namespace
+Name: ricxapp
+
+Controls: 2 (Failed: 2, action required: 0)
+
++----------+-----------------------------+------------------------------------+-----------------------+
+| SEVERITY |        CONTROL NAME         |                DOCS                | ASSISTANT REMEDIATION |
++----------+-----------------------------+------------------------------------+-----------------------+
+| Low      | Network mapping             | https://hub.armosec.io/docs/c-0049 |                       |
++----------+-----------------------------+------------------------------------+-----------------------+
+| Medium   | Cluster internal networking | https://hub.armosec.io/docs/c-0054 |                       |
++----------+-----------------------------+------------------------------------+-----------------------+
+
+################################################################################
+ApiVersion: 
+Kind: ServiceAccount
+Name: kube-controller-manager
+Namespace: kube-system
+
+Controls: 10 (Failed: 1, action required: 0)
+
++----------+--------------------------------+------------------------------------+-----------------------+
+| SEVERITY |          CONTROL NAME          |                DOCS                | ASSISTANT REMEDIATION |
++----------+--------------------------------+------------------------------------+-----------------------+
+| Medium   | Access container service       | https://hub.armosec.io/docs/c-0053 |                       |
+|          | account                        |                                    |                       |
++----------+--------------------------------+------------------------------------+-----------------------+
+
+################################################################################
+ApiVersion: apps/v1
+Kind: Deployment
+Name: deployment-ricplt-submgr
+Namespace: ricplt
+
+Controls: 31 (Failed: 8, action required: 5)
+
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+| SEVERITY |              CONTROL NAME              |                DOCS                |                              ASSISTANT REMEDIATION                               |
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+| High     | Resource limits                        | https://hub.armosec.io/docs/c-0009 | spec.template.spec.containers[0].resources.limits.cpu=YOUR_VALUE                 |
+|          |                                        |                                    | spec.template.spec.containers[0].resources.limits.memory=YOUR_VALUE              |
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+| Low      | Immutable container filesystem         | https://hub.armosec.io/docs/c-0017 | spec.template.spec.containers[0].securityContext.readOnlyRootFilesystem=true     |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | K8s common labels usage                | https://hub.armosec.io/docs/c-0077 | spec.template.metadata.labels=YOUR_VALUE                                         |
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+| Medium   | Automatic mapping of service           | https://hub.armosec.io/docs/c-0034 | spec.template.spec.automountServiceAccountToken=false                            |
+|          | account                                |                                    |                                                                                  |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | CVE-2022-0492-cgroups-container-escape | https://hub.armosec.io/docs/c-0086 | spec.template.spec.containers[0].securityContext.runAsNonRoot=true               |
+|          |                                        |                                    | spec.template.spec.containers[0].securityContext.allowPrivilegeEscalation=false  |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | Ingress and Egress blocked             | https://hub.armosec.io/docs/c-0030 |                                                                                  |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | Linux hardening                        | https://hub.armosec.io/docs/c-0055 | spec.template.spec.containers[0].securityContext.seccompProfile=YOUR_VALUE       |
+|          |                                        |                                    | spec.template.spec.containers[0].securityContext.seLinuxOptions=YOUR_VALUE       |
+|          |                                        |                                    | spec.template.spec.containers[0].securityContext.capabilities.drop[0]=YOUR_VALUE |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | Non-root containers                    | https://hub.armosec.io/docs/c-0013 | spec.template.spec.containers[0].securityContext.runAsNonRoot=true               |
+|          |                                        |                                    | spec.template.spec.containers[0].securityContext.allowPrivilegeEscalation=false  |
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+
+################################################################################
+ApiVersion: v1
+Kind: ServiceAccount
+Name: r4-infrastructure-kong
+Namespace: ricplt
+
+Controls: 1 (Failed: 1, action required: 0)
+
++----------+--------------------------------+------------------------------------+------------------------------------+
+| SEVERITY |          CONTROL NAME          |                DOCS                |       ASSISTANT REMEDIATION        |
++----------+--------------------------------+------------------------------------+------------------------------------+
+| Medium   | Automatic mapping of service   | https://hub.armosec.io/docs/c-0034 | automountServiceAccountToken=false |
+|          | account                        |                                    |                                    |
++----------+--------------------------------+------------------------------------+------------------------------------+
+
+################################################################################
+ApiVersion: apps/v1
+Kind: Deployment
+Name: r4-infrastructure-prometheus-alertmanager
+Namespace: ricplt
+
+Controls: 31 (Failed: 10, action required: 5)
+
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+| SEVERITY |              CONTROL NAME              |                DOCS                |                              ASSISTANT REMEDIATION                               |
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+| High     | Resource limits                        | https://hub.armosec.io/docs/c-0009 | spec.template.spec.containers[0].resources.limits.cpu=YOUR_VALUE                 |
+|          |                                        |                                    | spec.template.spec.containers[0].resources.limits.memory=YOUR_VALUE              |
+|          |                                        |                                    | spec.template.spec.containers[1].resources.limits.cpu=YOUR_VALUE                 |
+|          |                                        |                                    | spec.template.spec.containers[1].resources.limits.memory=YOUR_VALUE              |
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+| Low      | Configured readiness probe             | https://hub.armosec.io/docs/c-0018 | spec.template.spec.containers[1].readinessProbe=YOUR_VALUE                       |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | Immutable container filesystem         | https://hub.armosec.io/docs/c-0017 | spec.template.spec.containers[0].securityContext.readOnlyRootFilesystem=true     |
+|          |                                        |                                    | spec.template.spec.containers[1].securityContext.readOnlyRootFilesystem=true     |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | K8s common labels usage                | https://hub.armosec.io/docs/c-0077 | spec.template.metadata.labels=YOUR_VALUE                                         |
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+| Medium   | Automatic mapping of service           | https://hub.armosec.io/docs/c-0034 | spec.template.spec.automountServiceAccountToken=false                            |
+|          | account                                |                                    |                                                                                  |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | CVE-2022-0492-cgroups-container-escape | https://hub.armosec.io/docs/c-0086 | spec.template.spec.securityContext.allowPrivilegeEscalation=false                |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | Configured liveness probe              | https://hub.armosec.io/docs/c-0056 | spec.template.spec.containers[0].livenessProbe=YOUR_VALUE                        |
+|          |                                        |                                    | spec.template.spec.containers[1].livenessProbe=YOUR_VALUE                        |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | Ingress and Egress blocked             | https://hub.armosec.io/docs/c-0030 |                                                                                  |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | Linux hardening                        | https://hub.armosec.io/docs/c-0055 | spec.template.spec.containers[0].securityContext.seccompProfile=YOUR_VALUE       |
+|          |                                        |                                    | spec.template.spec.containers[0].securityContext.seLinuxOptions=YOUR_VALUE       |
+|          |                                        |                                    | spec.template.spec.containers[0].securityContext.capabilities.drop[0]=YOUR_VALUE |
+|          |                                        |                                    | spec.template.spec.containers[1].securityContext.seccompProfile=YOUR_VALUE       |
+|          |                                        |                                    | spec.template.spec.containers[1].securityContext.seLinuxOptions=YOUR_VALUE       |
+|          |                                        |                                    | spec.template.spec.containers[1].securityContext.capabilities.drop[0]=YOUR_VALUE |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | Non-root containers                    | https://hub.armosec.io/docs/c-0013 | spec.template.spec.containers[0].securityContext.allowPrivilegeEscalation=false  |
+|          |                                        |                                    | spec.template.spec.containers[1].securityContext.allowPrivilegeEscalation=false  |
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+
+################################################################################
+ApiVersion: apps/v1
+Kind: StatefulSet
+Name: statefulset-ricplt-dbaas-server
+Namespace: ricplt
+
+Controls: 31 (Failed: 8, action required: 5)
+
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+| SEVERITY |              CONTROL NAME              |                DOCS                |                              ASSISTANT REMEDIATION                               |
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+| High     | Resource limits                        | https://hub.armosec.io/docs/c-0009 | spec.template.spec.containers[0].resources.limits.cpu=YOUR_VALUE                 |
+|          |                                        |                                    | spec.template.spec.containers[0].resources.limits.memory=YOUR_VALUE              |
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+| Low      | Immutable container filesystem         | https://hub.armosec.io/docs/c-0017 | spec.template.spec.containers[0].securityContext.readOnlyRootFilesystem=true     |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | K8s common labels usage                | https://hub.armosec.io/docs/c-0077 | spec.template.metadata.labels=YOUR_VALUE                                         |
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+| Medium   | Automatic mapping of service           | https://hub.armosec.io/docs/c-0034 | spec.template.spec.automountServiceAccountToken=false                            |
+|          | account                                |                                    |                                                                                  |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | CVE-2022-0492-cgroups-container-escape | https://hub.armosec.io/docs/c-0086 | spec.template.spec.containers[0].securityContext.runAsNonRoot=true               |
+|          |                                        |                                    | spec.template.spec.containers[0].securityContext.allowPrivilegeEscalation=false  |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | Ingress and Egress blocked             | https://hub.armosec.io/docs/c-0030 |                                                                                  |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | Linux hardening                        | https://hub.armosec.io/docs/c-0055 | spec.template.spec.containers[0].securityContext.seccompProfile=YOUR_VALUE       |
+|          |                                        |                                    | spec.template.spec.containers[0].securityContext.seLinuxOptions=YOUR_VALUE       |
+|          |                                        |                                    | spec.template.spec.containers[0].securityContext.capabilities.drop[0]=YOUR_VALUE |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | Non-root containers                    | https://hub.armosec.io/docs/c-0013 | spec.template.spec.containers[0].securityContext.runAsNonRoot=true               |
+|          |                                        |                                    | spec.template.spec.containers[0].securityContext.allowPrivilegeEscalation=false  |
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+
+################################################################################
+ApiVersion: apps/v1
+Kind: Deployment
+Name: deployment-ricplt-vespamgr
+Namespace: ricplt
+
+Controls: 31 (Failed: 9, action required: 5)
+
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+| SEVERITY |              CONTROL NAME              |                DOCS                |                              ASSISTANT REMEDIATION                               |
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+| High     | Resource limits                        | https://hub.armosec.io/docs/c-0009 | spec.template.spec.containers[0].resources.limits.cpu=YOUR_VALUE                 |
+|          |                                        |                                    | spec.template.spec.containers[0].resources.limits.memory=YOUR_VALUE              |
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+| Low      | Configured readiness probe             | https://hub.armosec.io/docs/c-0018 | spec.template.spec.containers[0].readinessProbe=YOUR_VALUE                       |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | Immutable container filesystem         | https://hub.armosec.io/docs/c-0017 | spec.template.spec.containers[0].securityContext.readOnlyRootFilesystem=true     |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | K8s common labels usage                | https://hub.armosec.io/docs/c-0077 | spec.template.metadata.labels=YOUR_VALUE                                         |
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+| Medium   | Automatic mapping of service           | https://hub.armosec.io/docs/c-0034 | spec.template.spec.automountServiceAccountToken=false                            |
+|          | account                                |                                    |                                                                                  |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | CVE-2022-0492-cgroups-container-escape | https://hub.armosec.io/docs/c-0086 | spec.template.spec.containers[0].securityContext.runAsNonRoot=true               |
+|          |                                        |                                    | spec.template.spec.containers[0].securityContext.allowPrivilegeEscalation=false  |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | Ingress and Egress blocked             | https://hub.armosec.io/docs/c-0030 |                                                                                  |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | Linux hardening                        | https://hub.armosec.io/docs/c-0055 | spec.template.spec.containers[0].securityContext.seccompProfile=YOUR_VALUE       |
+|          |                                        |                                    | spec.template.spec.containers[0].securityContext.seLinuxOptions=YOUR_VALUE       |
+|          |                                        |                                    | spec.template.spec.containers[0].securityContext.capabilities.drop[0]=YOUR_VALUE |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | Non-root containers                    | https://hub.armosec.io/docs/c-0013 | spec.template.spec.containers[0].securityContext.runAsNonRoot=true               |
+|          |                                        |                                    | spec.template.spec.containers[0].securityContext.allowPrivilegeEscalation=false  |
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+
+################################################################################
+ApiVersion: v1
+Kind: ServiceAccount
+Name: default
+Namespace: ricinfra
+
+Controls: 1 (Failed: 1, action required: 0)
+
++----------+--------------------------------+------------------------------------+------------------------------------+
+| SEVERITY |          CONTROL NAME          |                DOCS                |       ASSISTANT REMEDIATION        |
++----------+--------------------------------+------------------------------------+------------------------------------+
+| Medium   | Automatic mapping of service   | https://hub.armosec.io/docs/c-0034 | automountServiceAccountToken=false |
+|          | account                        |                                    |                                    |
++----------+--------------------------------+------------------------------------+------------------------------------+
+
+################################################################################
+ApiVersion: apps/v1
+Kind: Deployment
+Name: deployment-ricplt-appmgr
+Namespace: ricplt
+
+Controls: 31 (Failed: 11, action required: 5)
+
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+| SEVERITY |              CONTROL NAME              |                DOCS                |                              ASSISTANT REMEDIATION                               |
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+| High     | Resource limits                        | https://hub.armosec.io/docs/c-0009 | spec.template.spec.containers[0].resources.limits.cpu=YOUR_VALUE                 |
+|          |                                        |                                    | spec.template.spec.containers[0].resources.limits.memory=YOUR_VALUE              |
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+| Low      | Configured readiness probe             | https://hub.armosec.io/docs/c-0018 | spec.template.spec.containers[0].readinessProbe=YOUR_VALUE                       |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | Immutable container filesystem         | https://hub.armosec.io/docs/c-0017 | spec.template.spec.containers[0].securityContext.readOnlyRootFilesystem=true     |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | K8s common labels usage                | https://hub.armosec.io/docs/c-0077 | spec.template.metadata.labels=YOUR_VALUE                                         |
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+| Medium   | Automatic mapping of service           | https://hub.armosec.io/docs/c-0034 | spec.template.spec.automountServiceAccountToken=false                            |
+|          | account                                |                                    |                                                                                  |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | CVE-2021-25741 - Using symlink         | https://hub.armosec.io/docs/c-0058 | spec.template.spec.containers[0].volumeMounts[0].subPath                         |
+|          | for arbitrary host file system         |                                    | spec.template.spec.containers[0].volumeMounts[2].subPath                         |
+|          | access.                                |                                    | spec.template.spec.containers[0].volumeMounts[3].subPath                         |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | CVE-2022-0492-cgroups-container-escape | https://hub.armosec.io/docs/c-0086 | spec.template.spec.containers[0].securityContext.runAsNonRoot=true               |
+|          |                                        |                                    | spec.template.spec.containers[0].securityContext.allowPrivilegeEscalation=false  |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | Configured liveness probe              | https://hub.armosec.io/docs/c-0056 | spec.template.spec.containers[0].livenessProbe=YOUR_VALUE                        |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | Ingress and Egress blocked             | https://hub.armosec.io/docs/c-0030 |                                                                                  |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | Linux hardening                        | https://hub.armosec.io/docs/c-0055 | spec.template.spec.containers[0].securityContext.seccompProfile=YOUR_VALUE       |
+|          |                                        |                                    | spec.template.spec.containers[0].securityContext.seLinuxOptions=YOUR_VALUE       |
+|          |                                        |                                    | spec.template.spec.containers[0].securityContext.capabilities.drop[0]=YOUR_VALUE |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | Non-root containers                    | https://hub.armosec.io/docs/c-0013 | spec.template.spec.containers[0].securityContext.runAsNonRoot=true               |
+|          |                                        |                                    | spec.template.spec.containers[0].securityContext.allowPrivilegeEscalation=false  |
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+
+################################################################################
+ApiVersion: v1
+Kind: ServiceAccount
+Name: r4-infrastructure-prometheus-alertmanager
+Namespace: ricplt
+
+Controls: 1 (Failed: 1, action required: 0)
+
++----------+--------------------------------+------------------------------------+------------------------------------+
+| SEVERITY |          CONTROL NAME          |                DOCS                |       ASSISTANT REMEDIATION        |
++----------+--------------------------------+------------------------------------+------------------------------------+
+| Medium   | Automatic mapping of service   | https://hub.armosec.io/docs/c-0034 | automountServiceAccountToken=false |
+|          | account                        |                                    |                                    |
++----------+--------------------------------+------------------------------------+------------------------------------+
+
+################################################################################
+ApiVersion: 
+Kind: ServiceAccount
+Name: svcacct-ricplt-appmgr
+Namespace: ricplt
+
+Controls: 10 (Failed: 4, action required: 0)
+
++----------+--------------------------------+------------------------------------+-----------------------------------------+
+| SEVERITY |          CONTROL NAME          |                DOCS                |          ASSISTANT REMEDIATION          |
++----------+--------------------------------+------------------------------------+-----------------------------------------+
+| High     | List Kubernetes secrets        | https://hub.armosec.io/docs/c-0015 | relatedObjects[1].rules[2].resources[0] |
+|          |                                |                                    | relatedObjects[1].rules[2].verbs[0]     |
+|          |                                |                                    | relatedObjects[1].rules[2].verbs[1]     |
+|          |                                |                                    | relatedObjects[1].rules[2].apiGroups[0] |
+|          |                                |                                    | relatedObjects[0].subjects[0]           |
+|          |                                |                                    | relatedObjects[0].roleRef.name          |
++----------+--------------------------------+------------------------------------+-----------------------------------------+
+| Medium   | Access container service       | https://hub.armosec.io/docs/c-0053 |                                         |
+|          | account                        |                                    |                                         |
++          +--------------------------------+------------------------------------+-----------------------------------------+
+|          | Data Destruction               | https://hub.armosec.io/docs/c-0007 | relatedObjects[1].rules[1].resources[0] |
+|          |                                |                                    | relatedObjects[1].rules[1].resources[2] |
+|          |                                |                                    | relatedObjects[1].rules[1].resources[3] |
+|          |                                |                                    | relatedObjects[1].rules[1].verbs[3]     |
+|          |                                |                                    | relatedObjects[1].rules[1].apiGroups[0] |
+|          |                                |                                    | relatedObjects[0].subjects[0]           |
+|          |                                |                                    | relatedObjects[0].roleRef.name          |
++          +--------------------------------+------------------------------------+-----------------------------------------+
+|          | Portforwarding privileges      | https://hub.armosec.io/docs/c-0063 | relatedObjects[1].rules[0].resources[0] |
+|          |                                |                                    | relatedObjects[1].rules[0].verbs[0]     |
+|          |                                |                                    | relatedObjects[1].rules[0].apiGroups[0] |
+|          |                                |                                    | relatedObjects[0].subjects[0]           |
+|          |                                |                                    | relatedObjects[0].roleRef.name          |
++----------+--------------------------------+------------------------------------+-----------------------------------------+
+
+################################################################################
+ApiVersion: 
+Kind: ServiceAccount
+Name: r4-infrastructure-kong
+Namespace: ricplt
+
+Controls: 10 (Failed: 2, action required: 0)
+
++----------+--------------------------------+------------------------------------+-----------------------------------------+
+| SEVERITY |          CONTROL NAME          |                DOCS                |          ASSISTANT REMEDIATION          |
++----------+--------------------------------+------------------------------------+-----------------------------------------+
+| High     | List Kubernetes secrets        | https://hub.armosec.io/docs/c-0015 | relatedObjects[1].rules[0].resources[2] |
+|          |                                |                                    | relatedObjects[1].rules[0].verbs[0]     |
+|          |                                |                                    | relatedObjects[1].rules[0].apiGroups[0] |
+|          |                                |                                    | relatedObjects[0].subjects[0]           |
+|          |                                |                                    | relatedObjects[0].roleRef.name          |
++----------+--------------------------------+------------------------------------+-----------------------------------------+
+| Medium   | Access container service       | https://hub.armosec.io/docs/c-0053 |                                         |
+|          | account                        |                                    |                                         |
++----------+--------------------------------+------------------------------------+-----------------------------------------+
+
+################################################################################
+ApiVersion: apps/v1
+Kind: Deployment
+Name: e2sim
+Namespace: ricplt
+
+Controls: 31 (Failed: 11, action required: 5)
+
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+| SEVERITY |              CONTROL NAME              |                DOCS                |                              ASSISTANT REMEDIATION                               |
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+| High     | Resource limits                        | https://hub.armosec.io/docs/c-0009 | spec.template.spec.containers[0].resources.limits.cpu=YOUR_VALUE                 |
+|          |                                        |                                    | spec.template.spec.containers[0].resources.limits.memory=YOUR_VALUE              |
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+| Low      | Configured readiness probe             | https://hub.armosec.io/docs/c-0018 | spec.template.spec.containers[0].readinessProbe=YOUR_VALUE                       |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | Immutable container filesystem         | https://hub.armosec.io/docs/c-0017 | spec.template.spec.containers[0].securityContext.readOnlyRootFilesystem=true     |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | K8s common labels usage                | https://hub.armosec.io/docs/c-0077 | spec.template.metadata.labels=YOUR_VALUE                                         |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | Label usage for resources              | https://hub.armosec.io/docs/c-0076 | metadata.labels=YOUR_VALUE                                                       |
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+| Medium   | Automatic mapping of service           | https://hub.armosec.io/docs/c-0034 | spec.template.spec.automountServiceAccountToken=false                            |
+|          | account                                |                                    |                                                                                  |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | CVE-2022-0492-cgroups-container-escape | https://hub.armosec.io/docs/c-0086 | spec.template.spec.containers[0].securityContext.runAsNonRoot=true               |
+|          |                                        |                                    | spec.template.spec.containers[0].securityContext.allowPrivilegeEscalation=false  |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | Configured liveness probe              | https://hub.armosec.io/docs/c-0056 | spec.template.spec.containers[0].livenessProbe=YOUR_VALUE                        |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | Ingress and Egress blocked             | https://hub.armosec.io/docs/c-0030 |                                                                                  |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | Linux hardening                        | https://hub.armosec.io/docs/c-0055 | spec.template.spec.containers[0].securityContext.seccompProfile=YOUR_VALUE       |
+|          |                                        |                                    | spec.template.spec.containers[0].securityContext.seLinuxOptions=YOUR_VALUE       |
+|          |                                        |                                    | spec.template.spec.containers[0].securityContext.capabilities.drop[0]=YOUR_VALUE |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | Non-root containers                    | https://hub.armosec.io/docs/c-0013 | spec.template.spec.containers[0].securityContext.runAsNonRoot=true               |
+|          |                                        |                                    | spec.template.spec.containers[0].securityContext.allowPrivilegeEscalation=false  |
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+
+################################################################################
+ApiVersion: v1
+Kind: ServiceAccount
+Name: svcacct-ricplt-alarmmanager
+Namespace: ricplt
+
+Controls: 1 (Failed: 1, action required: 0)
+
++----------+--------------------------------+------------------------------------+------------------------------------+
+| SEVERITY |          CONTROL NAME          |                DOCS                |       ASSISTANT REMEDIATION        |
++----------+--------------------------------+------------------------------------+------------------------------------+
+| Medium   | Automatic mapping of service   | https://hub.armosec.io/docs/c-0034 | automountServiceAccountToken=false |
+|          | account                        |                                    |                                    |
++----------+--------------------------------+------------------------------------+------------------------------------+
+
+################################################################################
+ApiVersion: 
+Kind: ServiceAccount
+Name: route-controller
+Namespace: kube-system
+
+Controls: 10 (Failed: 1, action required: 0)
+
++----------+--------------------------------+------------------------------------+-----------------------+
+| SEVERITY |          CONTROL NAME          |                DOCS                | ASSISTANT REMEDIATION |
++----------+--------------------------------+------------------------------------+-----------------------+
+| Medium   | Access container service       | https://hub.armosec.io/docs/c-0053 |                       |
+|          | account                        |                                    |                       |
++----------+--------------------------------+------------------------------------+-----------------------+
+
+################################################################################
+ApiVersion: v1
+Kind: ServiceAccount
+Name: tiller-secret-creator-dbxbnd
+Namespace: ricinfra
+
+Controls: 1 (Failed: 1, action required: 0)
+
++----------+--------------------------------+------------------------------------+------------------------------------+
+| SEVERITY |          CONTROL NAME          |                DOCS                |       ASSISTANT REMEDIATION        |
++----------+--------------------------------+------------------------------------+------------------------------------+
+| Medium   | Automatic mapping of service   | https://hub.armosec.io/docs/c-0034 | automountServiceAccountToken=false |
+|          | account                        |                                    |                                    |
++----------+--------------------------------+------------------------------------+------------------------------------+
+
+################################################################################
+ApiVersion: v1
+Kind: Namespace
+Name: ricinfra
+
+Controls: 2 (Failed: 2, action required: 0)
+
++----------+-----------------------------+------------------------------------+-----------------------+
+| SEVERITY |        CONTROL NAME         |                DOCS                | ASSISTANT REMEDIATION |
++----------+-----------------------------+------------------------------------+-----------------------+
+| Low      | Network mapping             | https://hub.armosec.io/docs/c-0049 |                       |
++----------+-----------------------------+------------------------------------+-----------------------+
+| Medium   | Cluster internal networking | https://hub.armosec.io/docs/c-0054 |                       |
++----------+-----------------------------+------------------------------------+-----------------------+
+
+################################################################################
+ApiVersion: v1
+Kind: ServiceAccount
+Name: svcacct-ricplt-o1mediator
+Namespace: ricplt
+
+Controls: 1 (Failed: 1, action required: 0)
+
++----------+--------------------------------+------------------------------------+------------------------------------+
+| SEVERITY |          CONTROL NAME          |                DOCS                |       ASSISTANT REMEDIATION        |
++----------+--------------------------------+------------------------------------+------------------------------------+
+| Medium   | Automatic mapping of service   | https://hub.armosec.io/docs/c-0034 | automountServiceAccountToken=false |
+|          | account                        |                                    |                                    |
++----------+--------------------------------+------------------------------------+------------------------------------+
+
+################################################################################
+ApiVersion: 
+Kind: ServiceAccount
+Name: r4-infrastructure-prometheus-alertmanager
+Namespace: ricplt
+
+Controls: 10 (Failed: 1, action required: 0)
+
++----------+--------------------------------+------------------------------------+-----------------------+
+| SEVERITY |          CONTROL NAME          |                DOCS                | ASSISTANT REMEDIATION |
++----------+--------------------------------+------------------------------------+-----------------------+
+| Medium   | Access container service       | https://hub.armosec.io/docs/c-0053 |                       |
+|          | account                        |                                    |                       |
++----------+--------------------------------+------------------------------------+-----------------------+
+
+################################################################################
+ApiVersion: 
+Kind: ServiceAccount
+Name: svcacct-tiller-ricxapp
+Namespace: ricinfra
+
+Controls: 10 (Failed: 2, action required: 0)
+
++----------+--------------------------------+------------------------------------+-----------------------------------------+
+| SEVERITY |          CONTROL NAME          |                DOCS                |          ASSISTANT REMEDIATION          |
++----------+--------------------------------+------------------------------------+-----------------------------------------+
+| Medium   | Access container service       | https://hub.armosec.io/docs/c-0053 |                                         |
+|          | account                        |                                    |                                         |
++          +--------------------------------+------------------------------------+-----------------------------------------+
+|          | CoreDNS poisoning              | https://hub.armosec.io/docs/c-0037 | relatedObjects[1].rules[0].resources[0] |
+|          |                                |                                    | relatedObjects[1].rules[0].verbs[4]     |
+|          |                                |                                    | relatedObjects[1].rules[0].apiGroups[0] |
+|          |                                |                                    | relatedObjects[0].subjects[0]           |
+|          |                                |                                    | relatedObjects[0].roleRef.name          |
++----------+--------------------------------+------------------------------------+-----------------------------------------+
+
+################################################################################
+ApiVersion: v1
+Kind: Pod
+Name: kube-apiserver-near
+Namespace: kube-system
+
+Controls: 37 (Failed: 7, action required: 5)
+
++----------+----------------------------------------+------------------------------------+------------------------------------------------------------------------+
+| SEVERITY |              CONTROL NAME              |                DOCS                |                         ASSISTANT REMEDIATION                          |
++----------+----------------------------------------+------------------------------------+------------------------------------------------------------------------+
+| Low      | Configured readiness probe             | https://hub.armosec.io/docs/c-0018 | spec.containers[0].readinessProbe=YOUR_VALUE                           |
++          +----------------------------------------+------------------------------------+------------------------------------------------------------------------+
+|          | Naked PODs                             | https://hub.armosec.io/docs/c-0073 | metadata.ownerReferences=YOUR_VALUE                                    |
++          +----------------------------------------+------------------------------------+------------------------------------------------------------------------+
+|          | PSP enabled                            | https://hub.armosec.io/docs/c-0068 | spec.containers[0].command[5]                                          |
++----------+----------------------------------------+------------------------------------+------------------------------------------------------------------------+
+| Medium   | Audit logs enabled                     | https://hub.armosec.io/docs/c-0067 | spec.containers[0].command                                             |
++          +----------------------------------------+------------------------------------+------------------------------------------------------------------------+
+|          | CVE-2022-0492-cgroups-container-escape | https://hub.armosec.io/docs/c-0086 | spec.containers[0].securityContext.runAsNonRoot=true                   |
+|          |                                        |                                    | spec.containers[0].securityContext.allowPrivilegeEscalation=false      |
++          +----------------------------------------+------------------------------------+------------------------------------------------------------------------+
+|          | Linux hardening                        | https://hub.armosec.io/docs/c-0055 | spec.containers[0].securityContext.seccompProfile=YOUR_VALUE           |
+|          |                                        |                                    | spec.containers[0].securityContext.seLinuxOptions=YOUR_VALUE           |
+|          |                                        |                                    | spec.containers[0].securityContext.capabilities.drop[0]=YOUR_VALUE     |
++          +----------------------------------------+------------------------------------+------------------------------------------------------------------------+
+|          | Secret/ETCD encryption enabled         | https://hub.armosec.io/docs/c-0066 | spec.containers[0].command[28]=--encryption-provider-config=YOUR_VALUE |
++----------+----------------------------------------+------------------------------------+------------------------------------------------------------------------+
+
+################################################################################
+ApiVersion: 
+Kind: ServiceAccount
+Name: tiller-secret-creator-dbxbnd
+Namespace: ricinfra
+
+Controls: 10 (Failed: 2, action required: 0)
+
++----------+--------------------------------+------------------------------------+-----------------------------------------+
+| SEVERITY |          CONTROL NAME          |                DOCS                |          ASSISTANT REMEDIATION          |
++----------+--------------------------------+------------------------------------+-----------------------------------------+
+| High     | List Kubernetes secrets        | https://hub.armosec.io/docs/c-0015 | relatedObjects[1].rules[0].resources[0] |
+|          |                                |                                    | relatedObjects[1].rules[0].verbs[1]     |
+|          |                                |                                    | relatedObjects[1].rules[0].apiGroups[0] |
+|          |                                |                                    | relatedObjects[0].subjects[0]           |
+|          |                                |                                    | relatedObjects[0].roleRef.name          |
++----------+--------------------------------+------------------------------------+-----------------------------------------+
+| Medium   | Access container service       | https://hub.armosec.io/docs/c-0053 |                                         |
+|          | account                        |                                    |                                         |
++----------+--------------------------------+------------------------------------+-----------------------------------------+
+
+################################################################################
+ApiVersion: 
+Kind: ServiceAccount
+Name: flannel
+Namespace: kube-system
+
+Controls: 10 (Failed: 1, action required: 0)
+
++----------+--------------------------------+------------------------------------+-----------------------+
+| SEVERITY |          CONTROL NAME          |                DOCS                | ASSISTANT REMEDIATION |
++----------+--------------------------------+------------------------------------+-----------------------+
+| Medium   | Access container service       | https://hub.armosec.io/docs/c-0053 |                       |
+|          | account                        |                                    |                       |
++----------+--------------------------------+------------------------------------+-----------------------+
+
+################################################################################
+ApiVersion: 
+Kind: ServiceAccount
+Name: svcacct-tiller-ricxapp
+Namespace: ricinfra
+
+Controls: 10 (Failed: 4, action required: 0)
+
++----------+--------------------------------+------------------------------------+-----------------------------------------+
+| SEVERITY |          CONTROL NAME          |                DOCS                |          ASSISTANT REMEDIATION          |
++----------+--------------------------------+------------------------------------+-----------------------------------------+
+| High     | List Kubernetes secrets        | https://hub.armosec.io/docs/c-0015 | relatedObjects[1].rules[0].resources[0] |
+|          |                                |                                    | relatedObjects[1].rules[0].verbs[0]     |
+|          |                                |                                    | relatedObjects[1].rules[0].apiGroups[0] |
+|          |                                |                                    | relatedObjects[0].subjects[0]           |
+|          |                                |                                    | relatedObjects[0].roleRef.name          |
++----------+--------------------------------+------------------------------------+-----------------------------------------+
+| Medium   | Access container service       | https://hub.armosec.io/docs/c-0053 |                                         |
+|          | account                        |                                    |                                         |
++          +--------------------------------+------------------------------------+-----------------------------------------+
+|          | Data Destruction               | https://hub.armosec.io/docs/c-0007 | relatedObjects[1].rules[3].resources[0] |
+|          |                                |                                    | relatedObjects[1].rules[3].resources[2] |
+|          |                                |                                    | relatedObjects[1].rules[3].resources[3] |
+|          |                                |                                    | relatedObjects[1].rules[3].verbs[3]     |
+|          |                                |                                    | relatedObjects[1].rules[3].apiGroups[0] |
+|          |                                |                                    | relatedObjects[0].subjects[0]           |
+|          |                                |                                    | relatedObjects[0].roleRef.name          |
++          +--------------------------------+------------------------------------+-----------------------------------------+
+|          | Portforwarding privileges      | https://hub.armosec.io/docs/c-0063 | relatedObjects[1].rules[1].resources[0] |
+|          |                                |                                    | relatedObjects[1].rules[1].verbs[0]     |
+|          |                                |                                    | relatedObjects[1].rules[1].apiGroups[0] |
+|          |                                |                                    | relatedObjects[0].subjects[0]           |
+|          |                                |                                    | relatedObjects[0].roleRef.name          |
++----------+--------------------------------+------------------------------------+-----------------------------------------+
+
+################################################################################
+ApiVersion: apps/v1
+Kind: Deployment
+Name: deployment-ricplt-e2mgr
+Namespace: ricplt
+
+Controls: 31 (Failed: 9, action required: 5)
+
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+| SEVERITY |              CONTROL NAME              |                DOCS                |                              ASSISTANT REMEDIATION                               |
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+| High     | Resource limits                        | https://hub.armosec.io/docs/c-0009 | spec.template.spec.containers[0].resources.limits.cpu=YOUR_VALUE                 |
+|          |                                        |                                    | spec.template.spec.containers[0].resources.limits.memory=YOUR_VALUE              |
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+| Low      | Immutable container filesystem         | https://hub.armosec.io/docs/c-0017 | spec.template.spec.containers[0].securityContext.readOnlyRootFilesystem=true     |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | K8s common labels usage                | https://hub.armosec.io/docs/c-0077 | spec.template.metadata.labels=YOUR_VALUE                                         |
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+| Medium   | Automatic mapping of service           | https://hub.armosec.io/docs/c-0034 | spec.template.spec.automountServiceAccountToken=false                            |
+|          | account                                |                                    |                                                                                  |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | CVE-2021-25741 - Using symlink         | https://hub.armosec.io/docs/c-0058 | spec.template.spec.containers[0].volumeMounts[0].subPath                         |
+|          | for arbitrary host file system         |                                    | spec.template.spec.containers[0].volumeMounts[1].subPath                         |
+|          | access.                                |                                    |                                                                                  |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | CVE-2022-0492-cgroups-container-escape | https://hub.armosec.io/docs/c-0086 | spec.template.spec.containers[0].securityContext.runAsNonRoot=true               |
+|          |                                        |                                    | spec.template.spec.containers[0].securityContext.allowPrivilegeEscalation=false  |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | Ingress and Egress blocked             | https://hub.armosec.io/docs/c-0030 |                                                                                  |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | Linux hardening                        | https://hub.armosec.io/docs/c-0055 | spec.template.spec.containers[0].securityContext.seccompProfile=YOUR_VALUE       |
+|          |                                        |                                    | spec.template.spec.containers[0].securityContext.seLinuxOptions=YOUR_VALUE       |
+|          |                                        |                                    | spec.template.spec.containers[0].securityContext.capabilities.drop[0]=YOUR_VALUE |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | Non-root containers                    | https://hub.armosec.io/docs/c-0013 | spec.template.spec.containers[0].securityContext.runAsNonRoot=true               |
+|          |                                        |                                    | spec.template.spec.containers[0].securityContext.allowPrivilegeEscalation=false  |
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+
+################################################################################
+ApiVersion: 
+Kind: ServiceAccount
+Name: svcacct-ricplt-alarmmanager
+Namespace: ricplt
+
+Controls: 10 (Failed: 1, action required: 0)
+
++----------+--------------------------------+------------------------------------+-----------------------+
+| SEVERITY |          CONTROL NAME          |                DOCS                | ASSISTANT REMEDIATION |
++----------+--------------------------------+------------------------------------+-----------------------+
+| Medium   | Access container service       | https://hub.armosec.io/docs/c-0053 |                       |
+|          | account                        |                                    |                       |
++----------+--------------------------------+------------------------------------+-----------------------+
+
+################################################################################
+ApiVersion: apps/v1
+Kind: DaemonSet
+Name: kube-flannel-ds
+Namespace: kube-system
+
+Controls: 31 (Failed: 13, action required: 5)
+
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+| SEVERITY |              CONTROL NAME              |                DOCS                |                              ASSISTANT REMEDIATION                               |
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+| High     | HostNetwork access                     | https://hub.armosec.io/docs/c-0041 | spec.template.spec.hostNetwork                                                   |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | HostPath mount                         | https://hub.armosec.io/docs/c-0048 | spec.template.spec.volumes[2].hostPath.path                                      |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | Insecure capabilities                  | https://hub.armosec.io/docs/c-0046 | spec.template.spec.containers[0].securityContext.capabilities.add[0]             |
+|          |                                        |                                    | spec.template.spec.containers[0].securityContext.capabilities.add[1]             |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | Writable hostPath mount                | https://hub.armosec.io/docs/c-0045 | spec.template.spec.containers[0].volumeMounts[0].readOnly=true                   |
+|          |                                        |                                    | spec.template.spec.containers[0].volumeMounts[2].readOnly=true                   |
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+| Low      | Configured readiness probe             | https://hub.armosec.io/docs/c-0018 | spec.template.spec.containers[0].readinessProbe=YOUR_VALUE                       |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | Immutable container filesystem         | https://hub.armosec.io/docs/c-0017 | spec.template.spec.containers[0].securityContext.readOnlyRootFilesystem=true     |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | K8s common labels usage                | https://hub.armosec.io/docs/c-0077 | metadata.labels=YOUR_VALUE                                                       |
+|          |                                        |                                    | spec.template.metadata.labels=YOUR_VALUE                                         |
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+| Medium   | Automatic mapping of service           | https://hub.armosec.io/docs/c-0034 | spec.template.spec.automountServiceAccountToken=false                            |
+|          | account                                |                                    |                                                                                  |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | CVE-2022-0492-cgroups-container-escape | https://hub.armosec.io/docs/c-0086 | spec.template.spec.containers[0].securityContext.runAsNonRoot=true               |
+|          |                                        |                                    | spec.template.spec.containers[0].securityContext.allowPrivilegeEscalation=false  |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | Configured liveness probe              | https://hub.armosec.io/docs/c-0056 | spec.template.spec.containers[0].livenessProbe=YOUR_VALUE                        |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | Ingress and Egress blocked             | https://hub.armosec.io/docs/c-0030 |                                                                                  |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | Linux hardening                        | https://hub.armosec.io/docs/c-0055 | spec.template.spec.containers[0].securityContext.seccompProfile=YOUR_VALUE       |
+|          |                                        |                                    | spec.template.spec.containers[0].securityContext.seLinuxOptions=YOUR_VALUE       |
+|          |                                        |                                    | spec.template.spec.containers[0].securityContext.capabilities.drop[0]=YOUR_VALUE |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | Non-root containers                    | https://hub.armosec.io/docs/c-0013 | spec.template.spec.containers[0].securityContext.runAsNonRoot=true               |
+|          |                                        |                                    | spec.template.spec.containers[0].securityContext.allowPrivilegeEscalation=false  |
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+
+################################################################################
+ApiVersion: v1
+Kind: ServiceAccount
+Name: default
+Namespace: kubescape-host-scanner
+
+Controls: 1 (Failed: 1, action required: 0)
+
++----------+--------------------------------+------------------------------------+------------------------------------+
+| SEVERITY |          CONTROL NAME          |                DOCS                |       ASSISTANT REMEDIATION        |
++----------+--------------------------------+------------------------------------+------------------------------------+
+| Medium   | Automatic mapping of service   | https://hub.armosec.io/docs/c-0034 | automountServiceAccountToken=false |
+|          | account                        |                                    |                                    |
++----------+--------------------------------+------------------------------------+------------------------------------+
+
+################################################################################
+ApiVersion: v1
+Kind: ServiceAccount
+Name: svcacct-ricplt-appmgr
+Namespace: ricplt
+
+Controls: 1 (Failed: 1, action required: 0)
+
++----------+--------------------------------+------------------------------------+------------------------------------+
+| SEVERITY |          CONTROL NAME          |                DOCS                |       ASSISTANT REMEDIATION        |
++----------+--------------------------------+------------------------------------+------------------------------------+
+| Medium   | Automatic mapping of service   | https://hub.armosec.io/docs/c-0034 | automountServiceAccountToken=false |
+|          | account                        |                                    |                                    |
++----------+--------------------------------+------------------------------------+------------------------------------+
+
+################################################################################
+ApiVersion: apps/v1
+Kind: Deployment
+Name: r4-infrastructure-prometheus-server
+Namespace: ricplt
+
+Controls: 31 (Failed: 8, action required: 5)
+
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+| SEVERITY |              CONTROL NAME              |                DOCS                |                              ASSISTANT REMEDIATION                               |
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+| High     | Resource limits                        | https://hub.armosec.io/docs/c-0009 | spec.template.spec.containers[0].resources.limits.cpu=YOUR_VALUE                 |
+|          |                                        |                                    | spec.template.spec.containers[0].resources.limits.memory=YOUR_VALUE              |
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+| Low      | Immutable container filesystem         | https://hub.armosec.io/docs/c-0017 | spec.template.spec.containers[0].securityContext.readOnlyRootFilesystem=true     |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | K8s common labels usage                | https://hub.armosec.io/docs/c-0077 | spec.template.metadata.labels=YOUR_VALUE                                         |
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+| Medium   | Automatic mapping of service           | https://hub.armosec.io/docs/c-0034 | spec.template.spec.automountServiceAccountToken=false                            |
+|          | account                                |                                    |                                                                                  |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | CVE-2022-0492-cgroups-container-escape | https://hub.armosec.io/docs/c-0086 | spec.template.spec.securityContext.allowPrivilegeEscalation=false                |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | Ingress and Egress blocked             | https://hub.armosec.io/docs/c-0030 |                                                                                  |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | Linux hardening                        | https://hub.armosec.io/docs/c-0055 | spec.template.spec.containers[0].securityContext.seccompProfile=YOUR_VALUE       |
+|          |                                        |                                    | spec.template.spec.containers[0].securityContext.seLinuxOptions=YOUR_VALUE       |
+|          |                                        |                                    | spec.template.spec.containers[0].securityContext.capabilities.drop[0]=YOUR_VALUE |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | Non-root containers                    | https://hub.armosec.io/docs/c-0013 | spec.template.spec.containers[0].securityContext.allowPrivilegeEscalation=false  |
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+
+################################################################################
+ApiVersion: apps/v1
+Kind: Deployment
+Name: r4-infrastructure-kong
+Namespace: ricplt
+
+Controls: 32 (Failed: 9, action required: 5)
+
++----------+---------------------------------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+| SEVERITY |                         CONTROL NAME                          |                DOCS                |                              ASSISTANT REMEDIATION                               |
++----------+---------------------------------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+| High     | CVE-2021-25742-nginx-ingress-snippet-annotation-vulnerability | https://hub.armosec.io/docs/c-0059 | spec.template.spec.containers[0].image                                           |
++          +---------------------------------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | Resource limits                                               | https://hub.armosec.io/docs/c-0009 | spec.template.spec.containers[0].resources.limits.cpu=YOUR_VALUE                 |
+|          |                                                               |                                    | spec.template.spec.containers[0].resources.limits.memory=YOUR_VALUE              |
+|          |                                                               |                                    | spec.template.spec.containers[1].resources.limits.cpu=YOUR_VALUE                 |
+|          |                                                               |                                    | spec.template.spec.containers[1].resources.limits.memory=YOUR_VALUE              |
++----------+---------------------------------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+| Low      | Immutable container filesystem                                | https://hub.armosec.io/docs/c-0017 | spec.template.spec.containers[0].securityContext.readOnlyRootFilesystem=true     |
+|          |                                                               |                                    | spec.template.spec.containers[1].securityContext.readOnlyRootFilesystem=true     |
++          +---------------------------------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | Label usage for resources                                     | https://hub.armosec.io/docs/c-0076 | metadata.labels=YOUR_VALUE                                                       |
+|          |                                                               |                                    | spec.template.metadata.labels=YOUR_VALUE                                         |
++----------+---------------------------------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+| Medium   | Automatic mapping of service                                  | https://hub.armosec.io/docs/c-0034 | spec.template.spec.automountServiceAccountToken=false                            |
+|          | account                                                       |                                    |                                                                                  |
++          +---------------------------------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | CVE-2022-0492-cgroups-container-escape                        | https://hub.armosec.io/docs/c-0086 | spec.template.spec.securityContext.allowPrivilegeEscalation=false                |
++          +---------------------------------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | Ingress and Egress blocked                                    | https://hub.armosec.io/docs/c-0030 |                                                                                  |
++          +---------------------------------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | Linux hardening                                               | https://hub.armosec.io/docs/c-0055 | spec.template.spec.containers[0].securityContext.seccompProfile=YOUR_VALUE       |
+|          |                                                               |                                    | spec.template.spec.containers[0].securityContext.seLinuxOptions=YOUR_VALUE       |
+|          |                                                               |                                    | spec.template.spec.containers[0].securityContext.capabilities.drop[0]=YOUR_VALUE |
+|          |                                                               |                                    | spec.template.spec.containers[1].securityContext.seccompProfile=YOUR_VALUE       |
+|          |                                                               |                                    | spec.template.spec.containers[1].securityContext.seLinuxOptions=YOUR_VALUE       |
+|          |                                                               |                                    | spec.template.spec.containers[1].securityContext.capabilities.drop[0]=YOUR_VALUE |
++          +---------------------------------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | Non-root containers                                           | https://hub.armosec.io/docs/c-0013 | spec.template.spec.containers[0].securityContext.allowPrivilegeEscalation=false  |
+|          |                                                               |                                    | spec.template.spec.containers[1].securityContext.allowPrivilegeEscalation=false  |
++----------+---------------------------------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+
+################################################################################
+ApiVersion: 
+Kind: ServiceAccount
+Name: r4-infrastructure-kong
+Namespace: ricplt
+
+Controls: 10 (Failed: 2, action required: 0)
+
++----------+--------------------------------+------------------------------------+-----------------------------------------+
+| SEVERITY |          CONTROL NAME          |                DOCS                |          ASSISTANT REMEDIATION          |
++----------+--------------------------------+------------------------------------+-----------------------------------------+
+| High     | List Kubernetes secrets        | https://hub.armosec.io/docs/c-0015 | relatedObjects[1].rules[0].resources[3] |
+|          |                                |                                    | relatedObjects[1].rules[0].verbs[0]     |
+|          |                                |                                    | relatedObjects[1].rules[0].verbs[1]     |
+|          |                                |                                    | relatedObjects[1].rules[0].apiGroups[0] |
+|          |                                |                                    | relatedObjects[0].subjects[0]           |
+|          |                                |                                    | relatedObjects[0].roleRef.name          |
++----------+--------------------------------+------------------------------------+-----------------------------------------+
+| Medium   | Access container service       | https://hub.armosec.io/docs/c-0053 |                                         |
+|          | account                        |                                    |                                         |
++----------+--------------------------------+------------------------------------+-----------------------------------------+
+
+################################################################################
+ApiVersion: v1
+Kind: ServiceAccount
+Name: default
+Namespace: ricplt
+
+Controls: 1 (Failed: 1, action required: 0)
+
++----------+--------------------------------+------------------------------------+------------------------------------+
+| SEVERITY |          CONTROL NAME          |                DOCS                |       ASSISTANT REMEDIATION        |
++----------+--------------------------------+------------------------------------+------------------------------------+
+| Medium   | Automatic mapping of service   | https://hub.armosec.io/docs/c-0034 | automountServiceAccountToken=false |
+|          | account                        |                                    |                                    |
++----------+--------------------------------+------------------------------------+------------------------------------+
+
+################################################################################
+ApiVersion: 
+Kind: ServiceAccount
+Name: svcacct-ricplt-o1mediator
+Namespace: ricplt
+
+Controls: 10 (Failed: 1, action required: 0)
+
++----------+--------------------------------+------------------------------------+-----------------------+
+| SEVERITY |          CONTROL NAME          |                DOCS                | ASSISTANT REMEDIATION |
++----------+--------------------------------+------------------------------------+-----------------------+
+| Medium   | Access container service       | https://hub.armosec.io/docs/c-0053 |                       |
+|          | account                        |                                    |                       |
++----------+--------------------------------+------------------------------------+-----------------------+
+
+################################################################################
+ApiVersion: v1
+Kind: ServiceAccount
+Name: flannel
+Namespace: kube-system
+
+Controls: 1 (Failed: 1, action required: 0)
+
++----------+--------------------------------+------------------------------------+------------------------------------+
+| SEVERITY |          CONTROL NAME          |                DOCS                |       ASSISTANT REMEDIATION        |
++----------+--------------------------------+------------------------------------+------------------------------------+
+| Medium   | Automatic mapping of service   | https://hub.armosec.io/docs/c-0034 | automountServiceAccountToken=false |
+|          | account                        |                                    |                                    |
++----------+--------------------------------+------------------------------------+------------------------------------+
+
+################################################################################
+ApiVersion: 
+Kind: ServiceAccount
+Name: kube-scheduler
+Namespace: kube-system
+
+Controls: 10 (Failed: 1, action required: 0)
+
++----------+--------------------------------+------------------------------------+-----------------------+
+| SEVERITY |          CONTROL NAME          |                DOCS                | ASSISTANT REMEDIATION |
++----------+--------------------------------+------------------------------------+-----------------------+
+| Medium   | Access container service       | https://hub.armosec.io/docs/c-0053 |                       |
+|          | account                        |                                    |                       |
++----------+--------------------------------+------------------------------------+-----------------------+
+
+################################################################################
+ApiVersion: apps/v1
+Kind: Deployment
+Name: deployment-ricplt-rtmgr
+Namespace: ricplt
+
+Controls: 31 (Failed: 8, action required: 5)
+
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+| SEVERITY |              CONTROL NAME              |                DOCS                |                              ASSISTANT REMEDIATION                               |
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+| High     | Resource limits                        | https://hub.armosec.io/docs/c-0009 | spec.template.spec.containers[0].resources.limits.cpu=YOUR_VALUE                 |
+|          |                                        |                                    | spec.template.spec.containers[0].resources.limits.memory=YOUR_VALUE              |
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+| Low      | Immutable container filesystem         | https://hub.armosec.io/docs/c-0017 | spec.template.spec.containers[0].securityContext.readOnlyRootFilesystem=true     |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | K8s common labels usage                | https://hub.armosec.io/docs/c-0077 | spec.template.metadata.labels=YOUR_VALUE                                         |
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+| Medium   | Automatic mapping of service           | https://hub.armosec.io/docs/c-0034 | spec.template.spec.automountServiceAccountToken=false                            |
+|          | account                                |                                    |                                                                                  |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | CVE-2022-0492-cgroups-container-escape | https://hub.armosec.io/docs/c-0086 | spec.template.spec.containers[0].securityContext.runAsNonRoot=true               |
+|          |                                        |                                    | spec.template.spec.containers[0].securityContext.allowPrivilegeEscalation=false  |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | Ingress and Egress blocked             | https://hub.armosec.io/docs/c-0030 |                                                                                  |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | Linux hardening                        | https://hub.armosec.io/docs/c-0055 | spec.template.spec.containers[0].securityContext.seccompProfile=YOUR_VALUE       |
+|          |                                        |                                    | spec.template.spec.containers[0].securityContext.seLinuxOptions=YOUR_VALUE       |
+|          |                                        |                                    | spec.template.spec.containers[0].securityContext.capabilities.drop[0]=YOUR_VALUE |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | Non-root containers                    | https://hub.armosec.io/docs/c-0013 | spec.template.spec.containers[0].securityContext.runAsNonRoot=true               |
+|          |                                        |                                    | spec.template.spec.containers[0].securityContext.allowPrivilegeEscalation=false  |
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+
+################################################################################
+ApiVersion: hostdata.kubescape.cloud/v1beta0
+Kind: KubeletCommandLine
+Name: near
+
+Controls: 1 (Failed: 1, action required: 0)
+
++----------+--------------------------------+------------------------------------+-----------------------+
+| SEVERITY |          CONTROL NAME          |                DOCS                | ASSISTANT REMEDIATION |
++----------+--------------------------------+------------------------------------+-----------------------+
+| Critical | Enforce Kubelet client TLS     | https://hub.armosec.io/docs/c-0070 |                       |
+|          | authentication                 |                                    |                       |
++----------+--------------------------------+------------------------------------+-----------------------+
+
+################################################################################
+ApiVersion: v1
+Kind: ServiceAccount
+Name: r4-infrastructure-prometheus-server
+Namespace: ricplt
+
+Controls: 1 (Failed: 1, action required: 0)
+
++----------+--------------------------------+------------------------------------+------------------------------------+
+| SEVERITY |          CONTROL NAME          |                DOCS                |       ASSISTANT REMEDIATION        |
++----------+--------------------------------+------------------------------------+------------------------------------+
+| Medium   | Automatic mapping of service   | https://hub.armosec.io/docs/c-0034 | automountServiceAccountToken=false |
+|          | account                        |                                    |                                    |
++----------+--------------------------------+------------------------------------+------------------------------------+
+
+################################################################################
+ApiVersion: batch/v1
+Kind: Job
+Name: tiller-secret-generator
+Namespace: ricinfra
+
+Controls: 31 (Failed: 11, action required: 5)
+
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+| SEVERITY |              CONTROL NAME              |                DOCS                |                              ASSISTANT REMEDIATION                               |
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+| High     | Resource limits                        | https://hub.armosec.io/docs/c-0009 | spec.template.spec.containers[0].resources.limits.cpu=YOUR_VALUE                 |
+|          |                                        |                                    | spec.template.spec.containers[0].resources.limits.memory=YOUR_VALUE              |
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+| Low      | Configured readiness probe             | https://hub.armosec.io/docs/c-0018 | spec.template.spec.containers[0].readinessProbe=YOUR_VALUE                       |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | Immutable container filesystem         | https://hub.armosec.io/docs/c-0017 | spec.template.spec.containers[0].securityContext.readOnlyRootFilesystem=true     |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | K8s common labels usage                | https://hub.armosec.io/docs/c-0077 | spec.template.metadata.labels=YOUR_VALUE                                         |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | Label usage for resources              | https://hub.armosec.io/docs/c-0076 | metadata.labels=YOUR_VALUE                                                       |
+|          |                                        |                                    | spec.template.metadata.labels=YOUR_VALUE                                         |
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+| Medium   | Automatic mapping of service           | https://hub.armosec.io/docs/c-0034 | spec.template.spec.automountServiceAccountToken=false                            |
+|          | account                                |                                    |                                                                                  |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | CVE-2022-0492-cgroups-container-escape | https://hub.armosec.io/docs/c-0086 | spec.template.spec.containers[0].securityContext.runAsNonRoot=true               |
+|          |                                        |                                    | spec.template.spec.containers[0].securityContext.allowPrivilegeEscalation=false  |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | Configured liveness probe              | https://hub.armosec.io/docs/c-0056 | spec.template.spec.containers[0].livenessProbe=YOUR_VALUE                        |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | Ingress and Egress blocked             | https://hub.armosec.io/docs/c-0030 |                                                                                  |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | Linux hardening                        | https://hub.armosec.io/docs/c-0055 | spec.template.spec.containers[0].securityContext.seccompProfile=YOUR_VALUE       |
+|          |                                        |                                    | spec.template.spec.containers[0].securityContext.seLinuxOptions=YOUR_VALUE       |
+|          |                                        |                                    | spec.template.spec.containers[0].securityContext.capabilities.drop[0]=YOUR_VALUE |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | Non-root containers                    | https://hub.armosec.io/docs/c-0013 | spec.template.spec.containers[0].securityContext.runAsNonRoot=true               |
+|          |                                        |                                    | spec.template.spec.containers[0].securityContext.allowPrivilegeEscalation=false  |
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+
+################################################################################
+ApiVersion: apps/v1
+Kind: Deployment
+Name: deployment-ricplt-o1mediator
+Namespace: ricplt
+
+Controls: 31 (Failed: 10, action required: 5)
+
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+| SEVERITY |              CONTROL NAME              |                DOCS                |                              ASSISTANT REMEDIATION                               |
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+| High     | Resource limits                        | https://hub.armosec.io/docs/c-0009 | spec.template.spec.containers[0].resources.limits.cpu=YOUR_VALUE                 |
+|          |                                        |                                    | spec.template.spec.containers[0].resources.limits.memory=YOUR_VALUE              |
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+| Low      | Configured readiness probe             | https://hub.armosec.io/docs/c-0018 | spec.template.spec.containers[0].readinessProbe=YOUR_VALUE                       |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | Immutable container filesystem         | https://hub.armosec.io/docs/c-0017 | spec.template.spec.containers[0].securityContext.readOnlyRootFilesystem=true     |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | K8s common labels usage                | https://hub.armosec.io/docs/c-0077 | spec.template.metadata.labels=YOUR_VALUE                                         |
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+| Medium   | Automatic mapping of service           | https://hub.armosec.io/docs/c-0034 | spec.template.spec.automountServiceAccountToken=false                            |
+|          | account                                |                                    |                                                                                  |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | CVE-2022-0492-cgroups-container-escape | https://hub.armosec.io/docs/c-0086 | spec.template.spec.containers[0].securityContext.runAsNonRoot=true               |
+|          |                                        |                                    | spec.template.spec.containers[0].securityContext.allowPrivilegeEscalation=false  |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | Configured liveness probe              | https://hub.armosec.io/docs/c-0056 | spec.template.spec.containers[0].livenessProbe=YOUR_VALUE                        |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | Ingress and Egress blocked             | https://hub.armosec.io/docs/c-0030 |                                                                                  |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | Linux hardening                        | https://hub.armosec.io/docs/c-0055 | spec.template.spec.containers[0].securityContext.seccompProfile=YOUR_VALUE       |
+|          |                                        |                                    | spec.template.spec.containers[0].securityContext.seLinuxOptions=YOUR_VALUE       |
+|          |                                        |                                    | spec.template.spec.containers[0].securityContext.capabilities.drop[0]=YOUR_VALUE |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | Non-root containers                    | https://hub.armosec.io/docs/c-0013 | spec.template.spec.containers[0].securityContext.runAsNonRoot=true               |
+|          |                                        |                                    | spec.template.spec.containers[0].securityContext.allowPrivilegeEscalation=false  |
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+
+################################################################################
+ApiVersion: apps/v1
+Kind: Deployment
+Name: deployment-ricplt-e2term-alpha
+Namespace: ricplt
+
+Controls: 31 (Failed: 9, action required: 5)
+
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+| SEVERITY |              CONTROL NAME              |                DOCS                |                              ASSISTANT REMEDIATION                               |
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+| High     | Resource limits                        | https://hub.armosec.io/docs/c-0009 | spec.template.spec.containers[0].resources.limits.cpu=YOUR_VALUE                 |
+|          |                                        |                                    | spec.template.spec.containers[0].resources.limits.memory=YOUR_VALUE              |
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+| Low      | Immutable container filesystem         | https://hub.armosec.io/docs/c-0017 | spec.template.spec.containers[0].securityContext.readOnlyRootFilesystem=true     |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | K8s common labels usage                | https://hub.armosec.io/docs/c-0077 | spec.template.metadata.labels=YOUR_VALUE                                         |
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+| Medium   | Automatic mapping of service           | https://hub.armosec.io/docs/c-0034 | spec.template.spec.automountServiceAccountToken=false                            |
+|          | account                                |                                    |                                                                                  |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | CVE-2021-25741 - Using symlink         | https://hub.armosec.io/docs/c-0058 | spec.template.spec.containers[0].volumeMounts[0].subPath                         |
+|          | for arbitrary host file system         |                                    | spec.template.spec.containers[0].volumeMounts[1].subPath                         |
+|          | access.                                |                                    |                                                                                  |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | CVE-2022-0492-cgroups-container-escape | https://hub.armosec.io/docs/c-0086 | spec.template.spec.containers[0].securityContext.runAsNonRoot=true               |
+|          |                                        |                                    | spec.template.spec.containers[0].securityContext.allowPrivilegeEscalation=false  |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | Ingress and Egress blocked             | https://hub.armosec.io/docs/c-0030 |                                                                                  |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | Linux hardening                        | https://hub.armosec.io/docs/c-0055 | spec.template.spec.containers[0].securityContext.seccompProfile=YOUR_VALUE       |
+|          |                                        |                                    | spec.template.spec.containers[0].securityContext.seLinuxOptions=YOUR_VALUE       |
+|          |                                        |                                    | spec.template.spec.containers[0].securityContext.capabilities.drop[0]=YOUR_VALUE |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | Non-root containers                    | https://hub.armosec.io/docs/c-0013 | spec.template.spec.containers[0].securityContext.runAsNonRoot=true               |
+|          |                                        |                                    | spec.template.spec.containers[0].securityContext.allowPrivilegeEscalation=false  |
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+
+################################################################################
+ApiVersion: v1
+Kind: ServiceAccount
+Name: svcacct-tiller-ricxapp
+Namespace: ricinfra
+
+Controls: 1 (Failed: 1, action required: 0)
+
++----------+--------------------------------+------------------------------------+------------------------------------+
+| SEVERITY |          CONTROL NAME          |                DOCS                |       ASSISTANT REMEDIATION        |
++----------+--------------------------------+------------------------------------+------------------------------------+
+| Medium   | Automatic mapping of service   | https://hub.armosec.io/docs/c-0034 | automountServiceAccountToken=false |
+|          | account                        |                                    |                                    |
++----------+--------------------------------+------------------------------------+------------------------------------+
+
+################################################################################
+ApiVersion: 
+Kind: Node
+Name: near
+
+Controls: 1 (Failed: 1, action required: 0)
+
++----------+---------------------------------------------+------------------------------------+-----------------------+
+| SEVERITY |                CONTROL NAME                 |                DOCS                | ASSISTANT REMEDIATION |
++----------+---------------------------------------------+------------------------------------+-----------------------+
+| Medium   | CVE-2022-0185-linux-kernel-container-escape | https://hub.armosec.io/docs/c-0079 | kernelVersion         |
++----------+---------------------------------------------+------------------------------------+-----------------------+
+
+################################################################################
+ApiVersion: v1
+Kind: Namespace
+Name: ricplt
+
+Controls: 2 (Failed: 2, action required: 0)
+
++----------+-----------------------------+------------------------------------+-----------------------+
+| SEVERITY |        CONTROL NAME         |                DOCS                | ASSISTANT REMEDIATION |
++----------+-----------------------------+------------------------------------+-----------------------+
+| Low      | Network mapping             | https://hub.armosec.io/docs/c-0049 |                       |
++----------+-----------------------------+------------------------------------+-----------------------+
+| Medium   | Cluster internal networking | https://hub.armosec.io/docs/c-0054 |                       |
++----------+-----------------------------+------------------------------------+-----------------------+
+
+################################################################################
+ApiVersion: v1
+Kind: Namespace
+Name: kubescape-host-scanner
+
+Controls: 2 (Failed: 2, action required: 0)
+
++----------+-----------------------------+------------------------------------+-----------------------+
+| SEVERITY |        CONTROL NAME         |                DOCS                | ASSISTANT REMEDIATION |
++----------+-----------------------------+------------------------------------+-----------------------+
+| Low      | Network mapping             | https://hub.armosec.io/docs/c-0049 |                       |
++----------+-----------------------------+------------------------------------+-----------------------+
+| Medium   | Cluster internal networking | https://hub.armosec.io/docs/c-0054 |                       |
++----------+-----------------------------+------------------------------------+-----------------------+
+
+################################################################################
+ApiVersion: v1
+Kind: ServiceAccount
+Name: default
+Namespace: ricxapp
+
+Controls: 1 (Failed: 1, action required: 0)
+
++----------+--------------------------------+------------------------------------+------------------------------------+
+| SEVERITY |          CONTROL NAME          |                DOCS                |       ASSISTANT REMEDIATION        |
++----------+--------------------------------+------------------------------------+------------------------------------+
+| Medium   | Automatic mapping of service   | https://hub.armosec.io/docs/c-0034 | automountServiceAccountToken=false |
+|          | account                        |                                    |                                    |
++----------+--------------------------------+------------------------------------+------------------------------------+
+
+################################################################################
+ApiVersion: apps/v1
+Kind: Deployment
+Name: deployment-ricplt-alarmmanager
+Namespace: ricplt
+
+Controls: 31 (Failed: 10, action required: 5)
+
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+| SEVERITY |              CONTROL NAME              |                DOCS                |                              ASSISTANT REMEDIATION                               |
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+| High     | Resource limits                        | https://hub.armosec.io/docs/c-0009 | spec.template.spec.containers[0].resources.limits.cpu=YOUR_VALUE                 |
+|          |                                        |                                    | spec.template.spec.containers[0].resources.limits.memory=YOUR_VALUE              |
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+| Low      | Configured readiness probe             | https://hub.armosec.io/docs/c-0018 | spec.template.spec.containers[0].readinessProbe=YOUR_VALUE                       |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | Immutable container filesystem         | https://hub.armosec.io/docs/c-0017 | spec.template.spec.containers[0].securityContext.readOnlyRootFilesystem=true     |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | K8s common labels usage                | https://hub.armosec.io/docs/c-0077 | spec.template.metadata.labels=YOUR_VALUE                                         |
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+| Medium   | Automatic mapping of service           | https://hub.armosec.io/docs/c-0034 | spec.template.spec.automountServiceAccountToken=false                            |
+|          | account                                |                                    |                                                                                  |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | CVE-2022-0492-cgroups-container-escape | https://hub.armosec.io/docs/c-0086 | spec.template.spec.containers[0].securityContext.runAsNonRoot=true               |
+|          |                                        |                                    | spec.template.spec.containers[0].securityContext.allowPrivilegeEscalation=false  |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | Configured liveness probe              | https://hub.armosec.io/docs/c-0056 | spec.template.spec.containers[0].livenessProbe=YOUR_VALUE                        |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | Ingress and Egress blocked             | https://hub.armosec.io/docs/c-0030 |                                                                                  |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | Linux hardening                        | https://hub.armosec.io/docs/c-0055 | spec.template.spec.containers[0].securityContext.seccompProfile=YOUR_VALUE       |
+|          |                                        |                                    | spec.template.spec.containers[0].securityContext.seLinuxOptions=YOUR_VALUE       |
+|          |                                        |                                    | spec.template.spec.containers[0].securityContext.capabilities.drop[0]=YOUR_VALUE |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | Non-root containers                    | https://hub.armosec.io/docs/c-0013 | spec.template.spec.containers[0].securityContext.runAsNonRoot=true               |
+|          |                                        |                                    | spec.template.spec.containers[0].securityContext.allowPrivilegeEscalation=false  |
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+
+################################################################################
+ApiVersion: apps/v1
+Kind: Deployment
+Name: deployment-ricplt-a1mediator
+Namespace: ricplt
+
+Controls: 31 (Failed: 8, action required: 5)
+
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+| SEVERITY |              CONTROL NAME              |                DOCS                |                              ASSISTANT REMEDIATION                               |
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+| High     | Resource limits                        | https://hub.armosec.io/docs/c-0009 | spec.template.spec.containers[0].resources.limits.cpu=YOUR_VALUE                 |
+|          |                                        |                                    | spec.template.spec.containers[0].resources.limits.memory=YOUR_VALUE              |
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+| Low      | Immutable container filesystem         | https://hub.armosec.io/docs/c-0017 | spec.template.spec.containers[0].securityContext.readOnlyRootFilesystem=true     |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | K8s common labels usage                | https://hub.armosec.io/docs/c-0077 | spec.template.metadata.labels=YOUR_VALUE                                         |
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+| Medium   | Automatic mapping of service           | https://hub.armosec.io/docs/c-0034 | spec.template.spec.automountServiceAccountToken=false                            |
+|          | account                                |                                    |                                                                                  |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | CVE-2022-0492-cgroups-container-escape | https://hub.armosec.io/docs/c-0086 | spec.template.spec.containers[0].securityContext.runAsNonRoot=true               |
+|          |                                        |                                    | spec.template.spec.containers[0].securityContext.allowPrivilegeEscalation=false  |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | Ingress and Egress blocked             | https://hub.armosec.io/docs/c-0030 |                                                                                  |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | Linux hardening                        | https://hub.armosec.io/docs/c-0055 | spec.template.spec.containers[0].securityContext.seccompProfile=YOUR_VALUE       |
+|          |                                        |                                    | spec.template.spec.containers[0].securityContext.seLinuxOptions=YOUR_VALUE       |
+|          |                                        |                                    | spec.template.spec.containers[0].securityContext.capabilities.drop[0]=YOUR_VALUE |
++          +----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+|          | Non-root containers                    | https://hub.armosec.io/docs/c-0013 | spec.template.spec.containers[0].securityContext.runAsNonRoot=true               |
+|          |                                        |                                    | spec.template.spec.containers[0].securityContext.allowPrivilegeEscalation=false  |
++----------+----------------------------------------+------------------------------------+----------------------------------------------------------------------------------+
+
+################################################################################
+ApiVersion: 
+Kind: ServiceAccount
+Name: r4-infrastructure-prometheus-server
+Namespace: ricplt
+
+Controls: 10 (Failed: 1, action required: 0)
+
++----------+--------------------------------+------------------------------------+-----------------------+
+| SEVERITY |          CONTROL NAME          |                DOCS                | ASSISTANT REMEDIATION |
++----------+--------------------------------+------------------------------------+-----------------------+
+| Medium   | Access container service       | https://hub.armosec.io/docs/c-0053 |                       |
+|          | account                        |                                    |                       |
++----------+--------------------------------+------------------------------------+-----------------------+
+
+################################################################################
+ApiVersion: 
+Kind: ServiceAccount
+Name: svcacct-ricplt-appmgr
+Namespace: ricplt
+
+Controls: 10 (Failed: 3, action required: 0)
+
++----------+--------------------------------+------------------------------------+-----------------------------------------+
+| SEVERITY |          CONTROL NAME          |                DOCS                |          ASSISTANT REMEDIATION          |
++----------+--------------------------------+------------------------------------+-----------------------------------------+
+| Medium   | Access container service       | https://hub.armosec.io/docs/c-0053 |                                         |
+|          | account                        |                                    |                                         |
++          +--------------------------------+------------------------------------+-----------------------------------------+
+|          | CoreDNS poisoning              | https://hub.armosec.io/docs/c-0037 | relatedObjects[1].rules[0].resources[0] |
+|          |                                |                                    | relatedObjects[1].rules[0].verbs[3]     |
+|          |                                |                                    | relatedObjects[1].rules[0].apiGroups[0] |
+|          |                                |                                    | relatedObjects[0].subjects[0]           |
+|          |                                |                                    | relatedObjects[0].roleRef.name          |
++          +--------------------------------+------------------------------------+-----------------------------------------+
+|          | Data Destruction               | https://hub.armosec.io/docs/c-0007 | relatedObjects[1].rules[0].resources[2] |
+|          |                                |                                    | relatedObjects[1].rules[0].verbs[4]     |
+|          |                                |                                    | relatedObjects[1].rules[0].apiGroups[0] |
+|          |                                |                                    | relatedObjects[0].subjects[0]           |
+|          |                                |                                    | relatedObjects[0].roleRef.name          |
++----------+--------------------------------+------------------------------------+-----------------------------------------+
+
+################################################################################
+ApiVersion: 
+Kind: ServiceAccount
+Name: svcacct-tiller-ricxapp
+Namespace: ricinfra
+
+Controls: 10 (Failed: 2, action required: 0)
+
++----------+--------------------------------+------------------------------------+-----------------------------------------+
+| SEVERITY |          CONTROL NAME          |                DOCS                |          ASSISTANT REMEDIATION          |
++----------+--------------------------------+------------------------------------+-----------------------------------------+
+| Medium   | Access container service       | https://hub.armosec.io/docs/c-0053 |                                         |
+|          | account                        |                                    |                                         |
++          +--------------------------------+------------------------------------+-----------------------------------------+
+|          | Data Destruction               | https://hub.armosec.io/docs/c-0007 | relatedObjects[1].rules[0].resources[0] |
+|          |                                |                                    | relatedObjects[1].rules[0].resources[2] |
+|          |                                |                                    | relatedObjects[1].rules[0].verbs[3]     |
+|          |                                |                                    | relatedObjects[1].rules[0].apiGroups[0] |
+|          |                                |                                    | relatedObjects[0].subjects[0]           |
+|          |                                |                                    | relatedObjects[0].roleRef.name          |
+|          |                                |                                    | relatedObjects[1].rules[1].resources[0] |
+|          |                                |                                    | relatedObjects[1].rules[1].verbs[3]     |
+|          |                                |                                    | relatedObjects[1].rules[1].apiGroups[1] |
+|          |                                |                                    | relatedObjects[0].subjects[0]           |
+|          |                                |                                    | relatedObjects[0].roleRef.name          |
++----------+--------------------------------+------------------------------------+-----------------------------------------+
+
+Controls: 65 (Failed: 30, Passed: 27, Action Required: 8)
+Failed Resources by Severity: Critical — 1, High — 26, Medium — 141, Low — 51
+
++----------+-------------------------------------------------------+------------------+---------------+--------------------+
+| SEVERITY |                     CONTROL NAME                      | FAILED RESOURCES | ALL RESOURCES | % COMPLIANCE-SCORE |
++----------+-------------------------------------------------------+------------------+---------------+--------------------+
+| Critical | API server insecure port is enabled                   |        0         |       1       |        100%        |
+| Critical | Disable anonymous access to Kubelet service           |        0         |       1       |        100%        |
+| Critical | Enforce Kubelet client TLS authentication             |        1         |       1       |         0%         |
+| Critical | CVE-2022-39328-grafana-auth-bypass                    |        0         |       0       |        100%        |
+| High     | Forbidden Container Registries                        |        0         |      24       | Action Required ** |
+| High     | Resources memory limit and request                    |        0         |      24       | Action Required ** |
+| High     | Resource limits                                       |        16        |      24       |        33%         |
+| High     | Applications credentials in configuration files       |        0         |      61       | Action Required ** |
+| High     | List Kubernetes secrets                               |        5         |      72       |        93%         |
+| High     | Host PID/IPC privileges                               |        0         |      24       |        100%        |
+| High     | HostNetwork access                                    |        1         |      24       |        96%         |
+| High     | Writable hostPath mount                               |        1         |      24       |        96%         |
+| High     | Insecure capabilities                                 |        1         |      24       |        96%         |
+| High     | HostPath mount                                        |        1         |      24       |        96%         |
+| High     | Resources CPU limit and request                       |        0         |      24       | Action Required ** |
+| High     | Instance Metadata API                                 |        0         |       0       |        100%        |
+| High     | Privileged container                                  |        0         |      24       |        100%        |
+| High     | CVE-2021-25742-nginx-ingress-snippet-annotation-vu... |        1         |       1       |         0%         |
+| High     | Workloads with Critical vulnerabilities exposed to... |        0         |       0       | Action Required *  |
+| High     | Workloads with RCE vulnerabilities exposed to exte... |        0         |       0       | Action Required *  |
+| High     | CVE-2022-23648-containerd-fs-escape                   |        0         |       1       |        100%        |
+| High     | RBAC enabled                                          |        0         |       1       |        100%        |
+| High     | CVE-2022-47633-kyverno-signature-bypass               |        0         |       0       |        100%        |
+| Medium   | Exec into container                                   |        0         |      72       |        100%        |
+| Medium   | Data Destruction                                      |        4         |      72       |        94%         |
+| Medium   | Non-root containers                                   |        17        |      24       |        29%         |
+| Medium   | Allow privilege escalation                            |        0         |      25       |        100%        |
+| Medium   | Mount service principal                               |        0         |      24       |        100%        |
+| Medium   | Exposed sensitive interfaces                          |        0         |       0       |        100%        |
+| Medium   | Ingress and Egress blocked                            |        17        |      24       |        29%         |
+| Medium   | Delete Kubernetes events                              |        0         |      72       |        100%        |
+| Medium   | Automatic mapping of service account                  |        30        |      70       |        57%         |
+| Medium   | Cluster-admin binding                                 |        0         |      72       |        100%        |
+| Medium   | CoreDNS poisoning                                     |        2         |      72       |        97%         |
+| Medium   | Malicious admission controller (mutating)             |        0         |       0       |        100%        |
+| Medium   | Container hostPort                                    |        0         |      24       |        100%        |
+| Medium   | Access container service account                      |        16        |      50       |        68%         |
+| Medium   | Cluster internal networking                           |        4         |       8       |        50%         |
+| Medium   | Linux hardening                                       |        18        |      24       |        25%         |
+| Medium   | Configured liveness probe                             |        7         |      24       |        71%         |
+| Medium   | CVE-2021-25741 - Using symlink for arbitrary host ... |        3         |      24       |        88%         |
+| Medium   | Sudo in container entrypoint                          |        0         |      24       |        100%        |
+| Medium   | Portforwarding privileges                             |        2         |      72       |        97%         |
+| Medium   | No impersonation                                      |        0         |      72       |        100%        |
+| Medium   | Secret/ETCD encryption enabled                        |        1         |       1       |         0%         |
+| Medium   | Audit logs enabled                                    |        1         |       1       |         0%         |
+| Medium   | Containers mounting Docker socket                     |        0         |      24       |        100%        |
+| Medium   | Images from allowed registry                          |        0         |      24       | Action Required ** |
+| Medium   | CVE-2022-0185-linux-kernel-container-escape           |        1         |       1       |         0%         |
+| Medium   | CVE-2022-24348-argocddirtraversal                     |        0         |       0       |        100%        |
+| Medium   | Workloads with excessive amount of vulnerabilities    |        0         |       0       | Action Required *  |
+| Medium   | CVE-2022-0492-cgroups-container-escape                |        18        |      24       |        25%         |
+| Low      | Access Kubernetes dashboard                           |        0         |      96       |        100%        |
+| Low      | Immutable container filesystem                        |        17        |      24       |        29%         |
+| Low      | Configured readiness probe                            |        9         |      24       |        63%         |
+| Low      | Kubernetes CronJob                                    |        0         |       0       |        100%        |
+| Low      | Malicious admission controller (validating)           |        0         |       0       |        100%        |
+| Low      | SSH server running inside container                   |        0         |      12       |        100%        |
+| Low      | Network mapping                                       |        4         |       8       |        50%         |
+| Low      | Pods in default namespace                             |        0         |      24       |        100%        |
+| Low      | PSP enabled                                           |        1         |       1       |         0%         |
+| Low      | Naked PODs                                            |        1         |      25       |        96%         |
+| Low      | Image pull policy on latest tag                       |        0         |      24       |        100%        |
+| Low      | Label usage for resources                             |        3         |      24       |        88%         |
+| Low      | K8s common labels usage                               |        16        |      24       |        33%         |
++----------+-------------------------------------------------------+------------------+---------------+--------------------+
+|          |                   RESOURCE SUMMARY                    |        53        |      225      |       66.14%       |
++----------+-------------------------------------------------------+------------------+---------------+--------------------+
+FRAMEWORKS: AllControls (compliance: 65.65), NSA (compliance: 55.51), MITRE (compliance: 73.40)
+
+* failed to pull image scanning data: credentials are not configured for any registry adaptor. for more information: https://hub.armosec.io/docs/configuration-of-image-vulnerabilities
+** Control configurations are empty

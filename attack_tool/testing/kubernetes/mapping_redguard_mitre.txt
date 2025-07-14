@@ -1,0 +1,66 @@
+TA0001
+    Using Cloud Credentials: T1078.004
+    Compromised Images in Registry: T1195.002
+    Kubeconfig File: T1078
+    Vulnerable Application: T1190
+    Exposed Dashboard: T1190
+
+TA0002
+    Exec into Container: T1610
+    New Container: T1610
+    Application Exploit (RCE): T1203
+    SSH Server Running Inside Container: T1569.002
+    Sidecar Injection: T1059.004
+
+
+TA0003
+    Backdoor Container: T1525
+    Kubernetes CronJob: T1053.007
+    Writable HostPath Mount: T1543.005
+    Malicious Admission Controller: T1505.003
+
+TA0004
+    Disable Namespacing: T1611
+    Privileged Container: T1611
+    Cluster-admin Binding: T1098.003
+    HostPath Mount: T1543.005
+    Access Cloud Resource: T1098.001
+
+TA0005
+    Clear Container Logs: T1070.004
+    Delete Kubernetes Events: T1070
+    Pod/Container Name Similarity: T1036.005
+    Connect from Proxy Server: T1202
+
+TA0006
+    List K8s Secrets: T1552.007
+    Mount Service Principal: T1552.005
+    Access Container Service Account: T1078.001
+    Access Managed Identity Credentials: T1552
+    Applications Credentials in Configuration Files: T1552.001
+    Malicious Admission Controller: T1556.003
+
+TA0007
+    Instance metadata API: T1552.005
+    Access the K8s API Server: T1082
+    Network Mapping: T1046
+    Access Kubernetes Dashboard: T1082
+    Access Kubelet API: T1082
+
+
+TA0008
+    Access Cloud Resource: T1021.007
+    Container Service Account: T1550.001
+    Cluster Internal Networking: T1021.004
+    Applications Credential in Configuration Files: T1550
+    Writable Volume Mounts on the Host: T1210 
+    CoreDNS Poisoning: T1550 
+    ARP Poisoning and IP Spoofing: T1550 
+
+TA0009
+- 
+
+TA0040
+    Data Destruction T1485 
+    Resource Hijacking 1496 
+    Denial of Service T1499.002

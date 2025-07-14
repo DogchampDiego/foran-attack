@@ -1,0 +1,2021 @@
+### APIRESOURCES ###
++--------------------------------+---------------------------------+------------+
+|              KIND              |            APIVERSION           | NAMESPACED |
++--------------------------------+---------------------------------+------------+
+| LimitRange                     | v1                              | true       |
+| Service                        | v1                              | true       |
+| Namespace                      | v1                              | false      |
+| Pod                            | v1                              | true       |
+| Binding                        | v1                              | true       |
+| Secret                         | v1                              | true       |
+| PersistentVolumeClaim          | v1                              | true       |
+| ResourceQuota                  | v1                              | true       |
+| ReplicationController          | v1                              | true       |
+| Endpoints                      | v1                              | true       |
+| ServiceAccount                 | v1                              | true       |
+| Node                           | v1                              | false      |
+| PodTemplate                    | v1                              | true       |
+| Event                          | v1                              | true       |
+| PersistentVolume               | v1                              | false      |
+| ConfigMap                      | v1                              | true       |
+| ComponentStatus                | v1                              | false      |
+| APIService                     | apiregistration.k8s.io/v1       | false      |
+| Ingress                        | extensions/v1beta1              | true       |
+| StatefulSet                    | apps/v1                         | true       |
+| ControllerRevision             | apps/v1                         | true       |
+| ReplicaSet                     | apps/v1                         | true       |
+| DaemonSet                      | apps/v1                         | true       |
+| Deployment                     | apps/v1                         | true       |
+| Event                          | events.k8s.io/v1beta1           | true       |
+| TokenReview                    | authentication.k8s.io/v1        | false      |
+| SubjectAccessReview            | authorization.k8s.io/v1         | false      |
+| LocalSubjectAccessReview       | authorization.k8s.io/v1         | true       |
+| SelfSubjectRulesReview         | authorization.k8s.io/v1         | false      |
+| SelfSubjectAccessReview        | authorization.k8s.io/v1         | false      |
+| HorizontalPodAutoscaler        | autoscaling/v1                  | true       |
+| Job                            | batch/v1                        | true       |
+| CronJob                        | batch/v1beta1                   | true       |
+| CertificateSigningRequest      | certificates.k8s.io/v1beta1     | false      |
+| NetworkPolicy                  | networking.k8s.io/v1            | true       |
+| Ingress                        | networking.k8s.io/v1beta1       | true       |
+| PodDisruptionBudget            | policy/v1beta1                  | true       |
+| PodSecurityPolicy              | policy/v1beta1                  | false      |
+| ClusterRoleBinding             | rbac.authorization.k8s.io/v1    | false      |
+| ClusterRole                    | rbac.authorization.k8s.io/v1    | false      |
+| RoleBinding                    | rbac.authorization.k8s.io/v1    | true       |
+| Role                           | rbac.authorization.k8s.io/v1    | true       |
+| VolumeAttachment               | storage.k8s.io/v1               | false      |
+| StorageClass                   | storage.k8s.io/v1               | false      |
+| CSIDriver                      | storage.k8s.io/v1beta1          | false      |
+| CSINode                        | storage.k8s.io/v1beta1          | false      |
+| ValidatingWebhookConfiguration | admissionregistration.k8s.io/v1 | false      |
+| MutatingWebhookConfiguration   | admissionregistration.k8s.io/v1 | false      |
+| CustomResourceDefinition       | apiextensions.k8s.io/v1         | false      |
+| PriorityClass                  | scheduling.k8s.io/v1            | false      |
+| Lease                          | coordination.k8s.io/v1          | true       |
+| RuntimeClass                   | node.k8s.io/v1beta1             | false      |
+| KongCredential                 | configuration.konghq.com/v1     | true       |
+| KongIngress                    | configuration.konghq.com/v1     | true       |
+| KongPlugin                     | configuration.konghq.com/v1     | true       |
+| KongConsumer                   | configuration.konghq.com/v1     | true       |
++--------------------------------+---------------------------------+------------+
+### AUTHORIZATION ###
+Comments:
+- Checking current context/token permissions in the "default" namespace.
++---------------------------------+-----------------+----------------+----------+
+|            RESOURCES            | NONRESOURCEURLS | RESSOURCENAMES |   VERBS  |
++---------------------------------+-----------------+----------------+----------+
+| *.*                             | []              | []             | [*]      |
+|                                 | [*]             | []             | [*]      |
+| selfsubjectaccessreviews.author | []              | []             | [create] |
+| ization.k8s.io                  |                 |                |          |
+| selfsubjectrulesreviews.authori | []              | []             | [create] |
+| zation.k8s.io                   |                 |                |          |
+|                                 | [/api/*]        | []             | [get]    |
+|                                 | [/api]          | []             | [get]    |
+|                                 | [/apis/*]       | []             | [get]    |
+|                                 | [/apis]         | []             | [get]    |
+|                                 | [/healthz]      | []             | [get]    |
+|                                 | [/healthz]      | []             | [get]    |
+|                                 | [/livez]        | []             | [get]    |
+|                                 | [/livez]        | []             | [get]    |
+|                                 | [/openapi/*]    | []             | [get]    |
+|                                 | [/openapi]      | []             | [get]    |
+|                                 | [/readyz]       | []             | [get]    |
+|                                 | [/readyz]       | []             | [get]    |
+|                                 | [/version/]     | []             | [get]    |
+|                                 | [/version/]     | []             | [get]    |
+|                                 | [/version]      | []             | [get]    |
+|                                 | [/version]      | []             | [get]    |
++---------------------------------+-----------------+----------------+----------+
+### CAPABILITIES ###
+Comments:
+- The bounding set contains 38 caps and you have CAP_SYS_ADMIN, you might be running a privileged container, check the number of devices available.
+- NoNewPrivs flag is set to false.
++-------------+--------------------------------------------------------------------+
+|     SET     |                            CAPABILITIES                            |
++-------------+--------------------------------------------------------------------+
+| effective   | [[31mchown[0m [31mdac_override[0m [31mdac_read_search[0m [31mfowner[0m fsetid kill [31msetgid[0m      |
+|             | [31msetuid[0m setpcap linux_immutable net_bind_service net_broadcast      |
+|             | net_admin [31mnet_raw[0m ipc_lock ipc_owner [31msys_module[0m sys_rawio          |
+|             | sys_chroot [31msys_ptrace[0m sys_pacct [31msys_admin[0m sys_boot sys_nice        |
+|             | sys_resource sys_time sys_tty_config mknod lease audit_write       |
+|             | audit_control [31msetfcap[0m mac_override mac_admin syslog wake_alarm     |
+|             | block_suspend audit_read]                                          |
+| permitted   | [[31mchown[0m [31mdac_override[0m [31mdac_read_search[0m [31mfowner[0m fsetid kill [31msetgid[0m      |
+|             | [31msetuid[0m setpcap linux_immutable net_bind_service net_broadcast      |
+|             | net_admin [31mnet_raw[0m ipc_lock ipc_owner [31msys_module[0m sys_rawio          |
+|             | sys_chroot [31msys_ptrace[0m sys_pacct [31msys_admin[0m sys_boot sys_nice        |
+|             | sys_resource sys_time sys_tty_config mknod lease audit_write       |
+|             | audit_control [31msetfcap[0m mac_override mac_admin syslog wake_alarm     |
+|             | block_suspend audit_read]                                          |
+| inheritable | []                                                                 |
+| bounding    | [[31mchown[0m [31mdac_override[0m [31mdac_read_search[0m [31mfowner[0m fsetid kill [31msetgid[0m      |
+|             | [31msetuid[0m setpcap linux_immutable net_bind_service net_broadcast      |
+|             | net_admin [31mnet_raw[0m ipc_lock ipc_owner [31msys_module[0m sys_rawio          |
+|             | sys_chroot [31msys_ptrace[0m sys_pacct [31msys_admin[0m sys_boot sys_nice        |
+|             | sys_resource sys_time sys_tty_config mknod lease audit_write       |
+|             | audit_control [31msetfcap[0m mac_override mac_admin syslog wake_alarm     |
+|             | block_suspend audit_read]                                          |
+| ambient     | []                                                                 |
++-------------+--------------------------------------------------------------------+
+### CGROUPS ###
++-------------+------------------+---------------------------------------------+
+| HIERARCHYID |  CONTROLLERLIST  |                  CGROUPPATH                 |
++-------------+------------------+---------------------------------------------+
+| 12          | net_cls,net_prio | /                                           |
+| 11          | memory           | /user.slice/user-1000.slice/session-16.scop |
+|             |                  | e                                           |
+| 10          | cpuset           | /                                           |
+| 9           | perf_event       | /                                           |
+| 8           | blkio            | /user.slice                                 |
+| 7           | devices          | /user.slice                                 |
+| 6           | pids             | /user.slice/user-1000.slice/session-16.scop |
+|             |                  | e                                           |
+| 5           | freezer          | /                                           |
+| 4           | cpu,cpuacct      | /user.slice                                 |
+| 3           | rdma             | /                                           |
+| 2           | hugetlb          | /                                           |
+| 1           | name=systemd     | /user.slice/user-1000.slice/session-16.scop |
+|             |                  | e                                           |
+| 0           |                  | /user.slice/user-1000.slice/session-16.scop |
+|             |                  | e                                           |
++-------------+------------------+---------------------------------------------+
+### CLOUDMETADATA ###
++---------------+---------+---------------------------------+---------------------------------+
+| CLOUDPROVIDER | SUCCESS |               URL               |              ERROR              |
++---------------+---------+---------------------------------+---------------------------------+
+| OracleCloud   | false   | http://192.0.0.192/latest/      | Get                             |
+|               |         |                                 | "http://192.0.0.192/latest/":   |
+|               |         |                                 | dial tcp 192.0.0.192:80:        |
+|               |         |                                 | connect: no route to host       |
+| OpenStack     | false   | http://169.254.169.254/openstac | Get                             |
+|               |         | k                               | "http://169.254.169.254/opensta |
+|               |         |                                 | ck": dial tcp                   |
+|               |         |                                 | 169.254.169.254:80: i/o timeout |
+|               |         |                                 | (Client.Timeout exceeded while  |
+|               |         |                                 | awaiting headers)               |
+| Alibaba       | false   | http://100.100.100.200/latest/m | Get                             |
+|               |         | eta-data/                       | "http://100.100.100.200/latest/ |
+|               |         |                                 | meta-data/": dial tcp           |
+|               |         |                                 | 100.100.100.200:80: i/o timeout |
+|               |         |                                 | (Client.Timeout exceeded while  |
+|               |         |                                 | awaiting headers)               |
+| DigitalOcean  | false   | http://169.254.169.254/metadata | Get                             |
+|               |         | /v1.json                        | "http://169.254.169.254/metadat |
+|               |         |                                 | a/v1.json": dial tcp            |
+|               |         |                                 | 169.254.169.254:80: i/o timeout |
+|               |         |                                 | (Client.Timeout exceeded while  |
+|               |         |                                 | awaiting headers)               |
+| AWS           | false   | http://169.254.169.254/latest   | Get                             |
+|               |         |                                 | "http://169.254.169.254/latest" |
+|               |         |                                 | : context deadline exceeded     |
+|               |         |                                 | (Client.Timeout exceeded while  |
+|               |         |                                 | awaiting headers)               |
+| GoogleCloud   | false   | http://metadata.google.internal | Get                             |
+|               |         | /computeMetadata/               | "http://metadata.google.interna |
+|               |         |                                 | l/computeMetadata/": context    |
+|               |         |                                 | deadline exceeded               |
+|               |         |                                 | (Client.Timeout exceeded while  |
+|               |         |                                 | awaiting headers)               |
+| Azure         | false   | http://169.254.169.254/metadata | Get                             |
+|               |         | /v1/maintenance                 | "http://169.254.169.254/metadat |
+|               |         |                                 | a/v1/maintenance": context      |
+|               |         |                                 | deadline exceeded               |
+|               |         |                                 | (Client.Timeout exceeded while  |
+|               |         |                                 | awaiting headers)               |
+| PacketCloud   | false   | https://metadata.packet.net/use | Get                             |
+|               |         | rdata                           | "https://metadata.packet.net/us |
+|               |         |                                 | erdata": context deadline       |
+|               |         |                                 | exceeded (Client.Timeout        |
+|               |         |                                 | exceeded while awaiting         |
+|               |         |                                 | headers)                        |
++---------------+---------+---------------------------------+---------------------------------+
+### CONTAINERDETECT ###
+Comments:
+- A majority of true hints might imply running in a container.
++-------------------------------+--------+
+|              HINT             | RESULT |
++-------------------------------+--------+
+| systemd is not PID 1          | false  |
+| kthreadd is not PID 2         | false  |
+| inode number of root is not 2 | false  |
+| root is an overlay fs         | false  |
+| /etc/fstab is empty           | false  |
+| /boot is empty                | false  |
++-------------------------------+--------+
+### DEVICES ###
+Comments:
+- 200 devices are available.
++-------------+-------+----------------------+-----------------+
+|     MODE    | ISDIR |        MODTIME       |       NAME      |
++-------------+-------+----------------------+-----------------+
+| Dcrw------- | false | 2023-05-15T11:49:09Z | agpgart         |
+| Dcrw-r--r-- | false | 2023-05-15T11:49:09Z | autofs          |
+| drwxr-xr-x  | true  | 2023-05-15T11:49:07Z | block           |
+| drwxr-xr-x  | true  | 2023-05-15T11:49:07Z | bsg             |
+| Dcrw-rw---- | false | 2023-05-15T11:49:09Z | btrfs-control   |
+| Lrwxrwxrwx  | false | 2023-05-15T11:49:09Z | cdrom           |
+| Lrwxrwxrwx  | false | 2023-05-15T11:49:09Z | cdrw            |
+| drwxr-xr-x  | true  | 2023-05-15T12:39:16Z | char            |
+| Dcrw--w---- | false | 2023-05-15T11:49:09Z | console         |
+| Lrwxrwxrwx  | false | 2023-05-15T11:49:06Z | core            |
+| drwxr-xr-x  | true  | 2023-05-15T11:49:08Z | cpu             |
+| Dcrw------- | false | 2023-05-15T11:49:09Z | cpu_dma_latency |
+| Dcrw------- | false | 2023-05-15T11:49:08Z | cuse            |
+| drwxr-xr-x  | true  | 2023-05-15T11:49:07Z | disk            |
+| drwxr-xr-x  | true  | 2023-05-15T11:49:09Z | dri             |
+| Lrwxrwxrwx  | false | 2023-05-15T11:49:09Z | dvd             |
+| Dcrw------- | false | 2023-05-15T11:49:09Z | ecryptfs        |
+| Dcrw-rw---- | false | 2023-05-15T11:49:09Z | fb0             |
+| Lrwxrwxrwx  | false | 2023-05-15T11:49:06Z | fd              |
+| Dcrw-rw-rw- | false | 2023-05-15T11:49:09Z | full            |
+| Dcrw-rw-rw- | false | 2023-05-15T11:49:09Z | fuse            |
+| Dcrw------- | false | 2023-05-15T11:49:09Z | hpet            |
+| drwxr-xr-x  | true  | 2023-05-15T11:49:08Z | hugepages       |
+| Dcrw------- | false | 2023-05-15T11:49:09Z | hwrng           |
+| Lrwxrwxrwx  | false | 2023-05-15T11:49:08Z | initctl         |
+| drwxr-xr-x  | true  | 2023-05-15T11:49:09Z | input           |
+| Dcrw------- | false | 2023-05-15T11:49:09Z | isst_interface  |
+| Dcrw-r--r-- | false | 2023-05-15T11:49:09Z | kmsg            |
+| Lrwxrwxrwx  | false | 2023-05-15T11:49:08Z | log             |
+| Dcrw-rw---- | false | 2023-05-15T11:49:09Z | loop-control    |
+| Drw-rw----  | false | 2023-05-15T14:00:22Z | loop0           |
+| Drw-rw----  | false | 2023-05-15T11:49:09Z | loop1           |
+| Drw-rw----  | false | 2023-05-15T11:49:09Z | loop2           |
+| Drw-rw----  | false | 2023-05-15T11:49:09Z | loop3           |
+| Drw-rw----  | false | 2023-05-15T11:49:09Z | loop4           |
+| Drw-rw----  | false | 2023-05-15T11:49:09Z | loop5           |
+| Drw-rw----  | false | 2023-05-15T11:49:09Z | loop6           |
+| Drw-rw----  | false | 2023-05-15T11:49:09Z | loop7           |
+| drwxr-xr-x  | true  | 2023-05-15T11:49:05Z | mapper          |
+| Dcrw------- | false | 2023-05-15T11:49:09Z | mcelog          |
+| Dcrw-r----- | false | 2023-05-15T11:49:09Z | mem             |
+| dtrwxrwxrwx | true  | 2023-05-15T11:49:05Z | mqueue          |
+| drwxr-xr-x  | true  | 2023-05-15T11:49:05Z | net             |
+| Dcrw-rw-rw- | false | 2023-05-15T11:49:09Z | null            |
+| Dcrw------- | false | 2023-05-15T11:49:08Z | nvram           |
+| Dcrw-r----- | false | 2023-05-15T11:49:09Z | port            |
+| Dcrw------- | false | 2023-05-15T11:49:09Z | ppp             |
+| Dcrw------- | false | 2023-05-15T11:49:09Z | psaux           |
+| Dcrw-rw-rw- | false | 2023-05-16T12:26:00Z | ptmx            |
+| drwxr-xr-x  | true  | 2023-05-15T11:49:06Z | pts             |
+| Dcrw-rw-rw- | false | 2023-05-15T11:49:09Z | random          |
+| Dcrw-rw-r-- | false | 2023-05-15T11:49:09Z | rfkill          |
+| Lrwxrwxrwx  | false | 2023-05-15T11:49:09Z | rtc             |
+| Dcrw------- | false | 2023-05-15T11:49:09Z | rtc0            |
+| Drw-rw----  | false | 2023-05-15T14:00:51Z | sda             |
+| Drw-rw----  | false | 2023-05-15T11:49:09Z | sda1            |
+| Drw-rw----  | false | 2023-05-15T11:49:09Z | sda2            |
+| Drw-rw----  | false | 2023-05-15T11:49:09Z | sda3            |
+| Dcrw-rw---- | false | 2023-05-15T11:49:09Z | sg0             |
+| Dcrw-rw---- | false | 2023-05-15T11:49:09Z | sg1             |
+| dtrwxrwxrwx | true  | 2023-05-15T11:49:08Z | shm             |
+| Dcrw------- | false | 2023-05-15T11:49:09Z | snapshot        |
+| drwxr-xr-x  | true  | 2023-05-15T11:49:08Z | snd             |
+| Drw-rw----  | false | 2023-05-15T11:49:09Z | sr0             |
+| Lrwxrwxrwx  | false | 2023-05-15T11:49:06Z | stderr          |
+| Lrwxrwxrwx  | false | 2023-05-15T11:49:06Z | stdin           |
+| Lrwxrwxrwx  | false | 2023-05-15T11:49:06Z | stdout          |
+| Dcrw-rw-rw- | false | 2023-05-15T11:49:09Z | tty             |
+| Dcrw--w---- | false | 2023-05-15T11:49:09Z | tty0            |
+| Dcrw--w---- | false | 2023-05-15T14:00:27Z | tty1            |
+| Dcrw--w---- | false | 2023-05-15T11:49:09Z | tty10           |
+| Dcrw--w---- | false | 2023-05-15T11:49:09Z | tty11           |
+| Dcrw--w---- | false | 2023-05-15T11:49:09Z | tty12           |
+| Dcrw--w---- | false | 2023-05-15T11:49:09Z | tty13           |
+| Dcrw--w---- | false | 2023-05-15T11:49:09Z | tty14           |
+| Dcrw--w---- | false | 2023-05-15T11:49:09Z | tty15           |
+| Dcrw--w---- | false | 2023-05-15T11:49:09Z | tty16           |
+| Dcrw--w---- | false | 2023-05-15T11:49:09Z | tty17           |
+| Dcrw--w---- | false | 2023-05-15T11:49:09Z | tty18           |
+| Dcrw--w---- | false | 2023-05-15T11:49:09Z | tty19           |
+| Dcrw--w---- | false | 2023-05-15T12:39:16Z | tty2            |
+| Dcrw--w---- | false | 2023-05-15T11:49:09Z | tty20           |
+| Dcrw--w---- | false | 2023-05-15T11:49:09Z | tty21           |
+| Dcrw--w---- | false | 2023-05-15T11:49:09Z | tty22           |
+| Dcrw--w---- | false | 2023-05-15T11:49:09Z | tty23           |
+| Dcrw--w---- | false | 2023-05-15T11:49:09Z | tty24           |
+| Dcrw--w---- | false | 2023-05-15T11:49:09Z | tty25           |
+| Dcrw--w---- | false | 2023-05-15T11:49:09Z | tty26           |
+| Dcrw--w---- | false | 2023-05-15T11:49:09Z | tty27           |
+| Dcrw--w---- | false | 2023-05-15T11:49:09Z | tty28           |
+| Dcrw--w---- | false | 2023-05-15T11:49:09Z | tty29           |
+| Dcrw--w---- | false | 2023-05-15T12:39:16Z | tty3            |
+| Dcrw--w---- | false | 2023-05-15T11:49:09Z | tty30           |
+| Dcrw--w---- | false | 2023-05-15T11:49:09Z | tty31           |
+| Dcrw--w---- | false | 2023-05-15T11:49:09Z | tty32           |
+| Dcrw--w---- | false | 2023-05-15T11:49:09Z | tty33           |
+| Dcrw--w---- | false | 2023-05-15T11:49:09Z | tty34           |
+| Dcrw--w---- | false | 2023-05-15T11:49:09Z | tty35           |
+| Dcrw--w---- | false | 2023-05-15T11:49:09Z | tty36           |
+| Dcrw--w---- | false | 2023-05-15T11:49:09Z | tty37           |
+| Dcrw--w---- | false | 2023-05-15T11:49:09Z | tty38           |
+| Dcrw--w---- | false | 2023-05-15T11:49:09Z | tty39           |
+| Dcrw--w---- | false | 2023-05-15T12:39:16Z | tty4            |
+| Dcrw--w---- | false | 2023-05-15T11:49:09Z | tty40           |
+| Dcrw--w---- | false | 2023-05-15T11:49:09Z | tty41           |
+| Dcrw--w---- | false | 2023-05-15T11:49:09Z | tty42           |
+| Dcrw--w---- | false | 2023-05-15T11:49:09Z | tty43           |
+| Dcrw--w---- | false | 2023-05-15T11:49:09Z | tty44           |
+| Dcrw--w---- | false | 2023-05-15T11:49:09Z | tty45           |
+| Dcrw--w---- | false | 2023-05-15T11:49:09Z | tty46           |
+| Dcrw--w---- | false | 2023-05-15T11:49:09Z | tty47           |
+| Dcrw--w---- | false | 2023-05-15T11:49:09Z | tty48           |
+| Dcrw--w---- | false | 2023-05-15T11:49:09Z | tty49           |
+| Dcrw--w---- | false | 2023-05-15T12:39:16Z | tty5            |
+| Dcrw--w---- | false | 2023-05-15T11:49:09Z | tty50           |
+| Dcrw--w---- | false | 2023-05-15T11:49:09Z | tty51           |
+| Dcrw--w---- | false | 2023-05-15T11:49:09Z | tty52           |
+| Dcrw--w---- | false | 2023-05-15T11:49:09Z | tty53           |
+| Dcrw--w---- | false | 2023-05-15T11:49:09Z | tty54           |
+| Dcrw--w---- | false | 2023-05-15T11:49:09Z | tty55           |
+| Dcrw--w---- | false | 2023-05-15T11:49:09Z | tty56           |
+| Dcrw--w---- | false | 2023-05-15T11:49:09Z | tty57           |
+| Dcrw--w---- | false | 2023-05-15T11:49:09Z | tty58           |
+| Dcrw--w---- | false | 2023-05-15T11:49:09Z | tty59           |
+| Dcrw--w---- | false | 2023-05-15T12:39:16Z | tty6            |
+| Dcrw--w---- | false | 2023-05-15T11:49:09Z | tty60           |
+| Dcrw--w---- | false | 2023-05-15T11:49:09Z | tty61           |
+| Dcrw--w---- | false | 2023-05-15T11:49:09Z | tty62           |
+| Dcrw--w---- | false | 2023-05-15T11:49:09Z | tty63           |
+| Dcrw--w---- | false | 2023-05-15T11:49:09Z | tty7            |
+| Dcrw--w---- | false | 2023-05-15T11:49:09Z | tty8            |
+| Dcrw--w---- | false | 2023-05-15T11:49:09Z | tty9            |
+| Dcrw-rw---- | false | 2023-05-15T11:49:09Z | ttyS0           |
+| Dcrw-rw---- | false | 2023-05-15T11:49:09Z | ttyS1           |
+| Dcrw-rw---- | false | 2023-05-15T11:49:09Z | ttyS10          |
+| Dcrw-rw---- | false | 2023-05-15T11:49:09Z | ttyS11          |
+| Dcrw-rw---- | false | 2023-05-15T11:49:09Z | ttyS12          |
+| Dcrw-rw---- | false | 2023-05-15T11:49:09Z | ttyS13          |
+| Dcrw-rw---- | false | 2023-05-15T11:49:09Z | ttyS14          |
+| Dcrw-rw---- | false | 2023-05-15T11:49:09Z | ttyS15          |
+| Dcrw-rw---- | false | 2023-05-15T11:49:09Z | ttyS16          |
+| Dcrw-rw---- | false | 2023-05-15T11:49:09Z | ttyS17          |
+| Dcrw-rw---- | false | 2023-05-15T11:49:09Z | ttyS18          |
+| Dcrw-rw---- | false | 2023-05-15T11:49:09Z | ttyS19          |
+| Dcrw-rw---- | false | 2023-05-15T11:49:09Z | ttyS2           |
+| Dcrw-rw---- | false | 2023-05-15T11:49:09Z | ttyS20          |
+| Dcrw-rw---- | false | 2023-05-15T11:49:09Z | ttyS21          |
+| Dcrw-rw---- | false | 2023-05-15T11:49:09Z | ttyS22          |
+| Dcrw-rw---- | false | 2023-05-15T11:49:09Z | ttyS23          |
+| Dcrw-rw---- | false | 2023-05-15T11:49:09Z | ttyS24          |
+| Dcrw-rw---- | false | 2023-05-15T11:49:09Z | ttyS25          |
+| Dcrw-rw---- | false | 2023-05-15T11:49:09Z | ttyS26          |
+| Dcrw-rw---- | false | 2023-05-15T11:49:09Z | ttyS27          |
+| Dcrw-rw---- | false | 2023-05-15T11:49:09Z | ttyS28          |
+| Dcrw-rw---- | false | 2023-05-15T11:49:09Z | ttyS29          |
+| Dcrw-rw---- | false | 2023-05-15T11:49:09Z | ttyS3           |
+| Dcrw-rw---- | false | 2023-05-15T11:49:09Z | ttyS30          |
+| Dcrw-rw---- | false | 2023-05-15T11:49:09Z | ttyS31          |
+| Dcrw-rw---- | false | 2023-05-15T11:49:09Z | ttyS4           |
+| Dcrw-rw---- | false | 2023-05-15T11:49:09Z | ttyS5           |
+| Dcrw-rw---- | false | 2023-05-15T11:49:09Z | ttyS6           |
+| Dcrw-rw---- | false | 2023-05-15T11:49:09Z | ttyS7           |
+| Dcrw-rw---- | false | 2023-05-15T11:49:09Z | ttyS8           |
+| Dcrw-rw---- | false | 2023-05-15T11:49:09Z | ttyS9           |
+| Dcrw------- | false | 2023-05-15T11:49:09Z | ttyprintk       |
+| Dcrw-rw---- | false | 2023-05-15T11:49:09Z | udmabuf         |
+| Dcrw------- | false | 2023-05-15T11:49:08Z | uhid            |
+| Dcrw------- | false | 2023-05-15T11:49:09Z | uinput          |
+| Dcrw-rw-rw- | false | 2023-05-15T11:49:09Z | urandom         |
+| Dcrw------- | false | 2023-05-15T11:49:08Z | userio          |
+| Dcrw-rw---- | false | 2023-05-15T11:49:09Z | vcs             |
+| Dcrw-rw---- | false | 2023-05-15T11:49:09Z | vcs1            |
+| Dcrw-rw---- | false | 2023-05-15T12:39:16Z | vcs2            |
+| Dcrw-rw---- | false | 2023-05-15T12:39:16Z | vcs3            |
+| Dcrw-rw---- | false | 2023-05-15T12:39:16Z | vcs4            |
+| Dcrw-rw---- | false | 2023-05-15T12:39:16Z | vcs5            |
+| Dcrw-rw---- | false | 2023-05-15T12:39:16Z | vcs6            |
+| Dcrw-rw---- | false | 2023-05-15T11:49:09Z | vcsa            |
+| Dcrw-rw---- | false | 2023-05-15T11:49:09Z | vcsa1           |
+| Dcrw-rw---- | false | 2023-05-15T12:39:16Z | vcsa2           |
+| Dcrw-rw---- | false | 2023-05-15T12:39:16Z | vcsa3           |
+| Dcrw-rw---- | false | 2023-05-15T12:39:16Z | vcsa4           |
+| Dcrw-rw---- | false | 2023-05-15T12:39:16Z | vcsa5           |
+| Dcrw-rw---- | false | 2023-05-15T12:39:16Z | vcsa6           |
+| Dcrw-rw---- | false | 2023-05-15T11:49:09Z | vcsu            |
+| Dcrw-rw---- | false | 2023-05-15T11:49:09Z | vcsu1           |
+| Dcrw-rw---- | false | 2023-05-15T12:39:16Z | vcsu2           |
+| Dcrw-rw---- | false | 2023-05-15T12:39:16Z | vcsu3           |
+| Dcrw-rw---- | false | 2023-05-15T12:39:16Z | vcsu4           |
+| Dcrw-rw---- | false | 2023-05-15T12:39:16Z | vcsu5           |
+| Dcrw-rw---- | false | 2023-05-15T12:39:16Z | vcsu6           |
+| drwxr-xr-x  | true  | 2023-05-15T11:49:05Z | vfio            |
+| Dcrw------- | false | 2023-05-15T11:49:09Z | vga_arbiter     |
+| Dcrw------- | false | 2023-05-15T11:49:08Z | vhci            |
+| Dcrw------- | false | 2023-05-15T11:49:08Z | vhost-net       |
+| Dcrw------- | false | 2023-05-15T11:49:08Z | vhost-vsock     |
+| Dcrw------- | false | 2023-05-15T11:49:09Z | vmci            |
+| Dcrw-rw-rw- | false | 2023-05-15T12:39:16Z | vsock           |
+| Dcrw-rw-rw- | false | 2023-05-15T11:49:09Z | zero            |
+| Dcrw------- | false | 2023-05-15T11:49:08Z | zfs             |
++-------------+-------+----------------------+-----------------+
+### ENVIRONMENT ###
+Comments:
+- Typical Kubernetes API service env var KUBERNETES_SERVICE_HOST was not found, we might not be running inside a pod.
++------------+--------------------+
+|    NAME    |        VALUE       |
++------------+--------------------+
+| KUBECONFIG | /root/.kube/config |
++------------+--------------------+
+### MOUNT ###
+Comments:
+- 153 devices are mounted.
++-------------+---------------------------------+-------------+---------------------------------+
+|    DEVICE   |               PATH              |  FILESYSTEM |              FLAGS              |
++-------------+---------------------------------+-------------+---------------------------------+
+| sysfs       | /sys                            | sysfs       | rw,nosuid,nodev,noexec,relatime |
+| proc        | /proc                           | proc        | rw,nosuid,nodev,noexec,relatime |
+| udev        | /dev                            | devtmpfs    | rw,nosuid,noexec,relatime,size= |
+|             |                                 |             | 8150152k,nr_inodes=2037538,mode |
+|             |                                 |             | =755                            |
+| devpts      | /dev/pts                        | devpts      | rw,nosuid,noexec,relatime,gid=5 |
+|             |                                 |             | ,mode=620,ptmxmode=000          |
+| tmpfs       | /run                            | tmpfs       | rw,nosuid,nodev,noexec,relatime |
+|             |                                 |             | ,size=1639256k,mode=755         |
+| /dev/sda3   | /                               | ext4        | rw,relatime,errors=remount-ro   |
+| securityfs  | /sys/kernel/security            | securityfs  | rw,nosuid,nodev,noexec,relatime |
+| tmpfs       | /dev/shm                        | tmpfs       | rw,nosuid,nodev                 |
+| tmpfs       | /run/lock                       | tmpfs       | rw,nosuid,nodev,noexec,relatime |
+|             |                                 |             | ,size=5120k                     |
+| tmpfs       | /sys/fs/cgroup                  | tmpfs       | ro,nosuid,nodev,noexec,mode=755 |
+| cgroup2     | /sys/fs/cgroup/unified          | cgroup2     | rw,nosuid,nodev,noexec,relatime |
+|             |                                 |             | ,nsdelegate                     |
+| cgroup      | /sys/fs/cgroup/systemd          | cgroup      | rw,nosuid,nodev,noexec,relatime |
+|             |                                 |             | ,xattr,name=systemd             |
+| pstore      | /sys/fs/pstore                  | pstore      | rw,nosuid,nodev,noexec,relatime |
+| none        | /sys/fs/bpf                     | bpf         | rw,nosuid,nodev,noexec,relatime |
+|             |                                 |             | ,mode=700                       |
+| cgroup      | /sys/fs/cgroup/hugetlb          | cgroup      | rw,nosuid,nodev,noexec,relatime |
+|             |                                 |             | ,hugetlb                        |
+| cgroup      | /sys/fs/cgroup/rdma             | cgroup      | rw,nosuid,nodev,noexec,relatime |
+|             |                                 |             | ,rdma                           |
+| cgroup      | /sys/fs/cgroup/cpu,cpuacct      | cgroup      | rw,nosuid,nodev,noexec,relatime |
+|             |                                 |             | ,cpu,cpuacct                    |
+| cgroup      | /sys/fs/cgroup/freezer          | cgroup      | rw,nosuid,nodev,noexec,relatime |
+|             |                                 |             | ,freezer                        |
+| cgroup      | /sys/fs/cgroup/pids             | cgroup      | rw,nosuid,nodev,noexec,relatime |
+|             |                                 |             | ,pids                           |
+| cgroup      | /sys/fs/cgroup/devices          | cgroup      | rw,nosuid,nodev,noexec,relatime |
+|             |                                 |             | ,devices                        |
+| cgroup      | /sys/fs/cgroup/blkio            | cgroup      | rw,nosuid,nodev,noexec,relatime |
+|             |                                 |             | ,blkio                          |
+| cgroup      | /sys/fs/cgroup/perf_event       | cgroup      | rw,nosuid,nodev,noexec,relatime |
+|             |                                 |             | ,perf_event                     |
+| cgroup      | /sys/fs/cgroup/cpuset           | cgroup      | rw,nosuid,nodev,noexec,relatime |
+|             |                                 |             | ,cpuset                         |
+| cgroup      | /sys/fs/cgroup/memory           | cgroup      | rw,nosuid,nodev,noexec,relatime |
+|             |                                 |             | ,memory                         |
+| cgroup      | /sys/fs/cgroup/net_cls,net_prio | cgroup      | rw,nosuid,nodev,noexec,relatime |
+|             |                                 |             | ,net_cls,net_prio               |
+| systemd-1   | /proc/sys/fs/binfmt_misc        | autofs      | rw,relatime,fd=28,pgrp=1,timeou |
+|             |                                 |             | t=0,minproto=5,maxproto=5,direc |
+|             |                                 |             | t,pipe_ino=21926                |
+| hugetlbfs   | /dev/hugepages                  | hugetlbfs   | rw,relatime,pagesize=2M         |
+| mqueue      | /dev/mqueue                     | mqueue      | rw,nosuid,nodev,noexec,relatime |
+| debugfs     | /sys/kernel/debug               | debugfs     | rw,nosuid,nodev,noexec,relatime |
+| tracefs     | /sys/kernel/tracing             | tracefs     | rw,nosuid,nodev,noexec,relatime |
+| fusectl     | /sys/fs/fuse/connections        | fusectl     | rw,nosuid,nodev,noexec,relatime |
+| configfs    | /sys/kernel/config              | configfs    | rw,nosuid,nodev,noexec,relatime |
+| binfmt_misc | /proc/sys/fs/binfmt_misc        | binfmt_misc | rw,nosuid,nodev,noexec,relatime |
+| /dev/sda1   | /boot                           | ext4        | rw,relatime                     |
+| overlay     | /var/lib/docker/overlay2/c425ee | overlay     | rw,relatime,lowerdir=/var/lib/d |
+|             | af3f6314f8c4c658ec10d8d47473d32 |             | ocker/overlay2/l/IFYKRXADB7QML6 |
+|             | 068bd35ec68678bfc7d7041b05c/mer |             | WZB62V7IYRBZ:/var/lib/docker/ov |
+|             | ged                             |             | erlay2/l/YD3RQMAJNP2YEEVRASZ364 |
+|             |                                 |             | BV5B,upperdir=/var/lib/docker/o |
+|             |                                 |             | verlay2/c425eeaf3f6314f8c4c658e |
+|             |                                 |             | c10d8d47473d32068bd35ec68678bfc |
+|             |                                 |             | 7d7041b05c/diff,workdir=/var/li |
+|             |                                 |             | b/docker/overlay2/c425eeaf3f631 |
+|             |                                 |             | 4f8c4c658ec10d8d47473d32068bd35 |
+|             |                                 |             | ec68678bfc7d7041b05c/work,xino= |
+|             |                                 |             | off                             |
+| nsfs        | /run/docker/netns/default       | nsfs        | rw                              |
+| shm         | /var/lib/docker/containers/16bd | tmpfs       | rw,nosuid,nodev,noexec,relatime |
+|             | c13197e8a7454d974251378b07f7329 |             | ,size=65536k                    |
+|             | b1cd5e0b3b37b2e9268a2086de8cc/m |             |                                 |
+|             | ounts/shm                       |             |                                 |
+| overlay     | /var/lib/docker/overlay2/feeb2f | overlay     | rw,relatime,lowerdir=/var/lib/d |
+|             | 562f6abd83103272e6355338c819620 |             | ocker/overlay2/l/7FTZVTSVAKQYZL |
+|             | d5f838aecb71beec4fc1744dc13/mer |             | L62SYTERMYPD:/var/lib/docker/ov |
+|             | ged                             |             | erlay2/l/YD3RQMAJNP2YEEVRASZ364 |
+|             |                                 |             | BV5B,upperdir=/var/lib/docker/o |
+|             |                                 |             | verlay2/feeb2f562f6abd83103272e |
+|             |                                 |             | 6355338c819620d5f838aecb71beec4 |
+|             |                                 |             | fc1744dc13/diff,workdir=/var/li |
+|             |                                 |             | b/docker/overlay2/feeb2f562f6ab |
+|             |                                 |             | d83103272e6355338c819620d5f838a |
+|             |                                 |             | ecb71beec4fc1744dc13/work,xino= |
+|             |                                 |             | off                             |
+| shm         | /var/lib/docker/containers/d39d | tmpfs       | rw,nosuid,nodev,noexec,relatime |
+|             | ec90bc62894d72973fc8935bf32398c |             | ,size=65536k                    |
+|             | 3b500c6151a54db56ce6064b7a09a/m |             |                                 |
+|             | ounts/shm                       |             |                                 |
+| overlay     | /var/lib/docker/overlay2/000257 | overlay     | rw,relatime,lowerdir=/var/lib/d |
+|             | 6a7082c93b96e9225ef50e52cd4c559 |             | ocker/overlay2/l/ISLWXCJVJ24YB6 |
+|             | 289de73b009d9df90fe938eb7ae/mer |             | 53JHEYATHN7L:/var/lib/docker/ov |
+|             | ged                             |             | erlay2/l/YD3RQMAJNP2YEEVRASZ364 |
+|             |                                 |             | BV5B,upperdir=/var/lib/docker/o |
+|             |                                 |             | verlay2/0002576a7082c93b96e9225 |
+|             |                                 |             | ef50e52cd4c559289de73b009d9df90 |
+|             |                                 |             | fe938eb7ae/diff,workdir=/var/li |
+|             |                                 |             | b/docker/overlay2/0002576a7082c |
+|             |                                 |             | 93b96e9225ef50e52cd4c559289de73 |
+|             |                                 |             | b009d9df90fe938eb7ae/work,xino= |
+|             |                                 |             | off                             |
+| shm         | /var/lib/docker/containers/2be2 | tmpfs       | rw,nosuid,nodev,noexec,relatime |
+|             | 792610150a660a54bb24da5fcce8abe |             | ,size=65536k                    |
+|             | 0780aba3fa25e93f6d3ee0c42930f/m |             |                                 |
+|             | ounts/shm                       |             |                                 |
+| overlay     | /var/lib/docker/overlay2/2c9492 | overlay     | rw,relatime,lowerdir=/var/lib/d |
+|             | 658dfa4b5c84e5aa483e6ccdfe52a9c |             | ocker/overlay2/l/N56KAWLCK4EODG |
+|             | 663744771b560d3290cb911474b/mer |             | B2RCSGQQSEUF:/var/lib/docker/ov |
+|             | ged                             |             | erlay2/l/YD3RQMAJNP2YEEVRASZ364 |
+|             |                                 |             | BV5B,upperdir=/var/lib/docker/o |
+|             |                                 |             | verlay2/2c9492658dfa4b5c84e5aa4 |
+|             |                                 |             | 83e6ccdfe52a9c663744771b560d329 |
+|             |                                 |             | 0cb911474b/diff,workdir=/var/li |
+|             |                                 |             | b/docker/overlay2/2c9492658dfa4 |
+|             |                                 |             | b5c84e5aa483e6ccdfe52a9c6637447 |
+|             |                                 |             | 71b560d3290cb911474b/work,xino= |
+|             |                                 |             | off                             |
+| shm         | /var/lib/docker/containers/382d | tmpfs       | rw,nosuid,nodev,noexec,relatime |
+|             | 14f97051843a30aac2c7379a2d86d25 |             | ,size=65536k                    |
+|             | 7bc63e40e5af41a6d430586e0fe83/m |             |                                 |
+|             | ounts/shm                       |             |                                 |
+| overlay     | /var/lib/docker/overlay2/8ee3b9 | overlay     | rw,relatime,lowerdir=/var/lib/d |
+|             | d42820c12e7f2ee018537af624f4b50 |             | ocker/overlay2/l/EBXVLZBVSJCQZN |
+|             | 652734f98b373be52783ef55a81/mer |             | RTNIMHUKYWR3:/var/lib/docker/ov |
+|             | ged                             |             | erlay2/l/O33GW3O35EAQ6ELXANUOKM |
+|             |                                 |             | HAOF:/var/lib/docker/overlay2/l |
+|             |                                 |             | /SEN4RE7XI4ZPA5EJCU67UO3L4H,upp |
+|             |                                 |             | erdir=/var/lib/docker/overlay2/ |
+|             |                                 |             | 8ee3b9d42820c12e7f2ee018537af62 |
+|             |                                 |             | 4f4b50652734f98b373be52783ef55a |
+|             |                                 |             | 81/diff,workdir=/var/lib/docker |
+|             |                                 |             | /overlay2/8ee3b9d42820c12e7f2ee |
+|             |                                 |             | 018537af624f4b50652734f98b373be |
+|             |                                 |             | 52783ef55a81/work,xino=off      |
+| overlay     | /var/lib/docker/overlay2/3a4812 | overlay     | rw,relatime,lowerdir=/var/lib/d |
+|             | 6442766bd415e98139d109b7a8a2a22 |             | ocker/overlay2/l/ZESXKPMZ26HE4U |
+|             | 978d27cd8590b8286513077e953/mer |             | 6QQL5ZHD37CW:/var/lib/docker/ov |
+|             | ged                             |             | erlay2/l/MUS5FRRUO5TZTYFG5ZVJSH |
+|             |                                 |             | HBCZ:/var/lib/docker/overlay2/l |
+|             |                                 |             | /SEN4RE7XI4ZPA5EJCU67UO3L4H,upp |
+|             |                                 |             | erdir=/var/lib/docker/overlay2/ |
+|             |                                 |             | 3a48126442766bd415e98139d109b7a |
+|             |                                 |             | 8a2a22978d27cd8590b8286513077e9 |
+|             |                                 |             | 53/diff,workdir=/var/lib/docker |
+|             |                                 |             | /overlay2/3a48126442766bd415e98 |
+|             |                                 |             | 139d109b7a8a2a22978d27cd8590b82 |
+|             |                                 |             | 86513077e953/work,xino=off      |
+| overlay     | /var/lib/docker/overlay2/ab68e5 | overlay     | rw,relatime,lowerdir=/var/lib/d |
+|             | 44c92683a87fa627362f985cc00f0cf |             | ocker/overlay2/l/VN6PSKOCAGPZNE |
+|             | 96e56213d9bb24ca1bbd29c03c9/mer |             | OOUU666ZC67G:/var/lib/docker/ov |
+|             | ged                             |             | erlay2/l/6IXTO2PDJJTPHE2OG2WHTY |
+|             |                                 |             | TLCH:/var/lib/docker/overlay2/l |
+|             |                                 |             | /SEN4RE7XI4ZPA5EJCU67UO3L4H,upp |
+|             |                                 |             | erdir=/var/lib/docker/overlay2/ |
+|             |                                 |             | ab68e544c92683a87fa627362f985cc |
+|             |                                 |             | 00f0cf96e56213d9bb24ca1bbd29c03 |
+|             |                                 |             | c9/diff,workdir=/var/lib/docker |
+|             |                                 |             | /overlay2/ab68e544c92683a87fa62 |
+|             |                                 |             | 7362f985cc00f0cf96e56213d9bb24c |
+|             |                                 |             | a1bbd29c03c9/work,xino=off      |
+| overlay     | /var/lib/docker/overlay2/196214 | overlay     | rw,relatime,lowerdir=/var/lib/d |
+|             | 0d4aa200512e1276c9a05bbc074cff0 |             | ocker/overlay2/l/Y7SA4I7W5PLAWY |
+|             | e471f36ed8b72732dc8a7d23ba7/mer |             | YMK3M64OAHP4:/var/lib/docker/ov |
+|             | ged                             |             | erlay2/l/DO7HGIXY7T2FLFUR3XCCVD |
+|             |                                 |             | 2IFU:/var/lib/docker/overlay2/l |
+|             |                                 |             | /RRIJ4ZDZUWKS2ANLXCQTMRKLL6:/va |
+|             |                                 |             | r/lib/docker/overlay2/l/SEN4RE7 |
+|             |                                 |             | XI4ZPA5EJCU67UO3L4H,upperdir=/v |
+|             |                                 |             | ar/lib/docker/overlay2/1962140d |
+|             |                                 |             | 4aa200512e1276c9a05bbc074cff0e4 |
+|             |                                 |             | 71f36ed8b72732dc8a7d23ba7/diff, |
+|             |                                 |             | workdir=/var/lib/docker/overlay |
+|             |                                 |             | 2/1962140d4aa200512e1276c9a05bb |
+|             |                                 |             | c074cff0e471f36ed8b72732dc8a7d2 |
+|             |                                 |             | 3ba7/work,xino=off              |
+| tmpfs       | /var/lib/kubelet/pods/c4fb9d00- | tmpfs       | rw,relatime                     |
+|             | cc67-40ea-9f95-a3f520518bd8/vol |             |                                 |
+|             | umes/kubernetes.io~secret/defau |             |                                 |
+|             | lt-token-mhd6p                  |             |                                 |
+| tmpfs       | /var/lib/kubelet/pods/baae147a- | tmpfs       | rw,relatime                     |
+|             | c14e-4431-a9f7-44b7916b0bee/vol |             |                                 |
+|             | umes/kubernetes.io~secret/defau |             |                                 |
+|             | lt-token-mhd6p                  |             |                                 |
+| tmpfs       | /var/lib/kubelet/pods/af6024b2- | tmpfs       | rw,relatime                     |
+|             | 9637-45c3-9e33-0993de1139ec/vol |             |                                 |
+|             | umes/kubernetes.io~secret/tille |             |                                 |
+|             | r-certs                         |             |                                 |
+| tmpfs       | /var/lib/kubelet/pods/af6024b2- | tmpfs       | rw,relatime                     |
+|             | 9637-45c3-9e33-0993de1139ec/vol |             |                                 |
+|             | umes/kubernetes.io~secret/svcac |             |                                 |
+|             | ct-tiller-ricxapp-token-jjrvx   |             |                                 |
+| tmpfs       | /var/lib/kubelet/pods/938debd7- | tmpfs       | rw,relatime                     |
+|             | e874-46ad-a043-393a81108ce7/vol |             |                                 |
+|             | umes/kubernetes.io~secret/r4-in |             |                                 |
+|             | frastructure-kong-token-8gf8m   |             |                                 |
+| tmpfs       | /var/lib/kubelet/pods/0df5a1dc- | tmpfs       | rw,relatime                     |
+|             | f2ba-44f1-8bae-5326c16b4568/vol |             |                                 |
+|             | umes/kubernetes.io~secret/r4-in |             |                                 |
+|             | frastructure-prometheus-server- |             |                                 |
+|             | token-xwjmm                     |             |                                 |
+| tmpfs       | /var/lib/kubelet/pods/7820e69c- | tmpfs       | rw,relatime                     |
+|             | dd36-42b2-b0e5-fda02d490333/vol |             |                                 |
+|             | umes/kubernetes.io~secret/secre |             |                                 |
+|             | t-volume                        |             |                                 |
+| tmpfs       | /var/lib/kubelet/pods/7820e69c- | tmpfs       | rw,relatime                     |
+|             | dd36-42b2-b0e5-fda02d490333/vol |             |                                 |
+|             | umes/kubernetes.io~secret/svcac |             |                                 |
+|             | ct-ricplt-appmgr-token-ds7qj    |             |                                 |
+| tmpfs       | /var/lib/kubelet/pods/6264bffb- | tmpfs       | rw,relatime                     |
+|             | db5f-43d2-9f97-0800aaa209dc/vol |             |                                 |
+|             | umes/kubernetes.io~secret/r4-in |             |                                 |
+|             | frastructure-prometheus-alertma |             |                                 |
+|             | nager-token-4bs9z               |             |                                 |
+| tmpfs       | /var/lib/kubelet/pods/3fa870e7- | tmpfs       | rw,relatime                     |
+|             | 0b47-4d73-a1db-90675f39531a/vol |             |                                 |
+|             | umes/kubernetes.io~secret/svcac |             |                                 |
+|             | ct-ricplt-o1mediator-token-5qsg |             |                                 |
+|             | x                               |             |                                 |
+| tmpfs       | /var/lib/kubelet/pods/35e682a1- | tmpfs       | rw,relatime                     |
+|             | dd9d-49ad-bfb4-68ed8f0740be/vol |             |                                 |
+|             | umes/kubernetes.io~secret/defau |             |                                 |
+|             | lt-token-mhd6p                  |             |                                 |
+| tmpfs       | /var/lib/kubelet/pods/8cdd5669- | tmpfs       | rw,relatime                     |
+|             | 3ce3-4972-846f-60020f659c07/vol |             |                                 |
+|             | umes/kubernetes.io~secret/defau |             |                                 |
+|             | lt-token-mhd6p                  |             |                                 |
+| tmpfs       | /var/lib/kubelet/pods/dc6a8dc3- | tmpfs       | rw,relatime                     |
+|             | 4a3c-45bb-b474-700b800e29a8/vol |             |                                 |
+|             | umes/kubernetes.io~secret/svcac |             |                                 |
+|             | ct-ricplt-alarmmanager-token-8r |             |                                 |
+|             | hpm                             |             |                                 |
+| tmpfs       | /var/lib/kubelet/pods/e335dafd- | tmpfs       | rw,relatime                     |
+|             | b344-44ed-859e-793f536b9a21/vol |             |                                 |
+|             | umes/kubernetes.io~secret/defau |             |                                 |
+|             | lt-token-mhd6p                  |             |                                 |
+| tmpfs       | /var/lib/kubelet/pods/6d4adc99- | tmpfs       | rw,relatime                     |
+|             | dfe6-481b-8c6b-e1c50b4c190f/vol |             |                                 |
+|             | umes/kubernetes.io~secret/kube- |             |                                 |
+|             | proxy-token-xwxtd               |             |                                 |
+| tmpfs       | /var/lib/kubelet/pods/6e2a67a7- | tmpfs       | rw,relatime                     |
+|             | 1348-4103-bed7-53a53bf11395/vol |             |                                 |
+|             | umes/kubernetes.io~secret/defau |             |                                 |
+|             | lt-token-mhd6p                  |             |                                 |
+| tmpfs       | /var/lib/kubelet/pods/3421fc62- | tmpfs       | rw,relatime                     |
+|             | bcc2-4107-b0fd-50897a437b44/vol |             |                                 |
+|             | umes/kubernetes.io~secret/defau |             |                                 |
+|             | lt-token-mhd6p                  |             |                                 |
+| tmpfs       | /var/lib/kubelet/pods/f1b5f9a3- | tmpfs       | rw,relatime                     |
+|             | 6ef8-47ec-bc91-4bd74cf7ea7d/vol |             |                                 |
+|             | umes/kubernetes.io~secret/defau |             |                                 |
+|             | lt-token-mhd6p                  |             |                                 |
+| overlay     | /var/lib/docker/overlay2/4f6366 | overlay     | rw,relatime,lowerdir=/var/lib/d |
+|             | 07398f234e03a53e95072db2930fb8e |             | ocker/overlay2/l/ITVCNAJOBIU3XT |
+|             | ae1f02c62c74dd17044c2a7e060/mer |             | RWRN7IB7QUO7:/var/lib/docker/ov |
+|             | ged                             |             | erlay2/l/YD3RQMAJNP2YEEVRASZ364 |
+|             |                                 |             | BV5B,upperdir=/var/lib/docker/o |
+|             |                                 |             | verlay2/4f636607398f234e03a53e9 |
+|             |                                 |             | 5072db2930fb8eae1f02c62c74dd170 |
+|             |                                 |             | 44c2a7e060/diff,workdir=/var/li |
+|             |                                 |             | b/docker/overlay2/4f636607398f2 |
+|             |                                 |             | 34e03a53e95072db2930fb8eae1f02c |
+|             |                                 |             | 62c74dd17044c2a7e060/work,xino= |
+|             |                                 |             | off                             |
+| shm         | /var/lib/docker/containers/712e | tmpfs       | rw,nosuid,nodev,noexec,relatime |
+|             | f89e4eab10e9bbc011bb14d963d786f |             | ,size=65536k                    |
+|             | a098259a14ca93161da8ddb45f305/m |             |                                 |
+|             | ounts/shm                       |             |                                 |
+| overlay     | /var/lib/docker/overlay2/1184f2 | overlay     | rw,relatime,lowerdir=/var/lib/d |
+|             | ce4ec3f24a02dabcb73a9d90fb40fa2 |             | ocker/overlay2/l/SKY43ELBAU5DUK |
+|             | e717a4727f0fd0fbf0ee0720c36/mer |             | K2DBFPVSDZYH:/var/lib/docker/ov |
+|             | ged                             |             | erlay2/l/23ZFHUUMNTCQ6I22Z7K2FZ |
+|             |                                 |             | 7MNJ:/var/lib/docker/overlay2/l |
+|             |                                 |             | /MPF6476GNJPA4337HH74REPTX6:/va |
+|             |                                 |             | r/lib/docker/overlay2/l/SEN4RE7 |
+|             |                                 |             | XI4ZPA5EJCU67UO3L4H,upperdir=/v |
+|             |                                 |             | ar/lib/docker/overlay2/1184f2ce |
+|             |                                 |             | 4ec3f24a02dabcb73a9d90fb40fa2e7 |
+|             |                                 |             | 17a4727f0fd0fbf0ee0720c36/diff, |
+|             |                                 |             | workdir=/var/lib/docker/overlay |
+|             |                                 |             | 2/1184f2ce4ec3f24a02dabcb73a9d9 |
+|             |                                 |             | 0fb40fa2e717a4727f0fd0fbf0ee072 |
+|             |                                 |             | 0c36/work,xino=off              |
+| tmpfs       | /var/lib/kubelet/pods/8705bbfd- | tmpfs       | rw,relatime                     |
+|             | 3b48-4db0-bff3-e711eba06987/vol |             |                                 |
+|             | umes/kubernetes.io~secret/cored |             |                                 |
+|             | ns-token-v62xg                  |             |                                 |
+| tmpfs       | /var/lib/kubelet/pods/63c32229- | tmpfs       | rw,relatime                     |
+|             | 74ec-4372-afd4-461f6961d53c/vol |             |                                 |
+|             | umes/kubernetes.io~secret/cored |             |                                 |
+|             | ns-token-v62xg                  |             |                                 |
+| tmpfs       | /var/lib/kubelet/pods/b153c71e- | tmpfs       | rw,relatime                     |
+|             | 9389-4d3f-8e09-04883f0f2a64/vol |             |                                 |
+|             | umes/kubernetes.io~secret/flann |             |                                 |
+|             | el-token-tf2cn                  |             |                                 |
+| overlay     | /var/lib/docker/overlay2/796a30 | overlay     | rw,relatime,lowerdir=/var/lib/d |
+|             | a6d250f936b7bd74e855acb24141c12 |             | ocker/overlay2/l/HPWL7YY4KL3PM2 |
+|             | 49eba1262ba38eaf4ba7e3b1315/mer |             | DRLD5CDQSVU2:/var/lib/docker/ov |
+|             | ged                             |             | erlay2/l/YD3RQMAJNP2YEEVRASZ364 |
+|             |                                 |             | BV5B,upperdir=/var/lib/docker/o |
+|             |                                 |             | verlay2/796a30a6d250f936b7bd74e |
+|             |                                 |             | 855acb24141c1249eba1262ba38eaf4 |
+|             |                                 |             | ba7e3b1315/diff,workdir=/var/li |
+|             |                                 |             | b/docker/overlay2/796a30a6d250f |
+|             |                                 |             | 936b7bd74e855acb24141c1249eba12 |
+|             |                                 |             | 62ba38eaf4ba7e3b1315/work,xino= |
+|             |                                 |             | off                             |
+| shm         | /var/lib/docker/containers/071e | tmpfs       | rw,nosuid,nodev,noexec,relatime |
+|             | f87afaafda47d91f2071b6fc27c5456 |             | ,size=65536k                    |
+|             | 9a2665c89ba892cff75dc2e9f81a3/m |             |                                 |
+|             | ounts/shm                       |             |                                 |
+| overlay     | /var/lib/docker/overlay2/c389fb | overlay     | rw,relatime,lowerdir=/var/lib/d |
+|             | 9cc82ef6e4b411dca969682f4f6f33f |             | ocker/overlay2/l/ILLTH7OYTIGZY4 |
+|             | 83107308b15032005ffb047e5e8/mer |             | MPMGQ4W3LEXG:/var/lib/docker/ov |
+|             | ged                             |             | erlay2/l/NVW3642BEAANXGQ5C3CHBL |
+|             |                                 |             | MET2:/var/lib/docker/overlay2/l |
+|             |                                 |             | /42Z65ZSNQHJ3L6OUP2RQYHXIKQ:/va |
+|             |                                 |             | r/lib/docker/overlay2/l/JTYOZIN |
+|             |                                 |             | JZT6P2VIZXQPTSINTQ5:/var/lib/do |
+|             |                                 |             | cker/overlay2/l/7P7SNTW4MCVONQ6 |
+|             |                                 |             | 5KCBCX4FNVO:/var/lib/docker/ove |
+|             |                                 |             | rlay2/l/3YL5I2UIBVEFCU2SRP24ARL |
+|             |                                 |             | W7D:/var/lib/docker/overlay2/l/ |
+|             |                                 |             | HMOQYGJTBRESMK3YTDDKYQPPLB:/var |
+|             |                                 |             | /lib/docker/overlay2/l/BTBS2VA4 |
+|             |                                 |             | WWA5GQPZ56EROVSP2N,upperdir=/va |
+|             |                                 |             | r/lib/docker/overlay2/c389fb9cc |
+|             |                                 |             | 82ef6e4b411dca969682f4f6f33f831 |
+|             |                                 |             | 07308b15032005ffb047e5e8/diff,w |
+|             |                                 |             | orkdir=/var/lib/docker/overlay2 |
+|             |                                 |             | /c389fb9cc82ef6e4b411dca969682f |
+|             |                                 |             | 4f6f33f83107308b15032005ffb047e |
+|             |                                 |             | 5e8/work,xino=off               |
+| overlay     | /var/lib/docker/overlay2/67a6f1 | overlay     | rw,relatime,lowerdir=/var/lib/d |
+|             | e84ff2f9d397bf11249addcd10b0204 |             | ocker/overlay2/l/OW3BAW55LPBJGC |
+|             | a783ce3a243615c3d3378418b48/mer |             | 47VQECG32WFQ:/var/lib/docker/ov |
+|             | ged                             |             | erlay2/l/YD3RQMAJNP2YEEVRASZ364 |
+|             |                                 |             | BV5B,upperdir=/var/lib/docker/o |
+|             |                                 |             | verlay2/67a6f1e84ff2f9d397bf112 |
+|             |                                 |             | 49addcd10b0204a783ce3a243615c3d |
+|             |                                 |             | 3378418b48/diff,workdir=/var/li |
+|             |                                 |             | b/docker/overlay2/67a6f1e84ff2f |
+|             |                                 |             | 9d397bf11249addcd10b0204a783ce3 |
+|             |                                 |             | a243615c3d3378418b48/work,xino= |
+|             |                                 |             | off                             |
+| shm         | /var/lib/docker/containers/75f2 | tmpfs       | rw,nosuid,nodev,noexec,relatime |
+|             | 49cc03987450d1aad8c988447005d66 |             | ,size=65536k                    |
+|             | b1cc424da97039dec48de695e14a7/m |             |                                 |
+|             | ounts/shm                       |             |                                 |
+| overlay     | /var/lib/docker/overlay2/55c14b | overlay     | rw,relatime,lowerdir=/var/lib/d |
+|             | dfee9c5e0a9ca6c012cfb47d7ec4224 |             | ocker/overlay2/l/E3EFC3LTK7EZPU |
+|             | 07cec51e90ea7207e3d840df3d1/mer |             | QKKH55YF4UBM:/var/lib/docker/ov |
+|             | ged                             |             | erlay2/l/YD3RQMAJNP2YEEVRASZ364 |
+|             |                                 |             | BV5B,upperdir=/var/lib/docker/o |
+|             |                                 |             | verlay2/55c14bdfee9c5e0a9ca6c01 |
+|             |                                 |             | 2cfb47d7ec422407cec51e90ea7207e |
+|             |                                 |             | 3d840df3d1/diff,workdir=/var/li |
+|             |                                 |             | b/docker/overlay2/55c14bdfee9c5 |
+|             |                                 |             | e0a9ca6c012cfb47d7ec422407cec51 |
+|             |                                 |             | e90ea7207e3d840df3d1/work,xino= |
+|             |                                 |             | off                             |
+| shm         | /var/lib/docker/containers/4351 | tmpfs       | rw,nosuid,nodev,noexec,relatime |
+|             | ed2974fc476b13b58df73d243a10d02 |             | ,size=65536k                    |
+|             | 3b7604e4ac394a1be5b8afd15796f/m |             |                                 |
+|             | ounts/shm                       |             |                                 |
+| overlay     | /var/lib/docker/overlay2/903730 | overlay     | rw,relatime,lowerdir=/var/lib/d |
+|             | 6c9b6e2dd2ee9888882b29ac35cddcd |             | ocker/overlay2/l/YXRJ7HDFE5AGQM |
+|             | 684de653c0d26cfe685fe8bf39d/mer |             | KLHNSGXVMVAT:/var/lib/docker/ov |
+|             | ged                             |             | erlay2/l/YD3RQMAJNP2YEEVRASZ364 |
+|             |                                 |             | BV5B,upperdir=/var/lib/docker/o |
+|             |                                 |             | verlay2/9037306c9b6e2dd2ee98888 |
+|             |                                 |             | 82b29ac35cddcd684de653c0d26cfe6 |
+|             |                                 |             | 85fe8bf39d/diff,workdir=/var/li |
+|             |                                 |             | b/docker/overlay2/9037306c9b6e2 |
+|             |                                 |             | dd2ee9888882b29ac35cddcd684de65 |
+|             |                                 |             | 3c0d26cfe685fe8bf39d/work,xino= |
+|             |                                 |             | off                             |
+| shm         | /var/lib/docker/containers/1115 | tmpfs       | rw,nosuid,nodev,noexec,relatime |
+|             | ebb8912252d6995b1b904a54027e5a9 |             | ,size=65536k                    |
+|             | 05b988cdc95ef154b8969dfd75953/m |             |                                 |
+|             | ounts/shm                       |             |                                 |
+| overlay     | /var/lib/docker/overlay2/91eacd | overlay     | rw,relatime,lowerdir=/var/lib/d |
+|             | c4a634f3a3ab75b93672cd00ceda0b6 |             | ocker/overlay2/l/W7Z4AOML6XRWTZ |
+|             | e393ee8565ff046cf70ba9cf98f/mer |             | UY4RJMR6X72F:/var/lib/docker/ov |
+|             | ged                             |             | erlay2/l/YD3RQMAJNP2YEEVRASZ364 |
+|             |                                 |             | BV5B,upperdir=/var/lib/docker/o |
+|             |                                 |             | verlay2/91eacdc4a634f3a3ab75b93 |
+|             |                                 |             | 672cd00ceda0b6e393ee8565ff046cf |
+|             |                                 |             | 70ba9cf98f/diff,workdir=/var/li |
+|             |                                 |             | b/docker/overlay2/91eacdc4a634f |
+|             |                                 |             | 3a3ab75b93672cd00ceda0b6e393ee8 |
+|             |                                 |             | 565ff046cf70ba9cf98f/work,xino= |
+|             |                                 |             | off                             |
+| overlay     | /var/lib/docker/overlay2/01b323 | overlay     | rw,relatime,lowerdir=/var/lib/d |
+|             | 5ae6d68ce6db8148fe33fd5f5a2ed46 |             | ocker/overlay2/l/MIBHJPNCPHZFTX |
+|             | 1ad57a6fb288867101647a585dc/mer |             | DRBPPKRZA7QJ:/var/lib/docker/ov |
+|             | ged                             |             | erlay2/l/YD3RQMAJNP2YEEVRASZ364 |
+|             |                                 |             | BV5B,upperdir=/var/lib/docker/o |
+|             |                                 |             | verlay2/01b3235ae6d68ce6db8148f |
+|             |                                 |             | e33fd5f5a2ed461ad57a6fb28886710 |
+|             |                                 |             | 1647a585dc/diff,workdir=/var/li |
+|             |                                 |             | b/docker/overlay2/01b3235ae6d68 |
+|             |                                 |             | ce6db8148fe33fd5f5a2ed461ad57a6 |
+|             |                                 |             | fb288867101647a585dc/work,xino= |
+|             |                                 |             | off                             |
+| shm         | /var/lib/docker/containers/415b | tmpfs       | rw,nosuid,nodev,noexec,relatime |
+|             | 4c5668b012e597df983875183f9682c |             | ,size=65536k                    |
+|             | 022533deea28461a99a54893ca684/m |             |                                 |
+|             | ounts/shm                       |             |                                 |
+| shm         | /var/lib/docker/containers/a7dd | tmpfs       | rw,nosuid,nodev,noexec,relatime |
+|             | b19d610acc355fa39d3d36f736fa0ee |             | ,size=65536k                    |
+|             | a37a3fb060966caaab3530329794a/m |             |                                 |
+|             | ounts/shm                       |             |                                 |
+| overlay     | /var/lib/docker/overlay2/236c2f | overlay     | rw,relatime,lowerdir=/var/lib/d |
+|             | df2b93267c6fee20e0fa35ed1a49ac1 |             | ocker/overlay2/l/LY5ZYDJ3TUBNJX |
+|             | 150025a4f3cbe7e1008723382fc/mer |             | GCDQ5RISYVVP:/var/lib/docker/ov |
+|             | ged                             |             | erlay2/l/YD3RQMAJNP2YEEVRASZ364 |
+|             |                                 |             | BV5B,upperdir=/var/lib/docker/o |
+|             |                                 |             | verlay2/236c2fdf2b93267c6fee20e |
+|             |                                 |             | 0fa35ed1a49ac1150025a4f3cbe7e10 |
+|             |                                 |             | 08723382fc/diff,workdir=/var/li |
+|             |                                 |             | b/docker/overlay2/236c2fdf2b932 |
+|             |                                 |             | 67c6fee20e0fa35ed1a49ac1150025a |
+|             |                                 |             | 4f3cbe7e1008723382fc/work,xino= |
+|             |                                 |             | off                             |
+| shm         | /var/lib/docker/containers/245e | tmpfs       | rw,nosuid,nodev,noexec,relatime |
+|             | 9c2c53e40092416ab2d68bad77f3825 |             | ,size=65536k                    |
+|             | 4b41c928656abecc69a1eef06e04e/m |             |                                 |
+|             | ounts/shm                       |             |                                 |
+| overlay     | /var/lib/docker/overlay2/4fd05f | overlay     | rw,relatime,lowerdir=/var/lib/d |
+|             | d23a0f4927a8cacf9af5b5bf9a5286b |             | ocker/overlay2/l/2BUKNYS5QVAISG |
+|             | e984efec22e3a03e898b177b0a9/mer |             | X5SQE6PE3LT4:/var/lib/docker/ov |
+|             | ged                             |             | erlay2/l/YD3RQMAJNP2YEEVRASZ364 |
+|             |                                 |             | BV5B,upperdir=/var/lib/docker/o |
+|             |                                 |             | verlay2/4fd05fd23a0f4927a8cacf9 |
+|             |                                 |             | af5b5bf9a5286be984efec22e3a03e8 |
+|             |                                 |             | 98b177b0a9/diff,workdir=/var/li |
+|             |                                 |             | b/docker/overlay2/4fd05fd23a0f4 |
+|             |                                 |             | 927a8cacf9af5b5bf9a5286be984efe |
+|             |                                 |             | c22e3a03e898b177b0a9/work,xino= |
+|             |                                 |             | off                             |
+| overlay     | /var/lib/docker/overlay2/d0512e | overlay     | rw,relatime,lowerdir=/var/lib/d |
+|             | 2148a7bce5df56c7d4b0782eff7e022 |             | ocker/overlay2/l/EZP6LSXJ3NT7VR |
+|             | 3d5345f2a804dc79dd9bc1f5f41/mer |             | QLSVG4QAX65C:/var/lib/docker/ov |
+|             | ged                             |             | erlay2/l/YD3RQMAJNP2YEEVRASZ364 |
+|             |                                 |             | BV5B,upperdir=/var/lib/docker/o |
+|             |                                 |             | verlay2/d0512e2148a7bce5df56c7d |
+|             |                                 |             | 4b0782eff7e0223d5345f2a804dc79d |
+|             |                                 |             | d9bc1f5f41/diff,workdir=/var/li |
+|             |                                 |             | b/docker/overlay2/d0512e2148a7b |
+|             |                                 |             | ce5df56c7d4b0782eff7e0223d5345f |
+|             |                                 |             | 2a804dc79dd9bc1f5f41/work,xino= |
+|             |                                 |             | off                             |
+| shm         | /var/lib/docker/containers/39ff | tmpfs       | rw,nosuid,nodev,noexec,relatime |
+|             | 05f54c292f6b465f647026d4af70d08 |             | ,size=65536k                    |
+|             | ad00767cb2ddc2ad302bf2011660e/m |             |                                 |
+|             | ounts/shm                       |             |                                 |
+| shm         | /var/lib/docker/containers/b25b | tmpfs       | rw,nosuid,nodev,noexec,relatime |
+|             | 8f319eb79b9f64854b7ba1edde86cc7 |             | ,size=65536k                    |
+|             | 71b2fc0eb6bd584aed445802d7360/m |             |                                 |
+|             | ounts/shm                       |             |                                 |
+| nsfs        | /run/docker/netns/c1cbc3c49320  | nsfs        | rw                              |
+| nsfs        | /run/docker/netns/3a90a37ecfdd  | nsfs        | rw                              |
+| nsfs        | /run/docker/netns/860f5ecf5b84  | nsfs        | rw                              |
+| overlay     | /var/lib/docker/overlay2/fe7985 | overlay     | rw,relatime,lowerdir=/var/lib/d |
+|             | 3b96897729364b60e10a75982bd3943 |             | ocker/overlay2/l/O6MAM7P5XPF3O4 |
+|             | 787fc1888f78469b4fbf4591aa7/mer |             | 73W23ARDJ2BO:/var/lib/docker/ov |
+|             | ged                             |             | erlay2/l/YD3RQMAJNP2YEEVRASZ364 |
+|             |                                 |             | BV5B,upperdir=/var/lib/docker/o |
+|             |                                 |             | verlay2/fe79853b96897729364b60e |
+|             |                                 |             | 10a75982bd3943787fc1888f78469b4 |
+|             |                                 |             | fbf4591aa7/diff,workdir=/var/li |
+|             |                                 |             | b/docker/overlay2/fe79853b96897 |
+|             |                                 |             | 729364b60e10a75982bd3943787fc18 |
+|             |                                 |             | 88f78469b4fbf4591aa7/work,xino= |
+|             |                                 |             | off                             |
+| overlay     | /var/lib/docker/overlay2/d84533 | overlay     | rw,relatime,lowerdir=/var/lib/d |
+|             | 3127f3ea05a8f715a46b8d6d5e6bbf9 |             | ocker/overlay2/l/GEXUYLWMTXSR4A |
+|             | 4f314b5c83291617329c147c11a/mer |             | V3MYKJSNMROJ:/var/lib/docker/ov |
+|             | ged                             |             | erlay2/l/YD3RQMAJNP2YEEVRASZ364 |
+|             |                                 |             | BV5B,upperdir=/var/lib/docker/o |
+|             |                                 |             | verlay2/d845333127f3ea05a8f715a |
+|             |                                 |             | 46b8d6d5e6bbf94f314b5c832916173 |
+|             |                                 |             | 29c147c11a/diff,workdir=/var/li |
+|             |                                 |             | b/docker/overlay2/d845333127f3e |
+|             |                                 |             | a05a8f715a46b8d6d5e6bbf94f314b5 |
+|             |                                 |             | c83291617329c147c11a/work,xino= |
+|             |                                 |             | off                             |
+| shm         | /var/lib/docker/containers/14a5 | tmpfs       | rw,nosuid,nodev,noexec,relatime |
+|             | 89aced4c591a82841668648fe6cc76c |             | ,size=65536k                    |
+|             | 2bd2d6221eb12932e1ab0c7305783/m |             |                                 |
+|             | ounts/shm                       |             |                                 |
+| shm         | /var/lib/docker/containers/9ad6 | tmpfs       | rw,nosuid,nodev,noexec,relatime |
+|             | a184e61f893b511387bcd8376fddc90 |             | ,size=65536k                    |
+|             | 3755b928df12d5fc24c70b31795ba/m |             |                                 |
+|             | ounts/shm                       |             |                                 |
+| nsfs        | /run/docker/netns/b60f263bb194  | nsfs        | rw                              |
+| nsfs        | /run/docker/netns/e08151ffba00  | nsfs        | rw                              |
+| nsfs        | /run/docker/netns/e1d2d255971b  | nsfs        | rw                              |
+| nsfs        | /run/docker/netns/9a9ecbe21ad5  | nsfs        | rw                              |
+| nsfs        | /run/docker/netns/9f161bae306e  | nsfs        | rw                              |
+| nsfs        | /run/docker/netns/c951dec0c873  | nsfs        | rw                              |
+| nsfs        | /run/docker/netns/434862a7f08d  | nsfs        | rw                              |
+| overlay     | /var/lib/docker/overlay2/ed9c40 | overlay     | rw,relatime,lowerdir=/var/lib/d |
+|             | f450490540a182d9af94407620a4292 |             | ocker/overlay2/l/QWF4RNFNEW2DSE |
+|             | d0773ac6e28f440565f97e8f2da/mer |             | RJI4OW76GTMU:/var/lib/docker/ov |
+|             | ged                             |             | erlay2/l/ZY6PEAPCO3NK4TQ7ZYP7OM |
+|             |                                 |             | F4RT:/var/lib/docker/overlay2/l |
+|             |                                 |             | /A56T2WM2GIBWJGVOICNMEZKYO6:/va |
+|             |                                 |             | r/lib/docker/overlay2/l/SBUL3FY |
+|             |                                 |             | 4RG5XN2XTB6X5DBPKCA:/var/lib/do |
+|             |                                 |             | cker/overlay2/l/MIXVFXUJHJYIHBW |
+|             |                                 |             | 4CS2MQY6GS7:/var/lib/docker/ove |
+|             |                                 |             | rlay2/l/6ZJJHVOPDDI4B5RY22SCSO2 |
+|             |                                 |             | BM4:/var/lib/docker/overlay2/l/ |
+|             |                                 |             | BIZ55TXD624QXKJBGXMNYJS6WC:/var |
+|             |                                 |             | /lib/docker/overlay2/l/PCYNSEUO |
+|             |                                 |             | BXK2ES2NJYM4FRGRQ6:/var/lib/doc |
+|             |                                 |             | ker/overlay2/l/RGQQ6U74OZ33LYRP |
+|             |                                 |             | QLIV4FCKCF:/var/lib/docker/over |
+|             |                                 |             | lay2/l/R3IIDM54FXAN37FVSW6D6M6I |
+|             |                                 |             | S2,upperdir=/var/lib/docker/ove |
+|             |                                 |             | rlay2/ed9c40f450490540a182d9af9 |
+|             |                                 |             | 4407620a4292d0773ac6e28f440565f |
+|             |                                 |             | 97e8f2da/diff,workdir=/var/lib/ |
+|             |                                 |             | docker/overlay2/ed9c40f45049054 |
+|             |                                 |             | 0a182d9af94407620a4292d0773ac6e |
+|             |                                 |             | 28f440565f97e8f2da/work,xino=of |
+|             |                                 |             | f                               |
+| overlay     | /var/lib/docker/overlay2/0c6d48 | overlay     | rw,relatime,lowerdir=/var/lib/d |
+|             | d2bec9897794e8b7898629e39c37f8e |             | ocker/overlay2/l/DAVWURCJ5QAHPH |
+|             | 873b4cc810c1ffecc1b8451c30f/mer |             | LUOLKHLSSPYD:/var/lib/docker/ov |
+|             | ged                             |             | erlay2/l/SP3NDS7HVC36QQXKVN6T2R |
+|             |                                 |             | G7VA:/var/lib/docker/overlay2/l |
+|             |                                 |             | /GYZUJE5OZH6YQMWAZ6SKC3WKGX:/va |
+|             |                                 |             | r/lib/docker/overlay2/l/AMKDFUU |
+|             |                                 |             | ZWWPADZRDLO47SUJNRL:/var/lib/do |
+|             |                                 |             | cker/overlay2/l/DUTG4NB3KTBU4VU |
+|             |                                 |             | DJHXRYO63WW:/var/lib/docker/ove |
+|             |                                 |             | rlay2/l/XUZNU2NY52NRONE24Q3QS35 |
+|             |                                 |             | FFL:/var/lib/docker/overlay2/l/ |
+|             |                                 |             | XG4RR4OIBCVV2MNSMQZPQSKNEA:/var |
+|             |                                 |             | /lib/docker/overlay2/l/WANU73U7 |
+|             |                                 |             | YQRGL74OPHTY3KSRGS:/var/lib/doc |
+|             |                                 |             | ker/overlay2/l/QILK4E34I45IAUV6 |
+|             |                                 |             | QSRSDEEJEW:/var/lib/docker/over |
+|             |                                 |             | lay2/l/WN4AILE6R3AVVFPACXPM5RLO |
+|             |                                 |             | VU:/var/lib/docker/overlay2/l/R |
+|             |                                 |             | 6BYLV6723JHQWT4NRNHXCPEAI:/var/ |
+|             |                                 |             | lib/docker/overlay2/l/FR6EOSMMJ |
+|             |                                 |             | MUHBUDP2NY6WYYOB4:/var/lib/dock |
+|             |                                 |             | er/overlay2/l/BSVOCFABEJ2A5TSV2 |
+|             |                                 |             | 5R2PFQMRQ:/var/lib/docker/overl |
+|             |                                 |             | ay2/l/PQ3RZQEICU5APTW77ADDLCKXK |
+|             |                                 |             | S:/var/lib/docker/overlay2/l/62 |
+|             |                                 |             | XE4SGXY2AHCYXQABUYPSYBHL:/var/l |
+|             |                                 |             | ib/docker/overlay2/l/DIW77GQSEP |
+|             |                                 |             | NGRGMGZHKXWOYX4X:/var/lib/docke |
+|             |                                 |             | r/overlay2/l/JSOT33YU7WI42IWAVP |
+|             |                                 |             | MVLJBHPS:/var/lib/docker/overla |
+|             |                                 |             | y2/l/MNQW6AFUFFIJYHSLXKHD65LVJI |
+|             |                                 |             | :/var/lib/docker/overlay2/l/I7X |
+|             |                                 |             | PA35QHNCESIGDYC4FF55S2I,upperdi |
+|             |                                 |             | r=/var/lib/docker/overlay2/0c6d |
+|             |                                 |             | 48d2bec9897794e8b7898629e39c37f |
+|             |                                 |             | 8e873b4cc810c1ffecc1b8451c30f/d |
+|             |                                 |             | iff,workdir=/var/lib/docker/ove |
+|             |                                 |             | rlay2/0c6d48d2bec9897794e8b7898 |
+|             |                                 |             | 629e39c37f8e873b4cc810c1ffecc1b |
+|             |                                 |             | 8451c30f/work,xino=off          |
+| /dev/sda3   | /var/lib/kubelet/pods/f1b5f9a3- | ext4        | rw,relatime,errors=remount-ro   |
+|             | 6ef8-47ec-bc91-4bd74cf7ea7d/vol |             |                                 |
+|             | ume-subpaths/local-router-file/ |             |                                 |
+|             | container-ricplt-e2mgr/0        |             |                                 |
+| overlay     | /var/lib/docker/overlay2/ac9137 | overlay     | rw,relatime,lowerdir=/var/lib/d |
+|             | d9ab3969b4147a66c5f333e3d1d4137 |             | ocker/overlay2/l/UY4UEV4RQKWY5T |
+|             | cf0501ac56a8657a34e5e9e5ff5/mer |             | LBH5J5YKT6TK:/var/lib/docker/ov |
+|             | ged                             |             | erlay2/l/7P4QHBEVI7MR5ZSYVTTT3F |
+|             |                                 |             | 3DH3:/var/lib/docker/overlay2/l |
+|             |                                 |             | /PQEJGVS3YLM3EXJKA5Q7XRNQZQ,upp |
+|             |                                 |             | erdir=/var/lib/docker/overlay2/ |
+|             |                                 |             | ac9137d9ab3969b4147a66c5f333e3d |
+|             |                                 |             | 1d4137cf0501ac56a8657a34e5e9e5f |
+|             |                                 |             | f5/diff,workdir=/var/lib/docker |
+|             |                                 |             | /overlay2/ac9137d9ab3969b4147a6 |
+|             |                                 |             | 6c5f333e3d1d4137cf0501ac56a8657 |
+|             |                                 |             | a34e5e9e5ff5/work,xino=off      |
+| overlay     | /var/lib/docker/overlay2/d423fc | overlay     | rw,relatime,lowerdir=/var/lib/d |
+|             | 7efb68a4f5f3472ac2b1e3c2476f1a4 |             | ocker/overlay2/l/NONVCPNSNR7VRE |
+|             | 7ca7ced788a5154e0318406d0b8/mer |             | VJKPF5CDI5KZ:/var/lib/docker/ov |
+|             | ged                             |             | erlay2/l/7P4QHBEVI7MR5ZSYVTTT3F |
+|             |                                 |             | 3DH3:/var/lib/docker/overlay2/l |
+|             |                                 |             | /PQEJGVS3YLM3EXJKA5Q7XRNQZQ,upp |
+|             |                                 |             | erdir=/var/lib/docker/overlay2/ |
+|             |                                 |             | d423fc7efb68a4f5f3472ac2b1e3c24 |
+|             |                                 |             | 76f1a47ca7ced788a5154e0318406d0 |
+|             |                                 |             | b8/diff,workdir=/var/lib/docker |
+|             |                                 |             | /overlay2/d423fc7efb68a4f5f3472 |
+|             |                                 |             | ac2b1e3c2476f1a47ca7ced788a5154 |
+|             |                                 |             | e0318406d0b8/work,xino=off      |
+| overlay     | /var/lib/docker/overlay2/25200c | overlay     | rw,relatime,lowerdir=/var/lib/d |
+|             | 02072f1c5c8bcf4523a439b90058c76 |             | ocker/overlay2/l/D7WC7G7H5DIQUH |
+|             | 3a0d45339ac12778120d8c0a0cc/mer |             | 52DITWOIUFGR:/var/lib/docker/ov |
+|             | ged                             |             | erlay2/l/G5GQLH5X2XYLOXKM7JWXRN |
+|             |                                 |             | I3Y3:/var/lib/docker/overlay2/l |
+|             |                                 |             | /5XJKB3FQ2IVSRBE7D4JR22UQDC:/va |
+|             |                                 |             | r/lib/docker/overlay2/l/VVFQJEU |
+|             |                                 |             | VSKLNQO2TLLAPXHJQGE:/var/lib/do |
+|             |                                 |             | cker/overlay2/l/I6Z5NLLCOTA5VZL |
+|             |                                 |             | POFLYEKRTB3:/var/lib/docker/ove |
+|             |                                 |             | rlay2/l/5F2KNJ2Q7LC6GTPPEXPCZ5P |
+|             |                                 |             | O54:/var/lib/docker/overlay2/l/ |
+|             |                                 |             | VB6F2XVM2XP6RXWDXMM7W3JKU5:/var |
+|             |                                 |             | /lib/docker/overlay2/l/IHLVPJ4B |
+|             |                                 |             | C6LBOBH5I2P7W2IKEM:/var/lib/doc |
+|             |                                 |             | ker/overlay2/l/64DOGL7C5YG533D2 |
+|             |                                 |             | OTROO3UWPA:/var/lib/docker/over |
+|             |                                 |             | lay2/l/NPOLBGYACBARTS75A6VU27RK |
+|             |                                 |             | PE:/var/lib/docker/overlay2/l/B |
+|             |                                 |             | EPBYMUT3IMQOF3CGJJ46SCY54:/var/ |
+|             |                                 |             | lib/docker/overlay2/l/XSJB2RTNF |
+|             |                                 |             | 2Q7NQT5SC5RK3MLIK,upperdir=/var |
+|             |                                 |             | /lib/docker/overlay2/25200c0207 |
+|             |                                 |             | 2f1c5c8bcf4523a439b90058c763a0d |
+|             |                                 |             | 45339ac12778120d8c0a0cc/diff,wo |
+|             |                                 |             | rkdir=/var/lib/docker/overlay2/ |
+|             |                                 |             | 25200c02072f1c5c8bcf4523a439b90 |
+|             |                                 |             | 058c763a0d45339ac12778120d8c0a0 |
+|             |                                 |             | cc/work,xino=off                |
+| /dev/sda3   | /var/lib/kubelet/pods/f1b5f9a3- | ext4        | rw,relatime,errors=remount-ro   |
+|             | 6ef8-47ec-bc91-4bd74cf7ea7d/vol |             |                                 |
+|             | ume-subpaths/local-configuratio |             |                                 |
+|             | n-file/container-ricplt-e2mgr/1 |             |                                 |
+| /dev/sda3   | /var/lib/kubelet/pods/35e682a1- | ext4        | rw,relatime,errors=remount-ro   |
+|             | dd9d-49ad-bfb4-68ed8f0740be/vol |             |                                 |
+|             | ume-subpaths/local-router-file/ |             |                                 |
+|             | container-ricplt-e2term/0       |             |                                 |
+| /dev/sda3   | /var/lib/kubelet/pods/35e682a1- | ext4        | rw,relatime,errors=remount-ro   |
+|             | dd9d-49ad-bfb4-68ed8f0740be/vol |             |                                 |
+|             | ume-subpaths/local-router-file/ |             |                                 |
+|             | container-ricplt-e2term/1       |             |                                 |
+| /dev/sda3   | /var/lib/kubelet/pods/7820e69c- | ext4        | rw,relatime,errors=remount-ro   |
+|             | dd36-42b2-b0e5-fda02d490333/vol |             |                                 |
+|             | ume-subpaths/appmgr-bin-volume/ |             |                                 |
+|             | container-ricplt-appmgr-copy-ti |             |                                 |
+|             | ller-secret/1                   |             |                                 |
+| /dev/sda3   | /var/lib/kubelet/pods/7820e69c- | ext4        | rw,relatime,errors=remount-ro   |
+|             | dd36-42b2-b0e5-fda02d490333/vol |             |                                 |
+|             | ume-subpaths/appmgr-bin-volume/ |             |                                 |
+|             | container-ricplt-appmgr-copy-ti |             |                                 |
+|             | ller-secret/2                   |             |                                 |
+| overlay     | /var/lib/docker/overlay2/4ff2c2 | overlay     | rw,relatime,lowerdir=/var/lib/d |
+|             | 3fe478cca7131060daf8d2cf915ee9f |             | ocker/overlay2/l/VXKBUSYVJ7EFOL |
+|             | 0ac023b4fd043f6e3dad077a8b0/mer |             | V64V7ZODVWBR:/var/lib/docker/ov |
+|             | ged                             |             | erlay2/l/BEQ4RPBRI3SLOFE7IM35VA |
+|             |                                 |             | GQPD:/var/lib/docker/overlay2/l |
+|             |                                 |             | /LLODPBTK6QVYUOOKWB27WOCH5S:/va |
+|             |                                 |             | r/lib/docker/overlay2/l/I47ONO6 |
+|             |                                 |             | K6L5L2Q47CQ45RMZ2XQ:/var/lib/do |
+|             |                                 |             | cker/overlay2/l/4P7S44GMYOTUNQA |
+|             |                                 |             | WKXJK5FG37H:/var/lib/docker/ove |
+|             |                                 |             | rlay2/l/XZ4CSWPWUEYRYIZKMMQVJ7I |
+|             |                                 |             | BTO:/var/lib/docker/overlay2/l/ |
+|             |                                 |             | JEZTM7ZXSX3ONWJNPVHJOAY253:/var |
+|             |                                 |             | /lib/docker/overlay2/l/5OHCIYEB |
+|             |                                 |             | U5FQJKM2TCHZI6OLTF:/var/lib/doc |
+|             |                                 |             | ker/overlay2/l/CZXLH6UGAV6BGE2K |
+|             |                                 |             | HT7E4GPJWD:/var/lib/docker/over |
+|             |                                 |             | lay2/l/MOLVOHMJCWJN325LGBY6TTG5 |
+|             |                                 |             | BZ:/var/lib/docker/overlay2/l/K |
+|             |                                 |             | KFKDUXT6BED575RBJNQSWYXGJ,upper |
+|             |                                 |             | dir=/var/lib/docker/overlay2/4f |
+|             |                                 |             | f2c23fe478cca7131060daf8d2cf915 |
+|             |                                 |             | ee9f0ac023b4fd043f6e3dad077a8b0 |
+|             |                                 |             | /diff,workdir=/var/lib/docker/o |
+|             |                                 |             | verlay2/4ff2c23fe478cca7131060d |
+|             |                                 |             | af8d2cf915ee9f0ac023b4fd043f6e3 |
+|             |                                 |             | dad077a8b0/work,xino=off        |
+| overlay     | /var/lib/docker/overlay2/7a62da | overlay     | rw,relatime,lowerdir=/var/lib/d |
+|             | 378b9d9530ab8ee5d3977503778e5bb |             | ocker/overlay2/l/RGPB75AYR5SBQD |
+|             | d20115766fac0ea05acdbe01223/mer |             | LD2U73TRBUC7:/var/lib/docker/ov |
+|             | ged                             |             | erlay2/l/T63KB2WPQIEF6GWNPU2UVL |
+|             |                                 |             | 3GGC:/var/lib/docker/overlay2/l |
+|             |                                 |             | /QGHNNCKBE4QCWUDCZYDI7FB7UY:/va |
+|             |                                 |             | r/lib/docker/overlay2/l/OF2BWHO |
+|             |                                 |             | 2AKLZFHJCAV52DC22WK:/var/lib/do |
+|             |                                 |             | cker/overlay2/l/HBF6BV2TXRMIANG |
+|             |                                 |             | 34NEK5TM4BI:/var/lib/docker/ove |
+|             |                                 |             | rlay2/l/6PIVFFK62SGD6DMXI4TA57S |
+|             |                                 |             | Q23:/var/lib/docker/overlay2/l/ |
+|             |                                 |             | YMHD4X24EFJEYIRVA53SD3N6ED:/var |
+|             |                                 |             | /lib/docker/overlay2/l/563KB62N |
+|             |                                 |             | V6GNTQ3SXQ7BUOVW5J:/var/lib/doc |
+|             |                                 |             | ker/overlay2/l/GFHBRV4FUYJJPLWR |
+|             |                                 |             | JYPS23HRQG:/var/lib/docker/over |
+|             |                                 |             | lay2/l/GMGDD3UIRCYSUNXJ2RDIASQE |
+|             |                                 |             | 65:/var/lib/docker/overlay2/l/Q |
+|             |                                 |             | TCFO5UFT5R55S3E3DW7JBRTQS:/var/ |
+|             |                                 |             | lib/docker/overlay2/l/DN24NZ5VX |
+|             |                                 |             | TS6KGNLXQOF2SC3NO:/var/lib/dock |
+|             |                                 |             | er/overlay2/l/PJLXGLRN54VETDURE |
+|             |                                 |             | FDYNOJGFW:/var/lib/docker/overl |
+|             |                                 |             | ay2/l/YK4SLMHJKNAE2QFFSEZCXZ3AN |
+|             |                                 |             | U:/var/lib/docker/overlay2/l/BK |
+|             |                                 |             | ABWZIUTCYNHAY5JKAUN734U7:/var/l |
+|             |                                 |             | ib/docker/overlay2/l/YZ62OBXUHC |
+|             |                                 |             | 6JKSJ4NUQWCHH5HH:/var/lib/docke |
+|             |                                 |             | r/overlay2/l/D2MRWMUKATZSG457U3 |
+|             |                                 |             | 2VWN7ZLY:/var/lib/docker/overla |
+|             |                                 |             | y2/l/OS2AGGRBVBBNBFIKCUY5CKJ6YX |
+|             |                                 |             | :/var/lib/docker/overlay2/l/44C |
+|             |                                 |             | KXUTURPHIPQRE47YDTXUK3T:/var/li |
+|             |                                 |             | b/docker/overlay2/l/JFMVWVXF6OT |
+|             |                                 |             | BV3DQQNOIBVOZP6:/var/lib/docker |
+|             |                                 |             | /overlay2/l/ZRGUMABB2FWFQVPQRXE |
+|             |                                 |             | 7PBSNAV:/var/lib/docker/overlay |
+|             |                                 |             | 2/l/PD32MFUG35BUCPBCWYQETUEB7K: |
+|             |                                 |             | /var/lib/docker/overlay2/l/VNQG |
+|             |                                 |             | JOZ7NTT2QMX6WKAF334F7J:/var/lib |
+|             |                                 |             | /docker/overlay2/l/LJTS44AGZUWK |
+|             |                                 |             | X44AADLJ6Z76WB,upperdir=/var/li |
+|             |                                 |             | b/docker/overlay2/7a62da378b9d9 |
+|             |                                 |             | 530ab8ee5d3977503778e5bbd201157 |
+|             |                                 |             | 66fac0ea05acdbe01223/diff,workd |
+|             |                                 |             | ir=/var/lib/docker/overlay2/7a6 |
+|             |                                 |             | 2da378b9d9530ab8ee5d3977503778e |
+|             |                                 |             | 5bbd20115766fac0ea05acdbe01223/ |
+|             |                                 |             | work,xino=off                   |
+| overlay     | /var/lib/docker/overlay2/05bd08 | overlay     | rw,relatime,lowerdir=/var/lib/d |
+|             | 753070533098a3ec45ac6d99b7435ad |             | ocker/overlay2/l/TTTLU4KAQSGVBA |
+|             | 4b04ef766a242ee9efce1ae2f56/mer |             | CRS646XMC7A2:/var/lib/docker/ov |
+|             | ged                             |             | erlay2/l/5QQMWGI3BZIYE7NPFGC4CU |
+|             |                                 |             | T7QE:/var/lib/docker/overlay2/l |
+|             |                                 |             | /PTQNDVGZBUE4PRBM5ZFMMLV63F:/va |
+|             |                                 |             | r/lib/docker/overlay2/l/RYTVV7X |
+|             |                                 |             | 4SL642WVJXCQ4QW5PTD:/var/lib/do |
+|             |                                 |             | cker/overlay2/l/SW3ZVEATZWS6PB4 |
+|             |                                 |             | 6WCUROCU3NM:/var/lib/docker/ove |
+|             |                                 |             | rlay2/l/AGR3LSHDUYE334GKKLFHGB5 |
+|             |                                 |             | Z6Z:/var/lib/docker/overlay2/l/ |
+|             |                                 |             | NCFCCGEW2PB6GLYYEDX3UBQHPF:/var |
+|             |                                 |             | /lib/docker/overlay2/l/JFHOBTUT |
+|             |                                 |             | 5W57BFCZXXNS7OEZKC:/var/lib/doc |
+|             |                                 |             | ker/overlay2/l/SFKQ64X26QDLVTYN |
+|             |                                 |             | OOPNKNKC3M:/var/lib/docker/over |
+|             |                                 |             | lay2/l/R4MQMWG36IIDLY2HK2ZBHAZP |
+|             |                                 |             | E6:/var/lib/docker/overlay2/l/R |
+|             |                                 |             | MAFWNUDB44MB7J6NTTOLPTK7F:/var/ |
+|             |                                 |             | lib/docker/overlay2/l/IVNHVEP2W |
+|             |                                 |             | KI6AOMLLMFUNGZAXJ:/var/lib/dock |
+|             |                                 |             | er/overlay2/l/AQTTPILOXJOOUERDL |
+|             |                                 |             | ZF2PJUUSV:/var/lib/docker/overl |
+|             |                                 |             | ay2/l/PO53MI3R43HSZOSGQE73G7VPL |
+|             |                                 |             | K:/var/lib/docker/overlay2/l/35 |
+|             |                                 |             | ABITI3JWCUC3OFOGUV2O5MCP:/var/l |
+|             |                                 |             | ib/docker/overlay2/l/EH3UWDNHLR |
+|             |                                 |             | JB4ZZK44LCGMWLFY:/var/lib/docke |
+|             |                                 |             | r/overlay2/l/WYU4UCZZMR62AV4LGH |
+|             |                                 |             | YWKPTBZ4:/var/lib/docker/overla |
+|             |                                 |             | y2/l/F7PPIWQACTWOQEZLJKTZ7UJL4H |
+|             |                                 |             | :/var/lib/docker/overlay2/l/C2G |
+|             |                                 |             | Z5X4F4QUJAJ64ZEYDJPPXMT:/var/li |
+|             |                                 |             | b/docker/overlay2/l/NKGCV2UEDSN |
+|             |                                 |             | 7LZAJ6BBMXQ74XG:/var/lib/docker |
+|             |                                 |             | /overlay2/l/MCLGNF6LFKHP3GUZOHH |
+|             |                                 |             | FEEQITV:/var/lib/docker/overlay |
+|             |                                 |             | 2/l/TUHOPWJD633ZV7DCWI5PQDHFK7: |
+|             |                                 |             | /var/lib/docker/overlay2/l/M7OR |
+|             |                                 |             | BM2R4NEN3KGH62XE3KMRGQ:/var/lib |
+|             |                                 |             | /docker/overlay2/l/JNYGIQWT5ULJ |
+|             |                                 |             | U66RRE4TY6F7P4:/var/lib/docker/ |
+|             |                                 |             | overlay2/l/QB4IFETAVMFIR4VR36ER |
+|             |                                 |             | 6XZQMK:/var/lib/docker/overlay2 |
+|             |                                 |             | /l/FG5SHLPTJX3KKBDOMGDM2GVPCL:/ |
+|             |                                 |             | var/lib/docker/overlay2/l/7WIV3 |
+|             |                                 |             | IVPVE2QQ7TJYQPMLYT5KL:/var/lib/ |
+|             |                                 |             | docker/overlay2/l/PPTSCUTNYVHMN |
+|             |                                 |             | 4N7QRIVBKQSG5:/var/lib/docker/o |
+|             |                                 |             | verlay2/l/JYXA66BHR72DMDJ4SNDJN |
+|             |                                 |             | BE7EW:/var/lib/docker/overlay2/ |
+|             |                                 |             | l/5YNHOEEZKSWFEDEJ5K2VJK7VXZ:/v |
+|             |                                 |             | ar/lib/docker/overlay2/l/UN77GA |
+|             |                                 |             | 7COQNQ2OETCMXNJ3VHC2:/var/lib/d |
+|             |                                 |             | ocker/overlay2/l/ROO5IEQVVQZFZQ |
+|             |                                 |             | GZN4XOPXI3P4:/var/lib/docker/ov |
+|             |                                 |             | erlay2/l/ZO7EPKNTBJMT5ML2GK64T6 |
+|             |                                 |             | UHJQ:/var/lib/docker/overlay2/l |
+|             |                                 |             | /SBWFE3BHXTQWBVYOA6FWTNO3N7:/va |
+|             |                                 |             | r/lib/docker/overlay2/l/AIKIGDG |
+|             |                                 |             | D44OPTNDLCYCTBKFSAV:/var/lib/do |
+|             |                                 |             | cker/overlay2/l/JPU7U6CQ5QWAAMF |
+|             |                                 |             | NHAV5ZHUN2T:/var/lib/docker/ove |
+|             |                                 |             | rlay2/l/HOHEC4NOEXINXZS6XFEKZ53 |
+|             |                                 |             | IGB:/var/lib/docker/overlay2/l/ |
+|             |                                 |             | INNCWMDQ7CMENB5SWPI7Q7MH7H:/var |
+|             |                                 |             | /lib/docker/overlay2/l/VZW4KEHG |
+|             |                                 |             | OTQMJDM4C4OZAJ7ILM:/var/lib/doc |
+|             |                                 |             | ker/overlay2/l/OIFSN7UE3DWCOQHP |
+|             |                                 |             | MBT2OAF3M2:/var/lib/docker/over |
+|             |                                 |             | lay2/l/LAKERXYRZUE76KTLNC6UM6LH |
+|             |                                 |             | J4:/var/lib/docker/overlay2/l/6 |
+|             |                                 |             | RYYHTPINXM5MNUY3IUE7IOF25:/var/ |
+|             |                                 |             | lib/docker/overlay2/l/IYHHR3YMT |
+|             |                                 |             | ESI73NUDNUKFUQO3K:/var/lib/dock |
+|             |                                 |             | er/overlay2/l/FE4O5CU6UMYRPH2I6 |
+|             |                                 |             | X5MBMJZZQ:/var/lib/docker/overl |
+|             |                                 |             | ay2/l/MPP473GLATGGX3OHTG7WENJCC |
+|             |                                 |             | O:/var/lib/docker/overlay2/l/DG |
+|             |                                 |             | LRFMHRDBISJBEM6LL5RSXIR6:/var/l |
+|             |                                 |             | ib/docker/overlay2/l/2BFCOZD4AT |
+|             |                                 |             | RU4UO3JBUUSJXWJM:/var/lib/docke |
+|             |                                 |             | r/overlay2/l/LVKF2FOMQVFSP6JPI2 |
+|             |                                 |             | U64ESHSO:/var/lib/docker/overla |
+|             |                                 |             | y2/l/I7XPA35QHNCESIGDYC4FF55S2I |
+|             |                                 |             | ,upperdir=/var/lib/docker/overl |
+|             |                                 |             | ay2/05bd08753070533098a3ec45ac6 |
+|             |                                 |             | d99b7435ad4b04ef766a242ee9efce1 |
+|             |                                 |             | ae2f56/diff,workdir=/var/lib/do |
+|             |                                 |             | cker/overlay2/05bd0875307053309 |
+|             |                                 |             | 8a3ec45ac6d99b7435ad4b04ef766a2 |
+|             |                                 |             | 42ee9efce1ae2f56/work,xino=off  |
+| overlay     | /var/lib/docker/overlay2/97c4e7 | overlay     | rw,relatime,lowerdir=/var/lib/d |
+|             | 9a81883564861a350045c73c6ec9cf8 |             | ocker/overlay2/l/S477VDRBQ446QU |
+|             | 7a5193cbf0447a34d3f4b13c748/mer |             | 4BIO5N53EOKU:/var/lib/docker/ov |
+|             | ged                             |             | erlay2/l/YD3RQMAJNP2YEEVRASZ364 |
+|             |                                 |             | BV5B,upperdir=/var/lib/docker/o |
+|             |                                 |             | verlay2/97c4e79a81883564861a350 |
+|             |                                 |             | 045c73c6ec9cf87a5193cbf0447a34d |
+|             |                                 |             | 3f4b13c748/diff,workdir=/var/li |
+|             |                                 |             | b/docker/overlay2/97c4e79a81883 |
+|             |                                 |             | 564861a350045c73c6ec9cf87a5193c |
+|             |                                 |             | bf0447a34d3f4b13c748/work,xino= |
+|             |                                 |             | off                             |
+| shm         | /var/lib/docker/containers/8239 | tmpfs       | rw,nosuid,nodev,noexec,relatime |
+|             | 9e777ddb8cfaecce309fd3e49afaec9 |             | ,size=65536k                    |
+|             | 50015e3fdb6d718884f33e2fc2221/m |             |                                 |
+|             | ounts/shm                       |             |                                 |
+| nsfs        | /run/docker/netns/d86b08fdafb7  | nsfs        | rw                              |
+| overlay     | /var/lib/docker/overlay2/123883 | overlay     | rw,relatime,lowerdir=/var/lib/d |
+|             | c3f6b1924e8a21f0d81c9a3083795df |             | ocker/overlay2/l/7U7DFO6QNY5TA5 |
+|             | 8855b655988f942f4329fcab088/mer |             | BEKHFG3YKYT2:/var/lib/docker/ov |
+|             | ged                             |             | erlay2/l/Q5HVZMN4VYAAGTPJUOSABS |
+|             |                                 |             | TIPQ:/var/lib/docker/overlay2/l |
+|             |                                 |             | /7F6FJ2MBKGLOKWNLWXHQEMUDGK:/va |
+|             |                                 |             | r/lib/docker/overlay2/l/BCTODLS |
+|             |                                 |             | 6TQVCFQR7HSEZJDVQVB:/var/lib/do |
+|             |                                 |             | cker/overlay2/l/GZ25OOYVTTTCJID |
+|             |                                 |             | JB65P4SXQFQ:/var/lib/docker/ove |
+|             |                                 |             | rlay2/l/Z45BV67FMJDG55ZVC4KVIT6 |
+|             |                                 |             | AQJ:/var/lib/docker/overlay2/l/ |
+|             |                                 |             | KMMFEJZH7WO55HIJHUCENJPD54:/var |
+|             |                                 |             | /lib/docker/overlay2/l/ZIBD7SCL |
+|             |                                 |             | E4SBLKC6GJCRK3QWGQ:/var/lib/doc |
+|             |                                 |             | ker/overlay2/l/FVWYKZN2VVO65KY2 |
+|             |                                 |             | Q473YU4V6N:/var/lib/docker/over |
+|             |                                 |             | lay2/l/LNEPY644G3GK6EBEBXZ7ZA4O |
+|             |                                 |             | LU,upperdir=/var/lib/docker/ove |
+|             |                                 |             | rlay2/123883c3f6b1924e8a21f0d81 |
+|             |                                 |             | c9a3083795df8855b655988f942f432 |
+|             |                                 |             | 9fcab088/diff,workdir=/var/lib/ |
+|             |                                 |             | docker/overlay2/123883c3f6b1924 |
+|             |                                 |             | e8a21f0d81c9a3083795df8855b6559 |
+|             |                                 |             | 88f942f4329fcab088/work,xino=of |
+|             |                                 |             | f                               |
+| overlay     | /var/lib/docker/overlay2/6d60c5 | overlay     | rw,relatime,lowerdir=/var/lib/d |
+|             | 0c950aa37bb1aab11de75bca93fc98e |             | ocker/overlay2/l/CGMTKWP4FZSRTG |
+|             | 9c0256fc8d1b14c7e84a6881d25/mer |             | HVIVGU5HOELL:/var/lib/docker/ov |
+|             | ged                             |             | erlay2/l/YD3RQMAJNP2YEEVRASZ364 |
+|             |                                 |             | BV5B,upperdir=/var/lib/docker/o |
+|             |                                 |             | verlay2/6d60c50c950aa37bb1aab11 |
+|             |                                 |             | de75bca93fc98e9c0256fc8d1b14c7e |
+|             |                                 |             | 84a6881d25/diff,workdir=/var/li |
+|             |                                 |             | b/docker/overlay2/6d60c50c950aa |
+|             |                                 |             | 37bb1aab11de75bca93fc98e9c0256f |
+|             |                                 |             | c8d1b14c7e84a6881d25/work,xino= |
+|             |                                 |             | off                             |
+| shm         | /var/lib/docker/containers/7972 | tmpfs       | rw,nosuid,nodev,noexec,relatime |
+|             | 58ccd8265585903fb4a048f8d161862 |             | ,size=65536k                    |
+|             | d8572aac531604535d7f28573ac5f/m |             |                                 |
+|             | ounts/shm                       |             |                                 |
+| overlay     | /var/lib/docker/overlay2/f6d36b | overlay     | rw,relatime,lowerdir=/var/lib/d |
+|             | ceaf328123e7e3d55cc073f8fe1c852 |             | ocker/overlay2/l/PS6CVTQA3X5SNK |
+|             | 6263091a298e3dec9fe41cf5d4e/mer |             | B4ZZ5SQK3GC3:/var/lib/docker/ov |
+|             | ged                             |             | erlay2/l/YD3RQMAJNP2YEEVRASZ364 |
+|             |                                 |             | BV5B,upperdir=/var/lib/docker/o |
+|             |                                 |             | verlay2/f6d36bceaf328123e7e3d55 |
+|             |                                 |             | cc073f8fe1c8526263091a298e3dec9 |
+|             |                                 |             | fe41cf5d4e/diff,workdir=/var/li |
+|             |                                 |             | b/docker/overlay2/f6d36bceaf328 |
+|             |                                 |             | 123e7e3d55cc073f8fe1c8526263091 |
+|             |                                 |             | a298e3dec9fe41cf5d4e/work,xino= |
+|             |                                 |             | off                             |
+| shm         | /var/lib/docker/containers/9726 | tmpfs       | rw,nosuid,nodev,noexec,relatime |
+|             | 6e6d9df67ed9db5f9bafbbe532b2cba |             | ,size=65536k                    |
+|             | 23db2c29410ca5caffcf330e8e94d/m |             |                                 |
+|             | ounts/shm                       |             |                                 |
+| nsfs        | /run/docker/netns/9b94365465f1  | nsfs        | rw                              |
+| nsfs        | /run/docker/netns/de0163cf4167  | nsfs        | rw                              |
+| /dev/sda3   | /var/lib/kubelet/pods/7820e69c- | ext4        | rw,relatime,errors=remount-ro   |
+|             | dd36-42b2-b0e5-fda02d490333/vol |             |                                 |
+|             | ume-subpaths/config-volume/cont |             |                                 |
+|             | ainer-ricplt-appmgr/0           |             |                                 |
+| tmpfs       | /var/lib/kubelet/pods/7820e69c- | tmpfs       | rw,relatime                     |
+|             | dd36-42b2-b0e5-fda02d490333/vol |             |                                 |
+|             | ume-subpaths/secret-volume/cont |             |                                 |
+|             | ainer-ricplt-appmgr/2           |             |                                 |
+| tmpfs       | /var/lib/kubelet/pods/7820e69c- | tmpfs       | rw,relatime                     |
+|             | dd36-42b2-b0e5-fda02d490333/vol |             |                                 |
+|             | ume-subpaths/secret-volume/cont |             |                                 |
+|             | ainer-ricplt-appmgr/3           |             |                                 |
+| overlay     | /var/lib/docker/overlay2/9385e6 | overlay     | rw,relatime,lowerdir=/var/lib/d |
+|             | c03b07a218d22e181482618203e2c5f |             | ocker/overlay2/l/6MMCBZ6AIB7JT5 |
+|             | ed44c3f1901e808958449e5e28c/mer |             | Q3GMTUQV25GP:/var/lib/docker/ov |
+|             | ged                             |             | erlay2/l/32GF6KEMMWSKBANC7WCPAM |
+|             |                                 |             | 6UE7:/var/lib/docker/overlay2/l |
+|             |                                 |             | /VKLK7HX7TEV5YWX7FNEXDVOYUE:/va |
+|             |                                 |             | r/lib/docker/overlay2/l/KZY5MHR |
+|             |                                 |             | AKLUWI756BETQXMNE25:/var/lib/do |
+|             |                                 |             | cker/overlay2/l/SXLMJBUKTYBW4YF |
+|             |                                 |             | 6KHCHYWCFU3:/var/lib/docker/ove |
+|             |                                 |             | rlay2/l/W3ENGFNKHFWJ6WRR6ALHWHK |
+|             |                                 |             | NJ7:/var/lib/docker/overlay2/l/ |
+|             |                                 |             | NGJGVFD3TJ46EKXOCMNI7OP62H:/var |
+|             |                                 |             | /lib/docker/overlay2/l/7PYMCJ3I |
+|             |                                 |             | H6ZCOX7W6F255AWDVO:/var/lib/doc |
+|             |                                 |             | ker/overlay2/l/XSJB2RTNF2Q7NQT5 |
+|             |                                 |             | SC5RK3MLIK,upperdir=/var/lib/do |
+|             |                                 |             | cker/overlay2/9385e6c03b07a218d |
+|             |                                 |             | 22e181482618203e2c5fed44c3f1901 |
+|             |                                 |             | e808958449e5e28c/diff,workdir=/ |
+|             |                                 |             | var/lib/docker/overlay2/9385e6c |
+|             |                                 |             | 03b07a218d22e181482618203e2c5fe |
+|             |                                 |             | d44c3f1901e808958449e5e28c/work |
+|             |                                 |             | ,xino=off                       |
+| overlay     | /var/lib/docker/overlay2/89e922 | overlay     | rw,relatime,lowerdir=/var/lib/d |
+|             | efbf227b7ee71c364016cfa57106062 |             | ocker/overlay2/l/YD4PV3Q4X55UCY |
+|             | 99c9411deb2bd87e3b8fbc7ed15/mer |             | S26DN3XCWI36:/var/lib/docker/ov |
+|             | ged                             |             | erlay2/l/S5LNETOMHF4YW2L2FUKQWH |
+|             |                                 |             | 7MY7:/var/lib/docker/overlay2/l |
+|             |                                 |             | /S6FHGZDW7BVJGWYA5AOX7F7KMY:/va |
+|             |                                 |             | r/lib/docker/overlay2/l/P7U6FSK |
+|             |                                 |             | XMR4DYQRGPWVUV5JJBT,upperdir=/v |
+|             |                                 |             | ar/lib/docker/overlay2/89e922ef |
+|             |                                 |             | bf227b7ee71c364016cfa5710606299 |
+|             |                                 |             | c9411deb2bd87e3b8fbc7ed15/diff, |
+|             |                                 |             | workdir=/var/lib/docker/overlay |
+|             |                                 |             | 2/89e922efbf227b7ee71c364016cfa |
+|             |                                 |             | 5710606299c9411deb2bd87e3b8fbc7 |
+|             |                                 |             | ed15/work,xino=off              |
+| overlay     | /var/lib/docker/overlay2/670e04 | overlay     | rw,relatime,lowerdir=/var/lib/d |
+|             | d3c8654bc9d9d230a81cfb939cfc16b |             | ocker/overlay2/l/SHASD6LIH46E3S |
+|             | 9377c6d163bff28a57cdcdd44b4/mer |             | 4BQBCBZDEE7X:/var/lib/docker/ov |
+|             | ged                             |             | erlay2/l/NNEQZPTE6CCGCLPPG2QSNZ |
+|             |                                 |             | 7X2A:/var/lib/docker/overlay2/l |
+|             |                                 |             | /UADDIOADLQVH3A76KYAPYU6QW5:/va |
+|             |                                 |             | r/lib/docker/overlay2/l/ILEXCZB |
+|             |                                 |             | H7XNTTQDDYXQTRFIEXG:/var/lib/do |
+|             |                                 |             | cker/overlay2/l/2B32HXAQ5BFDMEL |
+|             |                                 |             | I2W2XOSXYRQ:/var/lib/docker/ove |
+|             |                                 |             | rlay2/l/5JGNJP23UNXV7VVBKZNKW4B |
+|             |                                 |             | HEA,upperdir=/var/lib/docker/ov |
+|             |                                 |             | erlay2/670e04d3c8654bc9d9d230a8 |
+|             |                                 |             | 1cfb939cfc16b9377c6d163bff28a57 |
+|             |                                 |             | cdcdd44b4/diff,workdir=/var/lib |
+|             |                                 |             | /docker/overlay2/670e04d3c8654b |
+|             |                                 |             | c9d9d230a81cfb939cfc16b9377c6d1 |
+|             |                                 |             | 63bff28a57cdcdd44b4/work,xino=o |
+|             |                                 |             | ff                              |
+| overlay     | /var/lib/docker/overlay2/f86c4c | overlay     | rw,relatime,lowerdir=/var/lib/d |
+|             | 65c64d82ff192761cf46650d1db4adf |             | ocker/overlay2/l/QHBPBERSMRLGRI |
+|             | 7643dfc867710cd4be175caf533/mer |             | KN2LVWMTKAEE:/var/lib/docker/ov |
+|             | ged                             |             | erlay2/l/YD3RQMAJNP2YEEVRASZ364 |
+|             |                                 |             | BV5B,upperdir=/var/lib/docker/o |
+|             |                                 |             | verlay2/f86c4c65c64d82ff192761c |
+|             |                                 |             | f46650d1db4adf7643dfc867710cd4b |
+|             |                                 |             | e175caf533/diff,workdir=/var/li |
+|             |                                 |             | b/docker/overlay2/f86c4c65c64d8 |
+|             |                                 |             | 2ff192761cf46650d1db4adf7643dfc |
+|             |                                 |             | 867710cd4be175caf533/work,xino= |
+|             |                                 |             | off                             |
+| overlay     | /var/lib/docker/overlay2/bda694 | overlay     | rw,relatime,lowerdir=/var/lib/d |
+|             | 4d4bb3c54e706859697d93e8e127fc2 |             | ocker/overlay2/l/TJ3T2BE4PNSYTX |
+|             | 285a3d34c2b7f74f29114630f5a/mer |             | A6SAG43GELPJ:/var/lib/docker/ov |
+|             | ged                             |             | erlay2/l/YD3RQMAJNP2YEEVRASZ364 |
+|             |                                 |             | BV5B,upperdir=/var/lib/docker/o |
+|             |                                 |             | verlay2/bda6944d4bb3c54e7068596 |
+|             |                                 |             | 97d93e8e127fc2285a3d34c2b7f74f2 |
+|             |                                 |             | 9114630f5a/diff,workdir=/var/li |
+|             |                                 |             | b/docker/overlay2/bda6944d4bb3c |
+|             |                                 |             | 54e706859697d93e8e127fc2285a3d3 |
+|             |                                 |             | 4c2b7f74f29114630f5a/work,xino= |
+|             |                                 |             | off                             |
+| shm         | /var/lib/docker/containers/53ff | tmpfs       | rw,nosuid,nodev,noexec,relatime |
+|             | 7e90e2f9171e990864b01597ab483e9 |             | ,size=65536k                    |
+|             | cc25acee5e5512491410eb89afa93/m |             |                                 |
+|             | ounts/shm                       |             |                                 |
+| shm         | /var/lib/docker/containers/4ded | tmpfs       | rw,nosuid,nodev,noexec,relatime |
+|             | 92db9c34c90740449c44586fbbdd37b |             | ,size=65536k                    |
+|             | 43b55d6aaf01182daffefcf4e3c16/m |             |                                 |
+|             | ounts/shm                       |             |                                 |
+| nsfs        | /run/docker/netns/c2e99cabae5f  | nsfs        | rw                              |
+| nsfs        | /run/docker/netns/92cda18fa958  | nsfs        | rw                              |
+| overlay     | /var/lib/docker/overlay2/4648fc | overlay     | rw,relatime,lowerdir=/var/lib/d |
+|             | 1d7cebec3491f4ed0d6b255bbe48b05 |             | ocker/overlay2/l/7TVO7TJRRWXNHZ |
+|             | 2c57db9992e3dee0a0106a9f49a/mer |             | 5L6GT6YGYMTT:/var/lib/docker/ov |
+|             | ged                             |             | erlay2/l/KCSHDOBKX6BZY2AMF64WRK |
+|             |                                 |             | KIDH:/var/lib/docker/overlay2/l |
+|             |                                 |             | /JZWVBQDOE2WOKL2MNRV5AVHI2W:/va |
+|             |                                 |             | r/lib/docker/overlay2/l/XMZXYAA |
+|             |                                 |             | AKQPY6UN4CCK6BQTVTZ:/var/lib/do |
+|             |                                 |             | cker/overlay2/l/WLRPJLPQKFIAWTS |
+|             |                                 |             | QDC5AMWFJ4B:/var/lib/docker/ove |
+|             |                                 |             | rlay2/l/CJLHJFQ2OM5GNAU7GLMPTV2 |
+|             |                                 |             | AWO:/var/lib/docker/overlay2/l/ |
+|             |                                 |             | KEAJFKCWIU3GK6TKUOAERJULLB:/var |
+|             |                                 |             | /lib/docker/overlay2/l/G3FSYEFV |
+|             |                                 |             | D6UBRF6HPFON2C6QG3:/var/lib/doc |
+|             |                                 |             | ker/overlay2/l/ODSG36US2TG3XT44 |
+|             |                                 |             | 5WXBDURYKN:/var/lib/docker/over |
+|             |                                 |             | lay2/l/4NKP4T4RUXTC7M27A2K5VIKI |
+|             |                                 |             | JV:/var/lib/docker/overlay2/l/I |
+|             |                                 |             | 7XPA35QHNCESIGDYC4FF55S2I,upper |
+|             |                                 |             | dir=/var/lib/docker/overlay2/46 |
+|             |                                 |             | 48fc1d7cebec3491f4ed0d6b255bbe4 |
+|             |                                 |             | 8b052c57db9992e3dee0a0106a9f49a |
+|             |                                 |             | /diff,workdir=/var/lib/docker/o |
+|             |                                 |             | verlay2/4648fc1d7cebec3491f4ed0 |
+|             |                                 |             | d6b255bbe48b052c57db9992e3dee0a |
+|             |                                 |             | 0106a9f49a/work,xino=off        |
+| overlay     | /var/lib/docker/overlay2/26636e | overlay     | rw,relatime,lowerdir=/var/lib/d |
+|             | 9ce26bcdca466c43d27d2f22cb923e2 |             | ocker/overlay2/l/IGITCGEEVWKSQW |
+|             | 7326f4f607b9b8b88ae05503b67/mer |             | 2XIY5FXKOM6M:/var/lib/docker/ov |
+|             | ged                             |             | erlay2/l/TIDQ4N6HNIGKJRJBWCAQZA |
+|             |                                 |             | E3HE:/var/lib/docker/overlay2/l |
+|             |                                 |             | /NKM3V6JF7PTTAZCA57WGTTEJY7:/va |
+|             |                                 |             | r/lib/docker/overlay2/l/GFIFT64 |
+|             |                                 |             | PUNHUYRMVTK63XTO4JY:/var/lib/do |
+|             |                                 |             | cker/overlay2/l/4QDCWN5WWGB43GF |
+|             |                                 |             | R2LSRZJ6SXM:/var/lib/docker/ove |
+|             |                                 |             | rlay2/l/YQJDA7M7JJGUQYZ3EKAG3Q4 |
+|             |                                 |             | EZW:/var/lib/docker/overlay2/l/ |
+|             |                                 |             | I4P6QQ6J7ZVK74VMXBOLLANW3R,uppe |
+|             |                                 |             | rdir=/var/lib/docker/overlay2/2 |
+|             |                                 |             | 6636e9ce26bcdca466c43d27d2f22cb |
+|             |                                 |             | 923e27326f4f607b9b8b88ae05503b6 |
+|             |                                 |             | 7/diff,workdir=/var/lib/docker/ |
+|             |                                 |             | overlay2/26636e9ce26bcdca466c43 |
+|             |                                 |             | d27d2f22cb923e27326f4f607b9b8b8 |
+|             |                                 |             | 8ae05503b67/work,xino=off       |
+| overlay     | /var/lib/docker/overlay2/c24a12 | overlay     | rw,relatime,lowerdir=/var/lib/d |
+|             | f6c5cf390f646faedc46e4940996c01 |             | ocker/overlay2/l/VJQHQH5CVSP64J |
+|             | d73399a8e894de6cee78ca5b523/mer |             | POU6QE2UJT4T:/var/lib/docker/ov |
+|             | ged                             |             | erlay2/l/JL3BWCHYCVQIRCULZAIKYS |
+|             |                                 |             | VQ3D:/var/lib/docker/overlay2/l |
+|             |                                 |             | /S7IFPWTY4SJJK3KULR3EU7CHD3,upp |
+|             |                                 |             | erdir=/var/lib/docker/overlay2/ |
+|             |                                 |             | c24a12f6c5cf390f646faedc46e4940 |
+|             |                                 |             | 996c01d73399a8e894de6cee78ca5b5 |
+|             |                                 |             | 23/diff,workdir=/var/lib/docker |
+|             |                                 |             | /overlay2/c24a12f6c5cf390f646fa |
+|             |                                 |             | edc46e4940996c01d73399a8e894de6 |
+|             |                                 |             | cee78ca5b523/work,xino=off      |
+| overlay     | /var/lib/docker/overlay2/351cff | overlay     | rw,relatime,lowerdir=/var/lib/d |
+|             | 050b839d442721dfeed68f03a71de10 |             | ocker/overlay2/l/O3EF2Z6WAQVAUW |
+|             | ff9e6e238b998d34b3cbb537266/mer |             | Q4D75JI4YXF6:/var/lib/docker/ov |
+|             | ged                             |             | erlay2/l/YD3RQMAJNP2YEEVRASZ364 |
+|             |                                 |             | BV5B,upperdir=/var/lib/docker/o |
+|             |                                 |             | verlay2/351cff050b839d442721dfe |
+|             |                                 |             | ed68f03a71de10ff9e6e238b998d34b |
+|             |                                 |             | 3cbb537266/diff,workdir=/var/li |
+|             |                                 |             | b/docker/overlay2/351cff050b839 |
+|             |                                 |             | d442721dfeed68f03a71de10ff9e6e2 |
+|             |                                 |             | 38b998d34b3cbb537266/work,xino= |
+|             |                                 |             | off                             |
+| shm         | /var/lib/docker/containers/c298 | tmpfs       | rw,nosuid,nodev,noexec,relatime |
+|             | 01e1c8472fbacaa90379110b97c9ae5 |             | ,size=65536k                    |
+|             | 907bf6a2ce044515de3ce29b81698/m |             |                                 |
+|             | ounts/shm                       |             |                                 |
+| overlay     | /var/lib/docker/overlay2/52826a | overlay     | rw,relatime,lowerdir=/var/lib/d |
+|             | 9030f3cff609f7df6af144758e0d6d9 |             | ocker/overlay2/l/BWY6RDONWY4EVW |
+|             | 5134cecbe3a596b43231a2798a6/mer |             | FQ2DQWOMMZY7:/var/lib/docker/ov |
+|             | ged                             |             | erlay2/l/YD3RQMAJNP2YEEVRASZ364 |
+|             |                                 |             | BV5B,upperdir=/var/lib/docker/o |
+|             |                                 |             | verlay2/52826a9030f3cff609f7df6 |
+|             |                                 |             | af144758e0d6d95134cecbe3a596b43 |
+|             |                                 |             | 231a2798a6/diff,workdir=/var/li |
+|             |                                 |             | b/docker/overlay2/52826a9030f3c |
+|             |                                 |             | ff609f7df6af144758e0d6d95134cec |
+|             |                                 |             | be3a596b43231a2798a6/work,xino= |
+|             |                                 |             | off                             |
+| shm         | /var/lib/docker/containers/176d | tmpfs       | rw,nosuid,nodev,noexec,relatime |
+|             | 5fcc07176c84de45e7892b3d5b25f3d |             | ,size=65536k                    |
+|             | 935b2bcea6b0d3565cc1451759b65/m |             |                                 |
+|             | ounts/shm                       |             |                                 |
+| nsfs        | /run/docker/netns/00eb47871fad  | nsfs        | rw                              |
+| nsfs        | /run/docker/netns/ada21643cf39  | nsfs        | rw                              |
+| overlay     | /var/lib/docker/overlay2/ccf124 | overlay     | rw,relatime,lowerdir=/var/lib/d |
+|             | a530f8b25f5b305d6b8c778b96fdab7 |             | ocker/overlay2/l/TWCI6BVZD74E2P |
+|             | cae0c4b3b7edef5af4dd0977927/mer |             | GFQ7H7NPIJWB:/var/lib/docker/ov |
+|             | ged                             |             | erlay2/l/HLKWEHZBMZCBUBL6A7KSNZ |
+|             |                                 |             | A3MS:/var/lib/docker/overlay2/l |
+|             |                                 |             | /DJS2NTDB2JO76BJGA7G3WUWZ6R:/va |
+|             |                                 |             | r/lib/docker/overlay2/l/UIDNS5N |
+|             |                                 |             | ANJH52RO2J743WCVFH2:/var/lib/do |
+|             |                                 |             | cker/overlay2/l/SMHANZALXVLOMQL |
+|             |                                 |             | I4IYJJ5M4UF,upperdir=/var/lib/d |
+|             |                                 |             | ocker/overlay2/ccf124a530f8b25f |
+|             |                                 |             | 5b305d6b8c778b96fdab7cae0c4b3b7 |
+|             |                                 |             | edef5af4dd0977927/diff,workdir= |
+|             |                                 |             | /var/lib/docker/overlay2/ccf124 |
+|             |                                 |             | a530f8b25f5b305d6b8c778b96fdab7 |
+|             |                                 |             | cae0c4b3b7edef5af4dd0977927/wor |
+|             |                                 |             | k,xino=off                      |
+| overlay     | /var/lib/docker/overlay2/752e7e | overlay     | rw,relatime,lowerdir=/var/lib/d |
+|             | 547be660c57dc5332ec3f94f7a8b729 |             | ocker/overlay2/l/7CIH4TZSDJVIL2 |
+|             | 5da8408d45c8571b16dad78b6b5/mer |             | BQALPT3OI5AZ:/var/lib/docker/ov |
+|             | ged                             |             | erlay2/l/U6VJOU7TW47PLBINSLT2N4 |
+|             |                                 |             | K6YR:/var/lib/docker/overlay2/l |
+|             |                                 |             | /5H7REHNMJQQGZRSUQIH3NRXTBI:/va |
+|             |                                 |             | r/lib/docker/overlay2/l/JQDZJCG |
+|             |                                 |             | NCJI2DN5IBFYYEZ53QD:/var/lib/do |
+|             |                                 |             | cker/overlay2/l/5AOL2HL22B6K4IW |
+|             |                                 |             | ZAGKUXWC33U:/var/lib/docker/ove |
+|             |                                 |             | rlay2/l/BK6N2IISAIUBP5TO45VHB2N |
+|             |                                 |             | MQM:/var/lib/docker/overlay2/l/ |
+|             |                                 |             | RH5MUTXYX6MDWRPVXLWDPWTVFW:/var |
+|             |                                 |             | /lib/docker/overlay2/l/HNMXSZWQ |
+|             |                                 |             | VDAULR7FADF3XZZQCE:/var/lib/doc |
+|             |                                 |             | ker/overlay2/l/B63TPIBPG5IZHYDX |
+|             |                                 |             | YKETALGXQO:/var/lib/docker/over |
+|             |                                 |             | lay2/l/ZRZAT4OT6BB2N5DXZ3KAE763 |
+|             |                                 |             | NU:/var/lib/docker/overlay2/l/M |
+|             |                                 |             | BHNMEEJNWPVY3NQJSJWXG2IAK:/var/ |
+|             |                                 |             | lib/docker/overlay2/l/YQJDA7M7J |
+|             |                                 |             | JGUQYZ3EKAG3Q4EZW:/var/lib/dock |
+|             |                                 |             | er/overlay2/l/I4P6QQ6J7ZVK74VMX |
+|             |                                 |             | BOLLANW3R,upperdir=/var/lib/doc |
+|             |                                 |             | ker/overlay2/752e7e547be660c57d |
+|             |                                 |             | c5332ec3f94f7a8b7295da8408d45c8 |
+|             |                                 |             | 571b16dad78b6b5/diff,workdir=/v |
+|             |                                 |             | ar/lib/docker/overlay2/752e7e54 |
+|             |                                 |             | 7be660c57dc5332ec3f94f7a8b7295d |
+|             |                                 |             | a8408d45c8571b16dad78b6b5/work, |
+|             |                                 |             | xino=off                        |
+| tmpfs       | /run/user/1000                  | tmpfs       | rw,nosuid,nodev,relatime,size=1 |
+|             |                                 |             | 639252k,mode=700,uid=1000,gid=1 |
+|             |                                 |             | 000                             |
+| overlay     | /var/lib/docker/overlay2/c45d3b | overlay     | rw,relatime,lowerdir=/var/lib/d |
+|             | fbf71b686e48377c49481e898920aea |             | ocker/overlay2/l/P7WS4LO5GJJ4MH |
+|             | c2b3be25514419d3c3811a2fcc7/mer |             | J2EQWVGX7J2V:/var/lib/docker/ov |
+|             | ged                             |             | erlay2/l/RK3XMLRUQLOGOIABAOUGOE |
+|             |                                 |             | LT5K:/var/lib/docker/overlay2/l |
+|             |                                 |             | /GVVTW3XEMPDQTYYWMZLJ36ICGC:/va |
+|             |                                 |             | r/lib/docker/overlay2/l/SZV3KQV |
+|             |                                 |             | HXP4SJOCWMOJB7SYB4G:/var/lib/do |
+|             |                                 |             | cker/overlay2/l/QGOIMMBU63HKWQ3 |
+|             |                                 |             | KUZ2AZKPFY4:/var/lib/docker/ove |
+|             |                                 |             | rlay2/l/MQ4LZT4VIUZEKQ7VERQAFUJ |
+|             |                                 |             | 3SI:/var/lib/docker/overlay2/l/ |
+|             |                                 |             | MRIAJ2LXA46VM42ONSWELGS4KM:/var |
+|             |                                 |             | /lib/docker/overlay2/l/F4W5YSAI |
+|             |                                 |             | RKXZAOM6MRPFR6XVZO:/var/lib/doc |
+|             |                                 |             | ker/overlay2/l/MKMDXB7PE6XEB6WX |
+|             |                                 |             | LVDM22YG7N:/var/lib/docker/over |
+|             |                                 |             | lay2/l/4WUC5NO5ZYD2Z6CBXFXKIJ2C |
+|             |                                 |             | ON:/var/lib/docker/overlay2/l/W |
+|             |                                 |             | OTUOEPUQYILZ2CBFNQRO7IFK4:/var/ |
+|             |                                 |             | lib/docker/overlay2/l/I7XPA35QH |
+|             |                                 |             | NCESIGDYC4FF55S2I,upperdir=/var |
+|             |                                 |             | /lib/docker/overlay2/c45d3bfbf7 |
+|             |                                 |             | 1b686e48377c49481e898920aeac2b3 |
+|             |                                 |             | be25514419d3c3811a2fcc7/diff,wo |
+|             |                                 |             | rkdir=/var/lib/docker/overlay2/ |
+|             |                                 |             | c45d3bfbf71b686e48377c49481e898 |
+|             |                                 |             | 920aeac2b3be25514419d3c3811a2fc |
+|             |                                 |             | c7/work,xino=off                |
++-------------+---------------------------------+-------------+---------------------------------+
+### NODE ###
++----------------------+----------+----------+---------+-------------------+----------------------+
+|       CPUMODEL       | CPUCORES | MEMTOTAL | MEMUSED |   KERNELVERSION   |     KERNELDETAILS    |
++----------------------+----------+----------+---------+-------------------+----------------------+
+| Intel(R) Xeon(R)     | 1        | 16Gi     | 3.0Gi   | 5.4.0-146-generic | (buildd@lcy02-amd64- |
+| Gold 6226R CPU @     |          |          |         |                   | 026) (gcc version    |
+| 2.90GHz              |          |          |         |                   | 9.4.0 (Ubuntu        |
+|                      |          |          |         |                   | 9.4.0-1ubuntu1~20.04 |
+|                      |          |          |         |                   | .1)) #163-Ubuntu SMP |
+|                      |          |          |         |                   | Fri Mar 17 18:26:02  |
+|                      |          |          |         |                   | UTC 2023             |
++----------------------+----------+----------+---------+-------------------+----------------------+
+### PIDNAMESPACE ###
+Comments:
+- The pause process was found, pod might have shareProcessNamespace to true.
+- The kubelet process was found, pod might have hostPID to true.
++--------------+------------+--------------+
+| DEVICENUMBER | PAUSEFOUND | KUBELETFOUND |
++--------------+------------+--------------+
+|            5 | true       | true         |
++--------------+------------+--------------+
+### PROCESSES ###
+Comments:
+- 367 processes running.
+- systemd is the first process.
++---------+---------+--------------------------------------+
+|   PID   |   PPID  |                 NAME                 |
++---------+---------+--------------------------------------+
+|       1 |       0 | systemd                              |
+|       2 |       0 | kthreadd                             |
+|       3 |       2 | rcu_gp                               |
+|       4 |       2 | rcu_par_gp                           |
+|       6 |       2 | kworker/0:0H-kblockd                 |
+|       8 |       2 | mm_percpu_wq                         |
+|       9 |       2 | ksoftirqd/0                          |
+|      10 |       2 | rcu_sched                            |
+|      11 |       2 | migration/0                          |
+|      12 |       2 | idle_inject/0                        |
+|      14 |       2 | cpuhp/0                              |
+|      15 |       2 | cpuhp/1                              |
+|      16 |       2 | idle_inject/1                        |
+|      17 |       2 | migration/1                          |
+|      18 |       2 | ksoftirqd/1                          |
+|      20 |       2 | kworker/1:0H-kblockd                 |
+|      21 |       2 | cpuhp/2                              |
+|      22 |       2 | idle_inject/2                        |
+|      23 |       2 | migration/2                          |
+|      24 |       2 | ksoftirqd/2                          |
+|      26 |       2 | kworker/2:0H-kblockd                 |
+|      27 |       2 | cpuhp/3                              |
+|      28 |       2 | idle_inject/3                        |
+|      29 |       2 | migration/3                          |
+|      30 |       2 | ksoftirqd/3                          |
+|      32 |       2 | kworker/3:0H                         |
+|      33 |       2 | cpuhp/4                              |
+|      34 |       2 | idle_inject/4                        |
+|      35 |       2 | migration/4                          |
+|      36 |       2 | ksoftirqd/4                          |
+|      38 |       2 | kworker/4:0H-kblockd                 |
+|      39 |       2 | cpuhp/5                              |
+|      40 |       2 | idle_inject/5                        |
+|      41 |       2 | migration/5                          |
+|      42 |       2 | ksoftirqd/5                          |
+|      44 |       2 | kworker/5:0H                         |
+|      45 |       2 | cpuhp/6                              |
+|      46 |       2 | idle_inject/6                        |
+|      47 |       2 | migration/6                          |
+|      48 |       2 | ksoftirqd/6                          |
+|      50 |       2 | kworker/6:0H-kblockd                 |
+|      51 |       2 | cpuhp/7                              |
+|      52 |       2 | idle_inject/7                        |
+|      53 |       2 | migration/7                          |
+|      54 |       2 | ksoftirqd/7                          |
+|      56 |       2 | kworker/7:0H-kblockd                 |
+|      57 |       2 | kdevtmpfs                            |
+|      58 |       2 | netns                                |
+|      59 |       2 | rcu_tasks_kthre                      |
+|      60 |       2 | kauditd                              |
+|      61 |       2 | khungtaskd                           |
+|      62 |       2 | oom_reaper                           |
+|      63 |       2 | writeback                            |
+|      64 |       2 | kcompactd0                           |
+|      65 |       2 | ksmd                                 |
+|      66 |       2 | khugepaged                           |
+|     113 |       2 | kintegrityd                          |
+|     114 |       2 | kblockd                              |
+|     115 |       2 | blkcg_punt_bio                       |
+|     116 |       2 | tpm_dev_wq                           |
+|     117 |       2 | ata_sff                              |
+|     118 |       2 | md                                   |
+|     119 |       2 | edac-poller                          |
+|     120 |       2 | devfreq_wq                           |
+|     121 |       2 | watchdogd                            |
+|     124 |       2 | kswapd0                              |
+|     125 |       2 | ecryptfs-kthrea                      |
+|     127 |       2 | kthrotld                             |
+|     128 |       2 | irq/24-pciehp                        |
+|     129 |       2 | irq/25-pciehp                        |
+|     130 |       2 | irq/26-pciehp                        |
+|     131 |       2 | irq/27-pciehp                        |
+|     132 |       2 | irq/28-pciehp                        |
+|     133 |       2 | irq/29-pciehp                        |
+|     134 |       2 | irq/30-pciehp                        |
+|     135 |       2 | irq/31-pciehp                        |
+|     136 |       2 | irq/32-pciehp                        |
+|     137 |       2 | irq/33-pciehp                        |
+|     138 |       2 | irq/34-pciehp                        |
+|     139 |       2 | irq/35-pciehp                        |
+|     140 |       2 | irq/36-pciehp                        |
+|     141 |       2 | irq/37-pciehp                        |
+|     142 |       2 | irq/38-pciehp                        |
+|     143 |       2 | irq/39-pciehp                        |
+|     144 |       2 | irq/40-pciehp                        |
+|     145 |       2 | irq/41-pciehp                        |
+|     146 |       2 | irq/42-pciehp                        |
+|     147 |       2 | irq/43-pciehp                        |
+|     148 |       2 | irq/44-pciehp                        |
+|     149 |       2 | irq/45-pciehp                        |
+|     150 |       2 | irq/46-pciehp                        |
+|     151 |       2 | irq/47-pciehp                        |
+|     152 |       2 | irq/48-pciehp                        |
+|     153 |       2 | irq/49-pciehp                        |
+|     154 |       2 | irq/50-pciehp                        |
+|     155 |       2 | irq/51-pciehp                        |
+|     156 |       2 | irq/52-pciehp                        |
+|     157 |       2 | irq/53-pciehp                        |
+|     158 |       2 | irq/54-pciehp                        |
+|     159 |       2 | irq/55-pciehp                        |
+|     160 |       2 | acpi_thermal_pm                      |
+|     167 |       2 | scsi_eh_0                            |
+|     168 |       2 | scsi_tmf_0                           |
+|     169 |       2 | scsi_eh_1                            |
+|     170 |       2 | scsi_tmf_1                           |
+|     172 |       2 | vfio-irqfd-clea                      |
+|     173 |       2 | ipv6_addrconf                        |
+|     184 |       2 | kstrp                                |
+|     187 |       2 | kworker/u17:0                        |
+|     200 |       2 | charger_manager                      |
+|     201 |       2 | kworker/2:1H-kblockd                 |
+|     258 |       2 | mpt_poll_0                           |
+|     259 |       2 | cryptd                               |
+|     260 |       2 | mpt/0                                |
+|     280 |       2 | irq/16-vmwgfx                        |
+|     285 |       2 | ttm_swap                             |
+|     301 |       2 | kworker/7:1H-kblockd                 |
+|     302 |       2 | kworker/3:1H-kblockd                 |
+|     303 |       2 | scsi_eh_2                            |
+|     304 |       2 | scsi_tmf_2                           |
+|     305 |       2 | kworker/4:1H-kblockd                 |
+|     335 |       2 | raid5wq                              |
+|     386 |       2 | kworker/1:1H-kblockd                 |
+|     387 |       2 | jbd2/sda3-8                          |
+|     388 |       2 | ext4-rsv-conver                      |
+|     389 |       2 | kworker/0:1H-kblockd                 |
+|     427 |       2 | kworker/6:1H-kblockd                 |
+|     444 |       2 | kworker/5:1H-kblockd                 |
+|     450 |       1 | systemd-journal                      |
+|     474 |       1 | systemd-udevd                        |
+|     491 |       1 | systemd-network                      |
+|     583 |       2 | nfit                                 |
+|     637 |       2 | kaluad                               |
+|     638 |       2 | kmpath_rdacd                         |
+|     639 |       2 | kmpathd                              |
+|     640 |       2 | kmpath_handlerd                      |
+|     641 |       1 | multipathd                           |
+|     653 |       2 | jbd2/sda1-8                          |
+|     654 |       2 | ext4-rsv-conver                      |
+|     667 |       1 | systemd-resolve                      |
+|     668 |       1 | systemd-timesyn                      |
+|     678 |       1 | haveged                              |
+|     682 |       1 | VGAuthService                        |
+|     685 |       1 | vmtoolsd                             |
+|     708 |       1 | accounts-daemon                      |
+|     709 |       1 | dbus-daemon                          |
+|     725 |       1 | irqbalance                           |
+|     729 |       1 | kubelet                              |
+|     730 |       1 | networkd-dispat                      |
+|     731 |       1 | polkitd                              |
+|     732 |       1 | rsyslogd                             |
+|     744 |       1 | systemd-logind                       |
+|     745 |       1 | udisksd                              |
+|     754 |       1 | cron                                 |
+|     766 |       1 | containerd                           |
+|     767 |       1 | atd                                  |
+|     788 |       1 | agetty                               |
+|     800 |       1 | ModemManager                         |
+|     803 |       1 | unattended-upgr                      |
+|     820 |       1 | ifplugd                              |
+|     835 |       1 | sshd                                 |
+|     975 |       1 | dockerd                              |
+|    1092 |       2 | none                                 |
+|    2580 |       1 | containerd-shim                      |
+|    2706 |    2580 | pause                                |
+|    2766 |       1 | containerd-shim                      |
+|    2803 |       1 | containerd-shim                      |
+|    2833 |    2766 | pause                                |
+|    2855 |       1 | containerd-shim                      |
+|    2877 |    2803 | pause                                |
+|    2908 |    2855 | pause                                |
+|    2918 |       1 | containerd-shim                      |
+|    2973 |    2918 | kube-controller                      |
+|    3055 |       1 | containerd-shim                      |
+|    3146 |    3055 | kube-scheduler                       |
+|    4289 |       1 | containerd-shim                      |
+|    4309 |    4289 | kube-apiserver                       |
+|    4451 |       1 | containerd-shim                      |
+|    4473 |    4451 | etcd                                 |
+|   11809 |       1 | containerd-shim                      |
+|   11913 |   11809 | pause                                |
+|   12248 |       1 | containerd-shim                      |
+|   12319 |   12248 | kube-proxy                           |
+|   14664 |       1 | containerd-shim                      |
+|   14742 |   14664 | pause                                |
+|   18158 |       1 | containerd-shim                      |
+|   18355 |   18158 | flanneld                             |
+|   21420 |       1 | containerd-shim                      |
+|   21485 |       1 | containerd-shim                      |
+|   21514 |       1 | containerd-shim                      |
+|   21553 |   21420 | pause                                |
+|   21607 |   21485 | pause                                |
+|   21637 |       1 | containerd-shim                      |
+|   21647 |   21514 | pause                                |
+|   21663 |       1 | containerd-shim                      |
+|   21736 |       1 | containerd-shim                      |
+|   21742 |       1 | containerd-shim                      |
+|   21760 |       1 | containerd-shim                      |
+|   21817 |   21637 | pause                                |
+|   21831 |   21663 | pause                                |
+|   21853 |   21742 | pause                                |
+|   21876 |   21736 | pause                                |
+|   21914 |   21760 | pause                                |
+|   21916 |       1 | containerd-shim                      |
+|   21963 |       1 | containerd-shim                      |
+|   21985 |   21916 | pause                                |
+|   22125 |   21963 | pause                                |
+|   22408 |       1 | containerd-shim                      |
+|   22436 |       1 | containerd-shim                      |
+|   22520 |   22408 | vespamgr                             |
+|   22572 |   22436 | supervisord                          |
+|   22760 |       1 | containerd-shim                      |
+|   22767 |       1 | containerd-shim                      |
+|   22811 |       1 | containerd-shim                      |
+|   22885 |   22767 | coredns                              |
+|   22892 |   22760 | coredns                              |
+|   22905 |   22811 | sh                                   |
+|   22961 |   22905 | alarm-manager                        |
+|   23105 |   22572 | netopeer2-serve                      |
+|   23106 |   22572 | o1agent                              |
+|   48868 |       1 | containerd-shim                      |
+|   48890 |   48868 | a1-entrypoint.s                      |
+|   48931 |   48890 | a1                                   |
+|  122711 |       1 | containerd-shim                      |
+|  122745 |  122711 | sh                                   |
+|  122759 |  122745 | kpm_sim                              |
+|  125184 |       1 | containerd-shim                      |
+|  125234 |  125184 | sh                                   |
+|  125288 |  125234 | startup.sh                           |
+|  125304 |  125288 | e2                                   |
+|  799826 |   22520 | ves-agent                            |
+| 1260371 |       1 | containerd-shim                      |
+| 1260449 | 1260371 | pause                                |
+| 1260992 |       1 | containerd-shim                      |
+| 1261015 | 1260992 | redis-server                         |
+| 1516236 |       1 | containerd-shim                      |
+| 1516270 |       1 | containerd-shim                      |
+| 1516314 | 1516236 | pause                                |
+| 1516364 | 1516270 | pause                                |
+| 1517186 |       1 | containerd-shim                      |
+| 1517264 | 1517186 | appmgr-entrypoi                      |
+| 1517312 | 1517264 | appmgr                               |
+| 1525527 |       1 | containerd-shim                      |
+| 1525589 | 1525527 | nginx                                |
+| 1526022 | 1525589 | nginx                                |
+| 1526586 |       1 | containerd-shim                      |
+| 1526647 | 1526586 | kong-ingress-co                      |
+| 1545164 |       1 | containerd-shim                      |
+| 1545177 |       1 | containerd-shim                      |
+| 1545253 | 1545164 | pause                                |
+| 1545254 | 1545177 | pause                                |
+| 1545496 |       1 | containerd-shim                      |
+| 1545527 |       1 | containerd-shim                      |
+| 1545547 | 1545496 | rtmgr                                |
+| 1545569 | 1545527 | alertmanager                         |
+| 1574015 |       1 | containerd-shim                      |
+| 1574035 | 1574015 | configmap-reloa                      |
+| 2188218 |       1 | containerd-shim                      |
+| 2188235 |       1 | containerd-shim                      |
+| 2188269 | 2188235 | pause                                |
+| 2188270 | 2188218 | pause                                |
+| 2188421 |       1 | containerd-shim                      |
+| 2188446 |       1 | containerd-shim                      |
+| 2188469 | 2188421 | tiller                               |
+| 2188478 | 2188446 | prometheus                           |
+| 2220686 |     835 | sshd                                 |
+| 2220742 |       1 | systemd                              |
+| 2221024 | 2220686 | sshd                                 |
+| 2221025 | 2221024 | bash                                 |
+| 2221098 | 2221025 | sudo                                 |
+| 2221100 | 2221098 | su                                   |
+| 2221101 | 2221100 | bash                                 |
+| 2253311 |     835 | sshd                                 |
+| 2253446 | 2253311 | sshd                                 |
+| 2253447 | 2253446 | sftp-server                          |
+| 2449501 |       1 | containerd-shim                      |
+| 2449526 | 2449501 | submgr                               |
+| 3633141 |       2 | kworker/u16:2-events_unbound         |
+| 3711798 |       2 | kworker/0:4-events                   |
+| 3718173 |       2 | kworker/2:5-events                   |
+| 3725350 |       2 | kworker/u16:0-events_unbound         |
+| 3730126 |       2 | kworker/2:0-events                   |
+| 3731476 |       2 | kworker/3:1-events                   |
+| 3732264 |       2 | kworker/6:6-cgroup_destroy           |
+| 3742960 |       2 | kworker/1:0-events                   |
+| 3744841 |       2 | kworker/7:0-cgroup_destroy           |
+| 3745062 |       2 | kworker/5:0-events                   |
+| 3745241 |       2 | kworker/3:2-events                   |
+| 3745371 |       2 | kworker/1:6-events                   |
+| 3745918 |       2 | kworker/4:2-events                   |
+| 3745919 |       2 | kworker/4:3-mm_percpu_wq             |
+| 3746887 |       2 | kworker/5:3-cgroup_destroy           |
+| 3748725 |       2 | kworker/6:5-events                   |
+| 3749335 |       2 | kworker/0:3-events                   |
+| 3751371 |       2 | kworker/7:3-events                   |
+| 3753766 |       2 | kworker/u16:4-events_power_efficient |
+| 3756204 |       2 | kworker/3:0-events                   |
+| 3756223 |       2 | kworker/2:1-events                   |
+| 3756295 |       2 | kworker/5:1-events                   |
+| 3756296 |       2 | kworker/2:2-events                   |
+| 3756382 |       2 | kworker/4:0-cgroup_destroy           |
+| 3756600 |       2 | kworker/0:0-events                   |
+| 3756614 |       2 | kworker/0:1-events                   |
+| 3756887 |       2 | kworker/4:5-events                   |
+| 3756888 |       2 | kworker/4:6-events                   |
+| 3756889 |       2 | kworker/4:7-events                   |
+| 3756890 |       2 | kworker/2:3-events                   |
+| 3756891 |       2 | kworker/2:4-cgroup_destroy           |
+| 3756892 |       2 | kworker/2:6-mm_percpu_wq             |
+| 3757086 |       2 | kworker/4:8-cgroup_destroy           |
+| 3757166 |       2 | kworker/7:1-events                   |
+| 3757236 |       2 | kworker/1:1-events                   |
+| 3757560 |       2 | kworker/0:2-events                   |
+| 3757561 |       2 | kworker/0:5-events                   |
+| 3757562 |       2 | kworker/0:6-events                   |
+| 3757681 |       2 | kworker/6:1-events                   |
+| 3757682 |       2 | kworker/6:2-events                   |
+| 3757683 |       2 | kworker/6:3-events                   |
+| 3757972 |       2 | kworker/1:2-events                   |
+| 3757973 |       2 | kworker/1:3-events                   |
+| 3757974 |       2 | kworker/1:4-cgroup_destroy           |
+| 3757975 |       2 | kworker/1:5-events                   |
+| 3758420 |       2 | kworker/7:2-mm_percpu_wq             |
+| 3758422 |       2 | kworker/7:5-events                   |
+| 3758423 |       2 | kworker/7:6-events                   |
+| 3758424 |       2 | kworker/7:7-events                   |
+| 3760716 |       2 | kworker/3:3-events                   |
+| 3760717 |       2 | kworker/3:4-events                   |
+| 3760718 |       2 | kworker/3:5-mm_percpu_wq             |
+| 3760719 |       2 | kworker/3:6-cgroup_destroy           |
+| 3761059 |       2 | kworker/1:8-events                   |
+| 3761465 |       2 | kworker/6:4-events                   |
+| 3761467 |       2 | kworker/6:8-events                   |
+| 3762517 |       2 | kworker/5:2-events                   |
+| 3762518 |       2 | kworker/5:4-events                   |
+| 3762519 |       2 | kworker/5:5-events                   |
+| 3769008 |       2 | kworker/5:7-events                   |
+| 3772465 |       2 | kworker/0:7-events                   |
+| 3780033 |       2 | kworker/5:6-events                   |
+| 3782472 |       2 | kworker/1:7-events                   |
+| 3784498 |       2 | kworker/0:8-events                   |
+| 3785021 |       2 | kworker/u16:1-events_power_efficient |
+| 3785641 |       2 | kworker/7:4-events                   |
+| 3785642 |       2 | kworker/7:8-events                   |
+| 3787074 |       2 | kworker/6:0-events                   |
+| 3787075 |       2 | kworker/6:7-cgroup_destroy           |
+| 3788298 |       2 | kworker/4:1                          |
+| 3788918 |       2 | kworker/5:8                          |
+| 3791070 |     474 | systemd-udevd                        |
+| 3791071 |     474 | systemd-udevd                        |
+| 3791073 |     474 | systemd-udevd                        |
+| 3791074 |     474 | systemd-udevd                        |
+| 3791075 |     474 | systemd-udevd                        |
+| 3791081 |     474 | systemd-udevd                        |
+| 3791082 |     474 | systemd-udevd                        |
+| 3791083 |     474 | systemd-udevd                        |
+| 3791115 |       2 | kworker/2:7                          |
+| 3791126 |     474 | systemd-udevd                        |
+| 3791127 |     474 | systemd-udevd                        |
+| 3791128 |     474 | systemd-udevd                        |
+| 3791178 |     474 | systemd-udevd                        |
+| 3791182 |     474 | systemd-udevd                        |
+| 3791183 |     474 | systemd-udevd                        |
+| 3791184 |     474 | systemd-udevd                        |
+| 3791216 |     474 | systemd-udevd                        |
+| 3791311 |     474 | systemd-udevd                        |
+| 3791314 | 2221101 | kdigger                              |
++---------+---------+--------------------------------------+
+### RUNTIME ###
+Comments:
+- The container runtime seems to be not-found.
+### SERVICES ###
+Error: error when requesting coreDNS: lookup any.any.svc.cluster.local on 127.0.0.53:53: no such host
+### TOKEN ###
+Comments:
+- No service account token was found in the local filesystem
+### USERID ###
++--------+----------+---------+-----------+---------+
+| USERID | USERNAME | GROUPID | GROUPNAME | HOMEDIR |
++--------+----------+---------+-----------+---------+
+| 0      | root     | 0       | root      | /root   |
++--------+----------+---------+-----------+---------+
+### USERNAMESPACE ###
+Comments:
+- User namespace is not active.
+### VERSION ###
++---------+----------------------+-------------+-----------+
+| VERSION |       BUILDDATE      |   PLATFORM  | GOVERSION |
++---------+----------------------+-------------+-----------+
+| v1.16.0 | 2019-09-18T14:27:17Z | linux/amd64 | go1.12.9  |
++---------+----------------------+-------------+-----------+

@@ -1,0 +1,5 @@
+{
+    "REPORT_DIR": "/opt/tools/attack/attack_tool/reports",
+    "MONGODB_CONFIG": "/opt/tools/attack/attack_tool/src/database/config.ini",
+    "DB_NAME": "tool-reports"
+  }

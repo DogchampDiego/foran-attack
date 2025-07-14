@@ -1,0 +1,46 @@
+from enum import Enum
+
+class MenuState(Enum):
+    #Menu Base 0 - 10
+    START = 0
+    ATTACK_PHASE = 1
+    TOOLS = 2
+    DEMONSTRATOR = 3
+    ENVIRONMENT = 4
+    REPORTING = 5
+    CONFIG = 6
+    CONTAINER = 7
+    TESTING = 8
+
+    # Menu Testing 11 - 19
+    KUBERNETES = 11
+    OPENRAN = 12
+
+    #Mitre Tactics 20 - 32
+    RECONNAISSANCE = 20
+    INITIAL_ACCESS = 21
+    EXECUTION = 22
+    PERSISTENCE = 23
+    PRIVILEGE_ESCALATION = 24
+    DEFENSE_EVASION = 25
+    CREDENTIAL_ACCESS = 26
+    DISCOVERY = 27
+    LATERAL_MOVEMENT = 28
+    COLLECTION = 29
+    COMMAND_CONTROL = 30
+    EXFILTRATION = 31
+    IMPACT = 32
+
+    #Tools 40 - 60
+    KUBEHUNTER = 40
+    KUBESCAPE = 41
+    TRIVY = 42
+    NMAP = 43
+    REDKUBE = 44
+    STRATUSRED = 45
+    KDIGGER = 46
+    RAKKESS = 47
+    CDK = 48
+    FLIGHTSIM = 49
+    BADPODS = 50
+    MTKPI = 51

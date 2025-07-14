@@ -1,0 +1,222 @@
+Nodes
++-------------+---------------+
+| TYPE        | LOCATION      |
++-------------+---------------+
+| Node/Master | 192.168.1.175 |
++-------------+---------------+
+| Node/Master | 192.168.1.173 |
++-------------+---------------+
+| Node/Master | 192.168.1.120 |
++-------------+---------------+
+| Node/Master | 192.168.1.116 |
++-------------+---------------+
+| Node/Master | 192.168.1.111 |
++-------------+---------------+
+| Node/Master | 192.168.1.108 |
++-------------+---------------+
+| Node/Master | 192.168.1.108 |
++-------------+---------------+
+| Node/Master | 192.168.1.107 |
++-------------+---------------+
+| Node/Master | 192.168.1.102 |
++-------------+---------------+
+
+Detected Services
++----------------------+---------------------+----------------------+
+| SERVICE              | LOCATION            | DESCRIPTION          |
++----------------------+---------------------+----------------------+
+| Kubelet API          | 192.168.1.175:10255 | The read-only port   |
+| (readonly)           |                     | on the kubelet       |
+|                      |                     | serves health        |
+|                      |                     | probing endpoints,   |
+|                      |                     |     and is relied    |
+|                      |                     | upon by many         |
+|                      |                     | kubernetes           |
+|                      |                     | components           |
++----------------------+---------------------+----------------------+
+| Kubelet API          | 192.168.1.175:10250 | The Kubelet is the   |
+|                      |                     | main component in    |
+|                      |                     | every Node, all pod  |
+|                      |                     | operations goes      |
+|                      |                     | through the kubelet  |
++----------------------+---------------------+----------------------+
+| Kubelet API          | 192.168.1.173:10250 | The Kubelet is the   |
+|                      |                     | main component in    |
+|                      |                     | every Node, all pod  |
+|                      |                     | operations goes      |
+|                      |                     | through the kubelet  |
++----------------------+---------------------+----------------------+
+| Kubelet API          | 192.168.1.120:10250 | The Kubelet is the   |
+|                      |                     | main component in    |
+|                      |                     | every Node, all pod  |
+|                      |                     | operations goes      |
+|                      |                     | through the kubelet  |
++----------------------+---------------------+----------------------+
+| Kubelet API          | 192.168.1.116:10250 | The Kubelet is the   |
+|                      |                     | main component in    |
+|                      |                     | every Node, all pod  |
+|                      |                     | operations goes      |
+|                      |                     | through the kubelet  |
++----------------------+---------------------+----------------------+
+| Kubelet API          | 192.168.1.111:10250 | The Kubelet is the   |
+|                      |                     | main component in    |
+|                      |                     | every Node, all pod  |
+|                      |                     | operations goes      |
+|                      |                     | through the kubelet  |
++----------------------+---------------------+----------------------+
+| Kubelet API          | 192.168.1.108:10250 | The Kubelet is the   |
+|                      |                     | main component in    |
+|                      |                     | every Node, all pod  |
+|                      |                     | operations goes      |
+|                      |                     | through the kubelet  |
++----------------------+---------------------+----------------------+
+| Kubelet API          | 192.168.1.108:10250 | The Kubelet is the   |
+|                      |                     | main component in    |
+|                      |                     | every Node, all pod  |
+|                      |                     | operations goes      |
+|                      |                     | through the kubelet  |
++----------------------+---------------------+----------------------+
+| Kubelet API          | 192.168.1.107:10250 | The Kubelet is the   |
+|                      |                     | main component in    |
+|                      |                     | every Node, all pod  |
+|                      |                     | operations goes      |
+|                      |                     | through the kubelet  |
++----------------------+---------------------+----------------------+
+| Kubelet API          | 192.168.1.102:10250 | The Kubelet is the   |
+|                      |                     | main component in    |
+|                      |                     | every Node, all pod  |
+|                      |                     | operations goes      |
+|                      |                     | through the kubelet  |
++----------------------+---------------------+----------------------+
+| Etcd                 | 192.168.1.173:2379  | Etcd is a DB that    |
+|                      |                     | stores cluster's     |
+|                      |                     | data, it contains    |
+|                      |                     | configuration and    |
+|                      |                     | current              |
+|                      |                     |     state            |
+|                      |                     | information, and     |
+|                      |                     | might contain        |
+|                      |                     | secrets              |
++----------------------+---------------------+----------------------+
+| Etcd                 | 192.168.1.120:2379  | Etcd is a DB that    |
+|                      |                     | stores cluster's     |
+|                      |                     | data, it contains    |
+|                      |                     | configuration and    |
+|                      |                     | current              |
+|                      |                     |     state            |
+|                      |                     | information, and     |
+|                      |                     | might contain        |
+|                      |                     | secrets              |
++----------------------+---------------------+----------------------+
+| Etcd                 | 192.168.1.116:2379  | Etcd is a DB that    |
+|                      |                     | stores cluster's     |
+|                      |                     | data, it contains    |
+|                      |                     | configuration and    |
+|                      |                     | current              |
+|                      |                     |     state            |
+|                      |                     | information, and     |
+|                      |                     | might contain        |
+|                      |                     | secrets              |
++----------------------+---------------------+----------------------+
+| Etcd                 | 192.168.1.107:2379  | Etcd is a DB that    |
+|                      |                     | stores cluster's     |
+|                      |                     | data, it contains    |
+|                      |                     | configuration and    |
+|                      |                     | current              |
+|                      |                     |     state            |
+|                      |                     | information, and     |
+|                      |                     | might contain        |
+|                      |                     | secrets              |
++----------------------+---------------------+----------------------+
+| Etcd                 | 192.168.1.102:2379  | Etcd is a DB that    |
+|                      |                     | stores cluster's     |
+|                      |                     | data, it contains    |
+|                      |                     | configuration and    |
+|                      |                     | current              |
+|                      |                     |     state            |
+|                      |                     | information, and     |
+|                      |                     | might contain        |
+|                      |                     | secrets              |
++----------------------+---------------------+----------------------+
+| API Server           | 192.168.1.173:6443  | The API server is in |
+|                      |                     | charge of all        |
+|                      |                     | operations on the    |
+|                      |                     | cluster.             |
++----------------------+---------------------+----------------------+
+| API Server           | 192.168.1.120:6443  | The API server is in |
+|                      |                     | charge of all        |
+|                      |                     | operations on the    |
+|                      |                     | cluster.             |
++----------------------+---------------------+----------------------+
+| API Server           | 192.168.1.116:6443  | The API server is in |
+|                      |                     | charge of all        |
+|                      |                     | operations on the    |
+|                      |                     | cluster.             |
++----------------------+---------------------+----------------------+
+| API Server           | 192.168.1.107:6443  | The API server is in |
+|                      |                     | charge of all        |
+|                      |                     | operations on the    |
+|                      |                     | cluster.             |
++----------------------+---------------------+----------------------+
+| API Server           | 192.168.1.102:6443  | The API server is in |
+|                      |                     | charge of all        |
+|                      |                     | operations on the    |
+|                      |                     | cluster.             |
++----------------------+---------------------+----------------------+
+
+Vulnerabilities
+For further information about a vulnerability, search its ID in: 
+https://avd.aquasec.com/
++--------+---------------------+----------------------+----------------------+----------------------+----------------------+
+| ID     | LOCATION            | MITRE CATEGORY       | VULNERABILITY        | DESCRIPTION          | EVIDENCE             |
++--------+---------------------+----------------------+----------------------+----------------------+----------------------+
+| KHV044 | 192.168.1.175:10255 | Privilege Escalation | Privileged Container | A Privileged         | pod: calico-node-    |
+|        |                     | // Privileged        |                      | container exist on a | gzqxd, container:    |
+|        |                     | container            |                      | node                 | calico-node, count:  |
+|        |                     |                      |                      |     could expose the | 1                    |
+|        |                     |                      |                      | node/cluster to      |                      |
+|        |                     |                      |                      | unwanted root        |                      |
+|        |                     |                      |                      | operations           |                      |
++--------+---------------------+----------------------+----------------------+----------------------+----------------------+
+| KHV043 | 192.168.1.175:10255 | Initial Access //    | Cluster Health       | By accessing the     | status: ok           |
+|        |                     | General Sensitive    | Disclosure           | open /healthz        |                      |
+|        |                     | Information          |                      | handler,             |                      |
+|        |                     |                      |                      |     an attacker      |                      |
+|        |                     |                      |                      | could get the        |                      |
+|        |                     |                      |                      | cluster health state |                      |
+|        |                     |                      |                      | without              |                      |
+|        |                     |                      |                      | authenticating       |                      |
++--------+---------------------+----------------------+----------------------+----------------------+----------------------+
+| KHV002 | 192.168.1.173:6443  | Initial Access //    | K8s Version          | The kubernetes       | v1.16.0              |
+|        |                     | Exposed sensitive    | Disclosure           | version could be     |                      |
+|        |                     | interfaces           |                      | obtained from the    |                      |
+|        |                     |                      |                      | /version endpoint    |                      |
++--------+---------------------+----------------------+----------------------+----------------------+----------------------+
+| KHV002 | 192.168.1.120:6443  | Initial Access //    | K8s Version          | The kubernetes       | v1.16.0              |
+|        |                     | Exposed sensitive    | Disclosure           | version could be     |                      |
+|        |                     | interfaces           |                      | obtained from the    |                      |
+|        |                     |                      |                      | /version endpoint    |                      |
++--------+---------------------+----------------------+----------------------+----------------------+----------------------+
+| KHV002 | 192.168.1.116:6443  | Initial Access //    | K8s Version          | The kubernetes       | v1.16.0              |
+|        |                     | Exposed sensitive    | Disclosure           | version could be     |                      |
+|        |                     | interfaces           |                      | obtained from the    |                      |
+|        |                     |                      |                      | /version endpoint    |                      |
++--------+---------------------+----------------------+----------------------+----------------------+----------------------+
+| KHV002 | 192.168.1.107:6443  | Initial Access //    | K8s Version          | The kubernetes       | v1.27.1              |
+|        |                     | Exposed sensitive    | Disclosure           | version could be     |                      |
+|        |                     | interfaces           |                      | obtained from the    |                      |
+|        |                     |                      |                      | /version endpoint    |                      |
++--------+---------------------+----------------------+----------------------+----------------------+----------------------+
+| KHV002 | 192.168.1.102:6443  | Initial Access //    | K8s Version          | The kubernetes       | v1.16.0              |
+|        |                     | Exposed sensitive    | Disclosure           | version could be     |                      |
+|        |                     | interfaces           |                      | obtained from the    |                      |
+|        |                     |                      |                      | /version endpoint    |                      |
++--------+---------------------+----------------------+----------------------+----------------------+----------------------+
+| KHV052 | 192.168.1.175:10255 | Discovery // Access  | Exposed Pods         | An attacker could    | count: 86            |
+|        |                     | Kubelet API          |                      | view sensitive       |                      |
+|        |                     |                      |                      | information about    |                      |
+|        |                     |                      |                      | pods that are        |                      |
+|        |                     |                      |                      |     bound to a Node  |                      |
+|        |                     |                      |                      | using the /pods      |                      |
+|        |                     |                      |                      | endpoint             |                      |
++--------+---------------------+----------------------+----------------------+----------------------+----------------------+
